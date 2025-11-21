@@ -1,0 +1,9 @@
+première méthode (page : https://blog.bruun.dev/semantic-image-clustering-with-clip/) : segmentation par plan + extraction keyframe + embeddings with CLIP + Dimensionality Reduction (PCA or UMAP) + clustering HDBSCAN
+
+deuxième méthode (article  : Detection and Representation of Scenes in Videos) : segmentation par plan (plans plus courts que 10 frames fusionnés avec le suivant) + extraction keyframe + calcul similarité entre plans (couleur + mouvement) avec pondération temporelle (fonction exponentielle décroissante) + construction Shot Similary Graph (noeuds=plans et arêtes=similarité pondérée) + partition du graphe (Normalized Cuts) + sélection du plan le plus représentatif de la scène
+
+troisième méthode (article : Scene Detection in Videos Using Shot Clustering and Sequence Alignment (cité et comparé dans bcp d'article)) : segmentation par plan + extraction keyframes (spectral clustering avec estimation automatique du nombre de keyframes + fast global k-means) + calcul similarité entre plans (basée uniquement sur la couleur, histogramme HSV) + clustering des plans (spectral clustering) + attribution d’un label de cluster à chaque plan → séquence de labels + détection des changements de scène via alignement de séquences (Needleman–Wunsch global alignment) sur fenêtres successives de labels + détection des minima du score d’alignement comme frontières de scène
+
+quatrième méthode (article : Robust and Efficient Video Scene Detection Using Optimal Sequential Grouping) : 
+
+cinquième méthode (article : Shot and scene detection via hierarchical clustering for re-using broadcast video)
