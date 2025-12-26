@@ -38,7 +38,7 @@ def train():
     # )
 
     # sans oversampling
-    train_loader = DataLoader(train_set, batch_size=20,shuffle=True,num_workers=4,pin_memory=True,persistent_workers=True)
+    train_loader = DataLoader(train_set, batch_size=4,shuffle=True,num_workers=4,pin_memory=True)
 
     print("Chargement dataset ok")
 
@@ -62,6 +62,7 @@ def train():
             optimizer.step()
 
         print(f"Epoch {epoch} | loss={loss.item():.4f}")
+        torch.cuda.empty_cache()
 
     torch.save(model.state_dict(), "c3d_sbd.pth")
     print("✔ Modèle sauvegardé")
