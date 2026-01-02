@@ -1,74 +1,94 @@
 import torch
-from torch.utils.data import DataLoader, WeightedRandomSampler
+from torch.utils.data import DataLoader
+from torch.amp import autocast, GradScaler
 from c3d_sbd import C3D_SBD
 from sbd_dataset import LMDBVideoDataset
 import multiprocessing
+
+torch.backends.cudnn.benchmark = True  # accélère le conv3D
 
 def train():
     device = "cuda" if torch.cuda.is_available() else "cpu"
     print("Device:", device)
 
-    # modèle et optimizer
+    # ===============================
+    # Modèle + Optimizer
+    # ===============================
     model = C3D_SBD().to(device)
-    optimizer = torch.optim.SGD(model.parameters(), lr=1e-4, momentum=0.9)
+    optimizer = torch.optim.SGD(model.parameters(), lr=2e-4, momentum=0.9)
 
-    # pondération de la loss
+    # ===============================
+    # Loss pondérée
+    # ===============================
     counts = torch.tensor([32712, 7443, 2011], dtype=torch.float)
     weights = 1.0 / counts
-    weights = weights / weights.sum()
+    weights /= weights.sum()
     criterion = torch.nn.CrossEntropyLoss(weight=weights.to(device))
 
-    # dataset
+    # ===============================
+    # Dataset / DataLoader
+    # ===============================
     train_set = LMDBVideoDataset("dataset/train")
-
     print("Dataset size:", len(train_set))
 
+    batch_size = 2        # batch réel = 2
+    accum_steps = 4       # gradient accumulation pour batch effectif = 8
 
-    # oversampling
-    # sample_weights = [weights[label] for _, label in train_set]
-    # sampler = WeightedRandomSampler(sample_weights, num_samples=len(sample_weights), replacement=True)
+    train_loader = DataLoader(
+        train_set,
+        batch_size=batch_size,
+        shuffle=True,
+        num_workers=8,
+        pin_memory=True,
+        persistent_workers=True,
+        prefetch_factor=4
+    )
 
-    # # DataLoader optimisé pour Windows
-    # train_loader = DataLoader(
-    #     train_set,
-    #     batch_size=20,
-    #     sampler=sampler,
-    #     num_workers=16,       
-    #     pin_memory=True
-    # )
+    print("Chargement dataset OK")
 
-    # sans oversampling
-    train_loader = DataLoader(train_set, batch_size=4,shuffle=True,num_workers=4,pin_memory=True)
+    # ===============================
+    # AMP
+    # ===============================
+    scaler = GradScaler()
 
-    print("Chargement dataset ok")
-
-    #vérif 
-    # x, y = next(iter(train_loader))
-    # print(x.shape, y)
-
-
-    # training loop
+    # ===============================
+    # Training loop
+    # ===============================
     model.train()
+    optimizer.zero_grad(set_to_none=True)
+
     for epoch in range(3):
-        for x, y in train_loader:
-            x, y = x.to(device), y.to(device)
-            logits = model(x)
-            loss = criterion(logits, y)
+        running_loss = 0.0
 
-            print(torch.argmax(logits, dim=1).bincount(minlength=3))
+        for step, (x, y) in enumerate(train_loader):
+            x, y = x.to(device, non_blocking=True), y.to(device, non_blocking=True)
 
-            optimizer.zero_grad()
-            loss.backward()
-            optimizer.step()
+            with autocast(device_type="cuda"):
+                logits = model(x)
+                loss = criterion(logits, y)
+                loss = loss / accum_steps  # gradient accumulation
 
-        print(f"Epoch {epoch} | loss={loss.item():.4f}")
+            scaler.scale(loss).backward()
+
+            if (step + 1) % accum_steps == 0:
+                scaler.step(optimizer)
+                scaler.update()
+                optimizer.zero_grad(set_to_none=True)
+
+            running_loss += loss.item() * accum_steps
+
+        avg_loss = running_loss / len(train_loader)
+        print(f"Epoch {epoch} | loss={avg_loss:.4f}")
+
         torch.cuda.empty_cache()
 
+
+    # ===============================
+    # Sauvegarde
+    # ===============================
     torch.save(model.state_dict(), "c3d_sbd.pth")
     print("✔ Modèle sauvegardé")
 
 if __name__ == "__main__":
     multiprocessing.freeze_support()  # obligatoire sur Windows
     train()
-
-
