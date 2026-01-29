@@ -66,6 +66,8 @@ class LMDBVideoDataset(Dataset):
         with self.env.begin() as txn:
             data = pickle.loads(txn.get(key))
 
-        x = torch.from_numpy(data["video"])
+        #x = torch.from_numpy(data["video"])
+        x = torch.from_numpy(data["video"]).float() / 255.0
+
         y = torch.tensor(data["label"], dtype=torch.long)
         return x, y

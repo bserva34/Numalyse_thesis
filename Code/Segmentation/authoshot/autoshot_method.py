@@ -4,6 +4,7 @@ import numpy as np
 from utils import get_frames, get_batches, visualize_predictions
 from supernet_flattransf_3_8_8_8_13_12_0_16_60 import TransNetV2Supernet
 from tqdm import tqdm
+import ffmpeg
 
 import matplotlib.pyplot as plt
 
@@ -27,7 +28,12 @@ def load_autoshot_model(ckpt_path="ckpt_0_200_0.pth"):
 
 def predict_video(model, device, video_path, threshold=0.296):
     """Retourne les frames où une coupure est détectée."""
-    frames = get_frames(video_path)
+    try:
+        frames = get_frames(video_path)
+    except ffmpeg.Error as e:
+        print(f"[ERREUR FFMPEG] Impossible de lire la vidéo : {video_path}")
+        print(e.stderr.decode("utf-8") if e.stderr else e)
+        return None, None, None
     preds = []
 
     for batch in get_batches(frames):
@@ -46,16 +52,21 @@ def process_videos_in_directory(directory, output_dir,model,device):
     # Utilisez exist_ok=True pour éviter une exception si le dossier existe déjà
     os.makedirs(output_dir, exist_ok=True)
     
-    video_files = [f for f in os.listdir(directory) if f.lower().endswith(('.mp4', '.avi', '.mkv'))]
+    video_files = [f for f in os.listdir(directory) if f.lower().endswith(('.mp4', '.avi', '.mkv', '.mov', '.m4v', '.mpe'))]
 
-    for video in tqdm(video_files):
+    for video in video_files:
         video_path = os.path.join(directory, video)
         video_basename = os.path.splitext(os.path.basename(video_path))[0]
         output_file = os.path.join(output_directory, f"{video_basename}.txt")
         if os.path.exists(output_file):
-            print(f"Fichier de résultats {output_file} existe déjà")
+            #print(f"Fichier de résultats {output_file} existe déjà")
             continue
+        else : 
+            print("Traitement de la video : ",video_basename)
         boundaries, preds, frames = predict_video(model, device, video_path)
+        if frames is None:
+            print(f"[SKIP] Vidéo ignorée : {video_path}")
+            continue
         write_res(output_dir,video_path,boundaries,len(frames))
 
 
@@ -88,33 +99,51 @@ def write_res(directory,video_path,boundaries,lenght):
 
 if __name__ == "__main__":
     """execution unique"""
-    import argparse
-    parser = argparse.ArgumentParser(description='AutoShot detector')
-    parser.add_argument('video', help='chemin vers la vidéo mp4/avi')
-    parser.add_argument('--directory', help='chemin du dossier de sortie', default=None)
-    parser.add_argument('--v', action='store_true')
-    args = parser.parse_args()
+    # import argparse
+    # parser = argparse.ArgumentParser(description='AutoShot detector')
+    # parser.add_argument('video', help='chemin vers la vidéo mp4/avi')
+    # parser.add_argument('--directory', help='chemin du dossier de sortie', default=None)
+    # parser.add_argument('--v', action='store_true')
+    # args = parser.parse_args()
 
-    model, device = load_autoshot_model()
-
-    boundaries, preds, frames = predict_video(model, device, args.video)
-    print("Coupures détectées :", boundaries)
-
-    if args.directory : 
-        write_res(args.directory,args.video,boundaries,len(frames))
-
-    # Visualisation
-    if args.v:
-        output_dir = "results_autoshot"
-        os.makedirs(output_dir, exist_ok=True)
-        vis = visualize_predictions(frames, predictions=(preds > 0.296).astype(np.uint8))
-        vis.save(os.path.join(output_dir, os.path.basename(args.video).replace(".mp4", "_shots.png")))
-        print(f"Résultat sauvegardé : {output_dir}")
-
-    """exuction multiple sur dossier"""
     # model, device = load_autoshot_model()
 
-    # input_directory = r"../../../Dataset/Dataset_Shot/BBC/videos"  # Dossier source de vos vidéos
-    # output_directory = r"../Experimentation/AutoShot_BBC"  # Dossier de sortie
+    # boundaries, preds, frames = predict_video(model, device, args.video)
+    # print("Coupures détectées :", boundaries)
+
+    # if args.directory : 
+    #     write_res(args.directory,args.video,boundaries,len(frames))
+
+    # # Visualisation
+    # if args.v:
+    #     output_dir = "results_autoshot"
+    #     os.makedirs(output_dir, exist_ok=True)
+    #     vis = visualize_predictions(frames, predictions=(preds > 0.296).astype(np.uint8))
+    #     vis.save(os.path.join(output_dir, os.path.basename(args.video).replace(".mp4", "_shots.png")))
+    #     print(f"Résultat sauvegardé : {output_dir}")
+
+    """exuction multiple sur dossier"""
+    import argparse
+    parser = argparse.ArgumentParser(description='AutoShot detector')
+    parser.add_argument('list', help='chemin list')
+    args = parser.parse_args()
+    model, device = load_autoshot_model()
+
+    input_directory = r"../../../Dataset/Dataset_Shot/V3C/V3C1/videos"  # Dossier source de vos vidéos
+    #list_of_videos = r"../../../Dataset/Dataset_Shot/V3C/V3C1/echantillons/echantillon_2.txt"
+
+    ech_basename = os.path.splitext(os.path.basename(args.list))[0]
+
+    output_directory = r"../Experimentation/AutoShot_V3C1"  # Dossier de sortie
+    output_directory = output_directory+"_"+ech_basename
+    print(output_directory)
+
+    with open(args.list, "r", encoding="utf-8") as f:
+        for line in f:
+            line = line.strip()  # enlève \n et les espaces
+            #print("Traitement de la vidéo : ",line)
+            dir_prov=os.path.join(input_directory, line)
+            process_videos_in_directory(dir_prov, output_directory,model,device)
+
     
     # process_videos_in_directory(input_directory, output_directory,model,device)

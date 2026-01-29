@@ -59,7 +59,9 @@ def compute_amplitudes(Phi, x1):
 
 def extract_background_mode(mu, Phi):
     # background = mode le plus proche de mu = 1
-    idx = np.argmin(np.abs(mu - 1))
+    #idx = np.argmin(np.abs(mu - 1))
+    omega = np.log(mu)
+    idx = np.argmin(np.abs(np.real(omega)))
     return idx
 
 
@@ -68,11 +70,18 @@ def extract_background_mode(mu, Phi):
 # ------------------------------------------------------
 
 def dmd_shot_detection(video_path, window=25, threshold=150):
-
-    cap = cv2.VideoCapture(video_path)
+    try:
+        cap = cv2.VideoCapture(video_path)
+        if not cap.isOpened():
+            raise IOError(f"Impossible d'ouvrir la vidéo: {video_path}")
+    except Exception as e:
+        print(f"[ERREUR] {e}")
+        return [],[],[]   
+             
     frames = []
     cuts = []
     all_amplitudes = []
+    all_delta = []
 
     frame_id = 0
 
@@ -81,12 +90,18 @@ def dmd_shot_detection(video_path, window=25, threshold=150):
         if not ret:
             break
 
-        frames.append(frame)
+        height, width, layers = frame.shape
+        new_h = int(height / 6)
+        new_w = int(width / 6)
+        #print(f"{new_h},{new_w}")
+        resize = cv2.resize(frame, (new_w, new_h))
+
+        frames.append(resize)
         frame_id += 1
 
         # une fenêtre complète
         if len(frames) >= window:
-            print(frame_id)
+            #print(frame_id)
             X1, X2 = build_snapshot_matrix(frames)
             mu, Phi = compute_dmd(X1, X2)
             alpha = compute_amplitudes(Phi, X1[:, 0])
@@ -95,38 +110,72 @@ def dmd_shot_detection(video_path, window=25, threshold=150):
                 idx_bg = extract_background_mode(mu, Phi)
 
                 amp_bg = abs(alpha[idx_bg])
-                print(amp_bg)
-                all_amplitudes.append(amp_bg)
+                #print(amp_bg)
 
-                if amp_bg > threshold:
-                    # coupure = dernière frame de la fenêtre
-                    cuts.append(frame_id)
-                    frames = []  # recommence après le cut
+                if len(all_amplitudes) > 0:
+                    delta = abs(amp_bg - all_amplitudes[-1])
                 else:
-                    #frames[:] = frames[-1:]
-                    frames.pop(0)
+                    delta = 0
+
+                all_amplitudes.append(amp_bg)
+                all_delta.append(delta)
+
+                # if delta > threshold:
+                #     cuts.append(frame_id)
+                #     frames = []
+                # else:
+                #     frames[:] = frames[-1:]
+                #frames[:] = frames[-4:]
+                frames.pop(0)
             else : 
                 all_amplitudes.append(0)
-
     cap.release()
-    return cuts, all_amplitudes
 
+    mu = float(np.mean(all_delta))
+    print("mu : ",mu)
+    sigma = float(np.std(all_delta))
+    T = mu + 2 * sigma
+
+
+    print(T)
+    cpt=0
+    for a in all_delta:
+        if a > T : cuts.append([cpt+4,cpt+5])
+        cpt+=1
+
+
+    return cuts, all_amplitudes, all_delta
+
+
+
+def Merge_res(results):
+    if not results:
+        return []
+    merged = [results[0]]
+    for r in results[1:]:
+        if abs(merged[-1][1] - r[0]) <= 1 :
+            merged[-1][1]=r[1]
+        else:
+            merged.append(r)
+    return merged
 
 
 if __name__ == '__main__':
     import argparse
     parser = argparse.ArgumentParser(description='DMD for SBD')
     parser.add_argument('video', help='chemin vers la vidéo')
-    parser.add_argument('--w', type=int, default=25)
+    parser.add_argument('--w', type=int, default=5)
     parser.add_argument('--t', type=int, default=150)
     args = parser.parse_args()
 
-    boundaries,amp = dmd_shot_detection(args.video,args.w,args.t)
+    boundaries,amp,deltas = dmd_shot_detection(args.video,args.w,args.t)
 
     print("Cuts détectés :", boundaries)
+    print("cuts mergés : ",Merge_res(boundaries))
 
     plt.figure(figsize=(14,4))
     plt.plot(amp, label='hist amplitude')
+    plt.plot(deltas, label='hist amplitude')
 
     #long dissolve transition
     # plt.axvspan(100-args.w, 180-args.w, alpha=0.12, color='red')

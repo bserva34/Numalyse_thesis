@@ -343,8 +343,28 @@ def surf_match_rate(frA, frB, detector=None, matcher=None):
 # -----------------------------
 # Analyze candidate (conforme à article)
 # -----------------------------
+def analyze_candidate_article_light(video_path,candidate, length, diffs, detector=None, matcher=None, match_threshold=0.5, alpha=0.5):
+    s_diff, e_diff, forced = candidate
 
-def analyze_candidate_article(candidate, frames, diffs, detector=None, matcher=None, match_threshold=0.5, alpha=0.5):
+    # map to frames: Fi = s_diff, Fj = e_diff
+    Fs = int(max(0, min(s_diff, length-1)))
+    Fe = int(max(0, min(e_diff, length-1)))
+
+    return {
+        'type': 'cut',
+        'start_frame': Fs,
+        'end_frame': Fe,
+        'match_rate': 0.0,
+        'num_matches': 0,
+        'keypoints_A': 0,
+        'keypoints_B': 0,
+        'num_peaks': 0,
+        'local_thresh': None,
+        'forced': True
+    }
+
+
+def analyze_candidate_article(video_path,candidate, length, diffs, detector=None, matcher=None, match_threshold=0.5, alpha=0.5):
     """
     Logique conforme aux CASE 1/CASE 2 de l'article (section 3.3).
     candidate : (s_diff, e_diff, forced_flag) où s_diff,e_diff sont indices diffs
@@ -354,8 +374,8 @@ def analyze_candidate_article(candidate, frames, diffs, detector=None, matcher=N
     s_diff, e_diff, forced = candidate
 
     # map to frames: Fi = s_diff, Fj = e_diff
-    Fs = int(max(0, min(s_diff, len(frames)-1)))
-    Fe = int(max(0, min(e_diff, len(frames)-1)))
+    Fs = int(max(0, min(s_diff, length-1)))
+    Fe = int(max(0, min(e_diff, length-1)))
 
     if forced:
         return {
@@ -371,8 +391,21 @@ def analyze_candidate_article(candidate, frames, diffs, detector=None, matcher=N
             'forced': True
         }
 
+    cap = cv2.VideoCapture(video_path)
+
+    cap.set(cv2.CAP_PROP_POS_FRAMES, Fs)
+    retA, frA = cap.read()
+
+    cap.set(cv2.CAP_PROP_POS_FRAMES, Fe)
+    retB, frB = cap.read()
+
+    cap.release()
+
+    if not retA or not retB:
+        return None
+
     # SURF/SIFT/ORB matching between Fi and Fj
-    mr, nm, nA, nB = surf_match_rate(frames[Fs], frames[Fe], detector=detector, matcher=matcher)
+    mr, nm, nA, nB = surf_match_rate(frA, frB, detector=detector, matcher=matcher)
 
     # fenêtre de diffs à l'intérieur (indices diffs entre Fs .. Fe-1 inclus)
     if Fe > Fs:
@@ -476,22 +509,57 @@ def detect_transitions_article(video_path,
     Renvoie une liste de dictionnaires (transitions).
     """
     # lire frames
-    cap = cv2.VideoCapture(video_path)
-    if not cap.isOpened():
-        raise IOError(f"Impossible d'ouvrir la vidéo: {video_path}")
-    frames = []
-    while True:
-        ret, fr = cap.read()
-        if not ret:
-            break
-        frames.append(fr)
-    cap.release()
+    try:
+        cap = cv2.VideoCapture(video_path)
+        if not cap.isOpened():
+            raise IOError(f"Impossible d'ouvrir la vidéo: {video_path}")
+        # frames = []
+        # while True:
+        #     ret, fr = cap.read()
+        #     if not ret:
+        #         break
+        #     frames.append(fr)
+        # cap.release()
 
-    if len(frames) < 2:
+        # if len(frames) < 2:
+        #     return []
+
+        # # calcul des diffs histogramme (HSV + chi-square)
+        # diffs = compute_all_diffs(frames, bins=bins)
+
+        prev_dist = 0
+        diffs = []
+        length=0
+
+        while True:
+            ret, frame = cap.read()
+            if not ret:
+                break
+            length+=1
+
+            #frame = cv2.resize(frame, (320, 180))
+            height, width, layers = frame.shape
+            new_h = int(height / 6)
+            new_w = int(width / 6)
+            #print(f"{new_h},{new_w}")
+            frame = cv2.resize(frame, (new_w, new_h))
+
+            if prev_dist is not None:
+                h1=prev_dist
+                h2 = frame_to_hsv_hist(frame)
+                diffs.append(chi2_distance(h1, h2))
+            else :
+                h2=frame_to_hsv_hist(frame)
+
+            prev_dist = h2
+        cap.release()
+
+    except Exception as e:
+        print(f"[ERREUR] {e}")
         return []
 
-    # calcul des diffs histogramme (HSV + chi-square)
-    diffs = compute_all_diffs(frames, bins=bins)
+    diffs=np.array(diffs, dtype=float)
+
 
     # primary segments (global threshold)
     primaries, global_thresh = primary_segments_from_global_article(diffs, alpha=alpha)
@@ -510,12 +578,14 @@ def detect_transitions_article(video_path,
     # print(candidates)
 
     # prepare detector/matcher once
-    detector, matcher, _ = get_detector_matcher_article()
+    # detector, matcher, _ = get_detector_matcher_article()
 
     results = []
     for cand in candidates:
-        info = analyze_candidate_article(cand, frames, diffs, detector=detector, matcher=matcher,
-                                         match_threshold=match_threshold, alpha=alpha)
+        # info = analyze_candidate_article(video_path,cand, length, diffs, detector=detector, matcher=matcher,
+        #                                  match_threshold=match_threshold, alpha=alpha)
+        info = analyze_candidate_article_light(video_path,cand, length, diffs,
+                                 match_threshold=match_threshold, alpha=alpha)
         results.append(info)
 
     # supprimer les 'none' (considérés non-transitions)
@@ -561,12 +631,12 @@ def process_videos_in_directory(directory, output_dir):
     # Utilisez exist_ok=True pour éviter une exception si le dossier existe déjà
     os.makedirs(output_dir, exist_ok=True)
     
-    video_files = [f for f in os.listdir(directory) if f.lower().endswith(('.mp4', '.avi', '.mkv'))]
+    video_files = [f for f in os.listdir(directory) if f.lower().endswith(('.mp4', '.avi', '.mkv', '.mov', '.m4v', '.mpe'))]
 
-    for video in tqdm(video_files):
+    for video in video_files:
         video_path = os.path.join(directory, video)
         video_basename = os.path.splitext(os.path.basename(video_path))[0]
-        output_file = os.path.join(output_directory, f"{video_basename}.txt")
+        output_file = os.path.join(output_dir, f"{video_basename}.txt")
         if os.path.exists(output_file):
             print(f"Fichier de résultats {output_file} existe déjà")
             continue
@@ -590,24 +660,39 @@ def write_res(directory, video_path, res):
 
 
 if __name__ == '__main__':
+    # import argparse
+    # parser = argparse.ArgumentParser(description='Pipeline fidèle à l\'article (primary->candidate->SURF) avec améliorations')
+    # parser.add_argument('video', help='chemin vers la vidéo')
+    # parser.add_argument('--bins', type=int, default=16)
+    # parser.add_argument('--alpha', type=float, default=0.5)
+    # parser.add_argument('--match_threshold', type=float, default=0.5)
+    # parser.add_argument('--min_segment_size', type=int, default=2, help='taille min segments (2 => fusionne segments de taille 1)')
+    # parser.add_argument('--debug', action='store_true')
+    # args = parser.parse_args()
+
+    # res = detect_transitions_article(args.video, bins=args.bins, alpha=args.alpha,
+    #                                  match_threshold=args.match_threshold,
+    #                                  debug_plot=args.debug,
+    #                                  min_segment_size=args.min_segment_size)
+    # for r in res:
+    #     print(r)
+
     import argparse
-    parser = argparse.ArgumentParser(description='Pipeline fidèle à l\'article (primary->candidate->SURF) avec améliorations')
-    parser.add_argument('video', help='chemin vers la vidéo')
-    parser.add_argument('--bins', type=int, default=16)
-    parser.add_argument('--alpha', type=float, default=0.5)
-    parser.add_argument('--match_threshold', type=float, default=0.5)
-    parser.add_argument('--min_segment_size', type=int, default=2, help='taille min segments (2 => fusionne segments de taille 1)')
-    parser.add_argument('--debug', action='store_true')
+    parser = argparse.ArgumentParser(description='DMD detector')
+    parser.add_argument('list', help='chemin list')
     args = parser.parse_args()
 
-    res = detect_transitions_article(args.video, bins=args.bins, alpha=args.alpha,
-                                     match_threshold=args.match_threshold,
-                                     debug_plot=args.debug,
-                                     min_segment_size=args.min_segment_size)
-    for r in res:
-        print(r)
+    input_directory = r"../../../Dataset/Dataset_Shot/V3C/V3C1/videos" 
 
-    # input_directory = r"../../../Dataset/Dataset_Transition"  # Dossier source de vos vidéos
-    # output_directory = r"../Experimentation/Suguna"  # Dossier de sortie
+    ech_basename = os.path.splitext(os.path.basename(args.list))[0]
+
+    output_directory = r"../Experimentation/Suguna_V3C1"  # Dossier de sortie
+    output_directory = output_directory+"_"+ech_basename
+
+    with open(args.list, "r", encoding="utf-8") as f:
+        for line in f:
+            line = line.strip()  # enlève \n et les espaces
+            #print("Traitement de la vidéo : ",line)
+            dir_prov=os.path.join(input_directory, line)
+            process_videos_in_directory(dir_prov, output_directory)
     
-    # process_videos_in_directory(input_directory, output_directory)
