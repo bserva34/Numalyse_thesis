@@ -1,0 +1,39 @@
+=== Évaluation transitions | Tolérance = 0 frames ===
+Méthode : Suguna_V3C1
+
+STRICT
+Suguna_V3C1_echantillon_1 | vidéos=1000 | TP=739 FP=113226 FN=139062 | P=0.0065 R=0.0053 F1=0.0058 | Frontières=0.0000
+Suguna_V3C1_echantillon_10 | vidéos=1000 | TP=443 FP=119511 FN=142544 | P=0.0037 R=0.0031 F1=0.0034 | Frontières=0.0000
+Suguna_V3C1_echantillon_2 | vidéos=1000 | TP=380 FP=113932 FN=138675 | P=0.0033 R=0.0027 F1=0.0030 | Frontières=0.0000
+Suguna_V3C1_echantillon_3 | vidéos=1000 | TP=441 FP=110109 FN=138432 | P=0.0040 R=0.0032 F1=0.0035 | Frontières=0.0000
+Suguna_V3C1_echantillon_4 | vidéos=1000 | TP=386 FP=109695 FN=138484 | P=0.0035 R=0.0028 F1=0.0031 | Frontières=0.0000
+Suguna_V3C1_echantillon_5 | vidéos=1000 | TP=392 FP=121124 FN=139355 | P=0.0032 R=0.0028 F1=0.0030 | Frontières=0.0000
+Suguna_V3C1_echantillon_6 | vidéos=1000 | TP=487 FP=120254 FN=149004 | P=0.0040 R=0.0033 F1=0.0036 | Frontières=0.0000
+Suguna_V3C1_echantillon_7 | vidéos=1000 | TP=418 FP=113477 FN=149213 | P=0.0037 R=0.0028 F1=0.0032 | Frontières=0.0000
+Suguna_V3C1_echantillon_8 | vidéos=1000 | TP=413 FP=113288 FN=144890 | P=0.0036 R=0.0028 F1=0.0032 | Frontières=0.0000
+Suguna_V3C1_echantillon_9 | vidéos=1000 | TP=488 FP=108659 FN=137332 | P=0.0045 R=0.0035 F1=0.0040 | Frontières=0.0000
+
+=== Statistiques globales (sur échantillons) ===
+Precision | mean=0.0040 std=0.0009 min=0.0032 max=0.0065
+Recall | mean=0.0032 std=0.0007 min=0.0027 max=0.0053
+F1 | mean=0.0036 std=0.0008 min=0.0030 max=0.0058
+Frontières | mean=0.0000 std=0.0000 min=0.0000 max=0.0000
+
+
+COOL
+Suguna_V3C1_echantillon_1 | vidéos=1000 | TP=5775 FP=108190 FN=134026 | P=0.0507 R=0.0413 F1=0.0455 | Moyenne=1.0000
+Suguna_V3C1_echantillon_10 | vidéos=1000 | TP=5644 FP=114310 FN=137343 | P=0.0471 R=0.0395 F1=0.0429 | Moyenne=1.0000
+Suguna_V3C1_echantillon_2 | vidéos=1000 | TP=5824 FP=108488 FN=133231 | P=0.0509 R=0.0419 F1=0.0460 | Moyenne=1.0000
+Suguna_V3C1_echantillon_3 | vidéos=1000 | TP=5137 FP=105413 FN=133736 | P=0.0465 R=0.0370 F1=0.0412 | Moyenne=1.0000
+Suguna_V3C1_echantillon_4 | vidéos=1000 | TP=5356 FP=104725 FN=133514 | P=0.0487 R=0.0386 F1=0.0430 | Moyenne=1.0000
+Suguna_V3C1_echantillon_5 | vidéos=1000 | TP=5333 FP=116183 FN=134414 | P=0.0439 R=0.0382 F1=0.0408 | Moyenne=1.0000
+Suguna_V3C1_echantillon_6 | vidéos=1000 | TP=6052 FP=114689 FN=143439 | P=0.0501 R=0.0405 F1=0.0448 | Moyenne=1.0000
+Suguna_V3C1_echantillon_7 | vidéos=1000 | TP=5818 FP=108077 FN=143813 | P=0.0511 R=0.0389 F1=0.0442 | Moyenne=1.0000
+Suguna_V3C1_echantillon_8 | vidéos=1000 | TP=5604 FP=108097 FN=139699 | P=0.0493 R=0.0386 F1=0.0433 | Moyenne=1.0000
+Suguna_V3C1_echantillon_9 | vidéos=1000 | TP=5527 FP=103620 FN=132293 | P=0.0506 R=0.0401 F1=0.0448 | Moyenne=1.0000
+
+=== Statistiques globales (sur échantillons) ===
+Precision_cool | mean=0.0489 std=0.0023 min=0.0439 max=0.0511
+Recall_cool | mean=0.0394 std=0.0014 min=0.0370 max=0.0419
+F1_cool | mean=0.0436 std=0.0016 min=0.0408 max=0.0460
+Moyenne | mean=1.0000 std=0.0000 min=0.0000 max=1.0000

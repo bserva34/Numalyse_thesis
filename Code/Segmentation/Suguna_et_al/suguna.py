@@ -677,22 +677,26 @@ if __name__ == '__main__':
     # for r in res:
     #     print(r)
 
-    import argparse
-    parser = argparse.ArgumentParser(description='DMD detector')
-    parser.add_argument('list', help='chemin list')
-    args = parser.parse_args()
+    # import argparse
+    # parser = argparse.ArgumentParser(description='DMD detector')
+    # parser.add_argument('list', help='chemin list')
+    # args = parser.parse_args()
 
-    input_directory = r"../../../Dataset/Dataset_Shot/V3C/V3C1/videos" 
+    # input_directory = r"../../../Dataset/Dataset_Shot/V3C/V3C1/videos" 
 
-    ech_basename = os.path.splitext(os.path.basename(args.list))[0]
+    # ech_basename = os.path.splitext(os.path.basename(args.list))[0]
 
-    output_directory = r"../Experimentation/Suguna_V3C1"  # Dossier de sortie
-    output_directory = output_directory+"_"+ech_basename
+    # output_directory = r"../Experimentation/Suguna_V3C1"  # Dossier de sortie
+    # output_directory = output_directory+"_"+ech_basename
 
-    with open(args.list, "r", encoding="utf-8") as f:
-        for line in f:
-            line = line.strip()  # enlève \n et les espaces
-            #print("Traitement de la vidéo : ",line)
-            dir_prov=os.path.join(input_directory, line)
-            process_videos_in_directory(dir_prov, output_directory)
+    # with open(args.list, "r", encoding="utf-8") as f:
+    #     for line in f:
+    #         line = line.strip()  # enlève \n et les espaces
+    #         #print("Traitement de la vidéo : ",line)
+    #         dir_prov=os.path.join(input_directory, line)
+    #         process_videos_in_directory(dir_prov, output_directory)
     
+
+    input_directory = r"../../../Dataset/Dataset_Shot/AutoShot/video" 
+    output_directory = r"../Experimentation/AutoShot_TEST/Suguna_AutoShot"  # Dossier de sortie
+    process_videos_in_directory(input_directory, output_directory)

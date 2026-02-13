@@ -1,0 +1,39 @@
+=== Évaluation transitions | Tolérance = 3 frames ===
+Méthode : AutoShot_V3C1
+
+STRICT
+AutoShot_V3C1_echantillon_1 | vidéos=1000 | TP=65310 FP=10112 FN=74491 | P=0.8659 R=0.4672 F1=0.6069 | Frontières=0.6976
+AutoShot_V3C1_echantillon_10 | vidéos=1000 | TP=68778 FP=10908 FN=74209 | P=0.8631 R=0.4810 F1=0.6177 | Frontières=0.6883
+AutoShot_V3C1_echantillon_2 | vidéos=1000 | TP=65351 FP=9644 FN=73704 | P=0.8714 R=0.4700 F1=0.6106 | Frontières=0.6665
+AutoShot_V3C1_echantillon_3 | vidéos=1000 | TP=65412 FP=10418 FN=73461 | P=0.8626 R=0.4710 F1=0.6093 | Frontières=0.6580
+AutoShot_V3C1_echantillon_4 | vidéos=999 | TP=65477 FP=10654 FN=73379 | P=0.8601 R=0.4715 F1=0.6091 | Frontières=0.6371
+AutoShot_V3C1_echantillon_5 | vidéos=999 | TP=66912 FP=10732 FN=72821 | P=0.8618 R=0.4789 F1=0.6156 | Frontières=0.6906
+AutoShot_V3C1_echantillon_6 | vidéos=1000 | TP=64816 FP=10189 FN=84675 | P=0.8642 R=0.4336 F1=0.5774 | Frontières=0.6928
+AutoShot_V3C1_echantillon_7 | vidéos=1000 | TP=70120 FP=10537 FN=79511 | P=0.8694 R=0.4686 F1=0.6090 | Frontières=0.5986
+AutoShot_V3C1_echantillon_8 | vidéos=1000 | TP=67185 FP=9595 FN=78118 | P=0.8750 R=0.4624 F1=0.6050 | Frontières=0.6037
+AutoShot_V3C1_echantillon_9 | vidéos=1000 | TP=65670 FP=9736 FN=72150 | P=0.8709 R=0.4765 F1=0.6160 | Frontières=0.6601
+
+=== Statistiques globales (sur échantillons) ===
+Precision | mean=0.8664 std=0.0047 min=0.8601 max=0.8750
+Recall | mean=0.4681 std=0.0127 min=0.4336 max=0.4810
+F1 | mean=0.6077 std=0.0108 min=0.5774 max=0.6177
+Frontières | mean=0.6593 std=0.0000 min=0.0000 max=0.0000
+
+
+COOL
+AutoShot_V3C1_echantillon_1 | vidéos=1000 | TP=66010 FP=9412 FN=73791 | P=0.8752 R=0.4722 F1=0.6134 | Moyenne=1.0129
+AutoShot_V3C1_echantillon_10 | vidéos=1000 | TP=69519 FP=10167 FN=73468 | P=0.8724 R=0.4862 F1=0.6244 | Moyenne=1.0132
+AutoShot_V3C1_echantillon_2 | vidéos=1000 | TP=66047 FP=8948 FN=73008 | P=0.8807 R=0.4750 F1=0.6171 | Moyenne=1.0109
+AutoShot_V3C1_echantillon_3 | vidéos=1000 | TP=66095 FP=9735 FN=72778 | P=0.8716 R=0.4759 F1=0.6157 | Moyenne=1.0112
+AutoShot_V3C1_echantillon_4 | vidéos=999 | TP=66256 FP=9875 FN=72600 | P=0.8703 R=0.4772 F1=0.6164 | Moyenne=1.0130
+AutoShot_V3C1_echantillon_5 | vidéos=999 | TP=67619 FP=10025 FN=72114 | P=0.8709 R=0.4839 F1=0.6221 | Moyenne=1.0137
+AutoShot_V3C1_echantillon_6 | vidéos=1000 | TP=65612 FP=9393 FN=83879 | P=0.8748 R=0.4389 F1=0.5845 | Moyenne=1.0122
+AutoShot_V3C1_echantillon_7 | vidéos=1000 | TP=70846 FP=9811 FN=78785 | P=0.8784 R=0.4735 F1=0.6153 | Moyenne=1.0125
+AutoShot_V3C1_echantillon_8 | vidéos=1000 | TP=67872 FP=8908 FN=77431 | P=0.8840 R=0.4671 F1=0.6112 | Moyenne=1.0101
+AutoShot_V3C1_echantillon_9 | vidéos=1000 | TP=66359 FP=9047 FN=71461 | P=0.8800 R=0.4815 F1=0.6224 | Moyenne=1.0120
+
+=== Statistiques globales (sur échantillons) ===
+Precision_cool | mean=0.8758 std=0.0045 min=0.8703 max=0.8840
+Recall_cool | mean=0.4731 std=0.0126 min=0.4389 max=0.4862
+F1_cool | mean=0.6143 std=0.0107 min=0.5845 max=0.6244
+Moyenne | mean=1.0122 std=0.0000 min=0.0000 max=3.0000

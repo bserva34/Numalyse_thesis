@@ -10,7 +10,7 @@ for i in range(1, nb_echantillons):
     #print(f"\n=== Traitement échantillon {i} ===")
 
     fichier_i = os.path.join(base_path, f"echantillon_{i}.txt")
-    dossier_source = f"../Experimentation/DeepSBD_V3C1_echantillon_{i}"
+    dossier_source = f"../Experimentation/Bi_V3C1_echantillon_{i}"
 
     # Lire les lignes du fichier i
     with open(fichier_i, "r", encoding="utf-8") as f:
@@ -21,7 +21,7 @@ for i in range(1, nb_echantillons):
         #print(f"  -> Comparaison avec échantillon {j}")
 
         fichier_j = os.path.join(base_path, f"echantillon_{j}.txt")
-        dossier_destination = f"../Experimentation/DeepSBD_V3C1_echantillon_{j}"
+        dossier_destination = f"../Experimentation/Bi_V3C1_echantillon_{j}"
 
         os.makedirs(dossier_destination, exist_ok=True)
 

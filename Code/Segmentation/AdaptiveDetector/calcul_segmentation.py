@@ -57,27 +57,27 @@ def process_videos_in_directory(directory, output_dir):
             process_video_with_detector(video_path, detector_class, output_dir)
 
 if __name__ == "__main__":
-    # input_directory = r"../../../Dataset/Dataset_Shot/ClipShots/videos/merged"  # Dossier source de vos vidéos
-    # output_directory = r"../Experimentation/AdaptiveDetector"  # Dossier de sortie
+    input_directory = r"../../../Dataset/Dataset_Shot/AutoShot/video" 
+    output_directory = r"../Experimentation/AutoShot_TEST/Adaptive_AutoShot"  # Dossier de sortie
     
-    # process_videos_in_directory(input_directory, output_directory)
+    process_videos_in_directory(input_directory, output_directory)
 
-    import argparse
-    parser = argparse.ArgumentParser(description='AutoShot detector')
-    parser.add_argument('list', help='chemin list')
-    args = parser.parse_args()
+    # import argparse
+    # parser = argparse.ArgumentParser(description='AutoShot detector')
+    # parser.add_argument('list', help='chemin list')
+    # args = parser.parse_args()
 
-    input_directory = r"../../../Dataset/Dataset_Shot/V3C/V3C1/videos"  # Dossier source de vos vidéos
-    #list_of_videos = r"../../../Dataset/Dataset_Shot/V3C/V3C1/echantillons/echantillon_2.txt"
+    # input_directory = r"../../../Dataset/Dataset_Shot/V3C/V3C1/videos"  # Dossier source de vos vidéos
+    # #list_of_videos = r"../../../Dataset/Dataset_Shot/V3C/V3C1/echantillons/echantillon_2.txt"
 
-    ech_basename = os.path.splitext(os.path.basename(args.list))[0]
+    # ech_basename = os.path.splitext(os.path.basename(args.list))[0]
 
-    output_directory = r"../Experimentation/Adaptive_V3C1"  # Dossier de sortie
-    output_directory = output_directory+"_"+ech_basename
+    # output_directory = r"../Experimentation/Adaptive_V3C1"  # Dossier de sortie
+    # output_directory = output_directory+"_"+ech_basename
 
-    with open(args.list, "r", encoding="utf-8") as f:
-        for line in f:
-            line = line.strip()  # enlève \n et les espaces
-            #print("Traitement de la vidéo : ",line)
-            dir_prov=os.path.join(input_directory, line)
-            process_videos_in_directory(dir_prov, output_directory)
+    # with open(args.list, "r", encoding="utf-8") as f:
+    #     for line in f:
+    #         line = line.strip()  # enlève \n et les espaces
+    #         #print("Traitement de la vidéo : ",line)
+    #         dir_prov=os.path.join(input_directory, line)
+    #         process_videos_in_directory(dir_prov, output_directory)

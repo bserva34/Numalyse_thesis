@@ -168,7 +168,7 @@ def Post_Processing(segments, threshold=0.3):
     return segments
 
 
-def SBD_detect(video_path, model, svm, batch_size=64):
+def SBD_detect(video_path, model, svm, batch_size=32):
     segments = create_segments(video_path)
 
     feats = extract_c3d_features_batch(segments, model, batch_size=batch_size)
@@ -245,11 +245,31 @@ if __name__ == "__main__":
 
     # SBD_detect(args.video, model, svm)
 
-    import argparse
+    # import argparse
 
-    parser = argparse.ArgumentParser()
-    parser.add_argument('list', help='chemin list')
-    args = parser.parse_args()
+    # parser = argparse.ArgumentParser()
+    # parser.add_argument('list', help='chemin list')
+    # args = parser.parse_args()
+
+    # device = "cuda" if torch.cuda.is_available() else "cpu"
+    # model = C3D_SBD().to(device)
+    # model.load_state_dict(torch.load("weights_save/c3d_sbd_best_save.pth", map_location=device))
+    # model.eval()
+    # svm = joblib.load("weights_save/svm_deepsbd.pkl")
+
+    # print("chargement modele ok sur ",device)
+
+    # input_directory = r"../../../Dataset/Dataset_Shot/V3C/V3C1/videos" 
+    # ech_basename = os.path.splitext(os.path.basename(args.list))[0]
+    # output_directory = r"../Experimentation/DeepSBD_V3C1"  # Dossier de sortie
+    # output_directory = output_directory+"_"+ech_basename
+
+    # with open(args.list, "r", encoding="utf-8") as f:
+    #     for line in f:
+    #         line = line.strip()  # enlève \n et les espaces
+    #         #print("Traitement de la vidéo : ",line)
+    #         dir_prov=os.path.join(input_directory, line)
+    #         process_videos_in_directory(dir_prov, output_directory,model,svm)
 
     device = "cuda" if torch.cuda.is_available() else "cpu"
     model = C3D_SBD().to(device)
@@ -257,19 +277,7 @@ if __name__ == "__main__":
     model.eval()
     svm = joblib.load("weights_save/svm_deepsbd.pkl")
 
-    print("chargement modele ok sur ",device)
-
-    input_directory = r"../../../Dataset/Dataset_Shot/V3C/V3C1/videos" 
-    ech_basename = os.path.splitext(os.path.basename(args.list))[0]
-    output_directory = r"../Experimentation/DeepSBD_V3C1"  # Dossier de sortie
-    output_directory = output_directory+"_"+ech_basename
-
-    with open(args.list, "r", encoding="utf-8") as f:
-        for line in f:
-            line = line.strip()  # enlève \n et les espaces
-            #print("Traitement de la vidéo : ",line)
-            dir_prov=os.path.join(input_directory, line)
-            process_videos_in_directory(dir_prov, output_directory,model,svm)
-
-    
+    input_directory = r"../../../Dataset/Dataset_Shot/AutoShot/video" 
+    output_directory = r"../Experimentation/AutoShot_TEST/DeepSBD_AutoShot"  # Dossier de sortie
+    process_videos_in_directory(input_directory, output_directory,model,svm)
 

@@ -2,6 +2,8 @@ import cv2
 import numpy as np
 from numpy.linalg import svd, eig, pinv
 import matplotlib.pyplot as plt
+import os
+import torch
 
 
 # ------------------------------------------------------
@@ -17,10 +19,11 @@ def build_snapshot_matrix(frames, channel="h"):
     flat = []
     for f in frames:
         ch = rgb_to_hsv_channel(f, channel).astype(np.float32)
-        ch /= 255.0  # normalisation
+        ch /= 255.0
         flat.append(ch.flatten())
-    X = np.array(flat).T   # shape (pixels, time)
+    X = np.stack(flat, axis=1)  # (pixels, time)
     return X[:, :-1], X[:, 1:]
+
 
 
 
@@ -28,60 +31,192 @@ def build_snapshot_matrix(frames, channel="h"):
 # 2. DMD CLASSIQUE
 # ------------------------------------------------------
 
-def compute_dmd(X1, X2, r=None, svd_thresh=1e-10):
+def compute_dmd_torch(X1_np, X2_np, r=10, device="cuda"):
+    # --- CPU -> GPU
+    X1 = torch.as_tensor(X1_np, dtype=torch.float32, device=device)
+    X2 = torch.as_tensor(X2_np, dtype=torch.float32, device=device)
 
-    U, S, Vh = svd(X1, full_matrices=False)
+    # --- SVD
+    U, S, Vh = torch.linalg.svd(X1, full_matrices=False)
 
-    # Filtrage automatique
-    if r is None:
-        r = np.sum(S > svd_thresh)
-
+    r = min(r, S.numel())
     U_r = U[:, :r]
     S_r = S[:r]
     V_r = Vh.conj().T[:, :r]
 
-    A_tilde = U_r.conj().T @ X2 @ V_r @ np.diag(1 / S_r)
-    mu, W = eig(A_tilde)
+    # --- Sécurité numérique
+    eps = 1e-6
+    S_r_safe = torch.clamp(S_r, min=eps)
 
-    Phi = X2 @ V_r @ np.diag(1 / S_r) @ W
+    # --- Passage en complex
+    U_r = U_r.to(torch.complex64)
+    V_r = V_r.to(torch.complex64)
+    X2 = X2.to(torch.complex64)
+    S_r_safe = S_r_safe.to(torch.complex64)
 
-    return mu, Phi
+    # --- A_tilde
+    A_tilde = (
+        U_r.conj().T
+        @ X2
+        @ V_r
+        @ torch.diag(1.0 / S_r_safe)
+    )
+
+    # --- Eigendecomposition
+    mu, W = torch.linalg.eig(A_tilde)
+
+    # --- Modes DMD
+    Phi = X2 @ V_r @ torch.diag(1.0 / S_r_safe) @ W
+
+    return mu.cpu().numpy(), Phi.cpu().numpy()
 
 
 
-def compute_amplitudes(Phi, x1):
-    return pinv(Phi) @ x1
+
+
+def compute_amplitudes_torch(Phi_np, x1_np, device="cuda"):
+    Phi = torch.as_tensor(Phi_np, dtype=torch.complex64, device=device)
+    x1 = torch.as_tensor(x1_np, dtype=torch.complex64, device=device)
+
+    if torch.norm(x1) < 1e-6:
+        return np.zeros(Phi.shape[1])
+
+    alpha = torch.linalg.pinv(Phi) @ x1
+    return alpha.cpu().numpy()
+
+
 
 
 # ------------------------------------------------------
 # 3. FONCTIONS POUR BACKGROUND
 # ------------------------------------------------------
 
-def extract_background_mode(mu, Phi):
-    # background = mode le plus proche de mu = 1
-    #idx = np.argmin(np.abs(mu - 1))
-    omega = np.log(mu)
-    idx = np.argmin(np.abs(np.real(omega)))
-    return idx
+def extract_background_mode(mu):
+    eps = 1e-8
+    omega = np.log(np.maximum(np.abs(mu), eps))
+    return np.argmin(np.abs(np.real(omega)))
+
+
+
+def is_black_frame(frame, thresh=5):
+    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    return np.mean(gray) < thresh
 
 
 # ------------------------------------------------------
 # 5. PIPELINE COMPLET 
 # ------------------------------------------------------
+# 1 frame sur 2
+# def dmd_shot_detection(video_path, window=3, r=10, stride=2):
+#     """
+#     DMD shot boundary detection with temporal subsampling.
+#     stride=2 => one frame out of two
+#     """
 
-def dmd_shot_detection(video_path, window=25, threshold=150):
-    try:
-        cap = cv2.VideoCapture(video_path)
-        if not cap.isOpened():
-            raise IOError(f"Impossible d'ouvrir la vidéo: {video_path}")
-    except Exception as e:
-        print(f"[ERREUR] {e}")
-        return [],[],[]   
-             
+#     device = "cuda" if torch.cuda.is_available() else "cpu"
+
+
+#     cap = cv2.VideoCapture(video_path)
+#     if not cap.isOpened():
+#         print(f"[ERREUR] Impossible d'ouvrir {video_path}")
+#         return [], [], []
+
+#     frames = []
+#     frame_ids = []   # indices réels dans la vidéo
+
+#     all_amplitudes = []
+#     all_delta = []
+#     dmd_frame_ids = []
+#     cuts = []
+
+#     real_frame_id = -1
+
+#     while True:
+#         ret, frame = cap.read()
+#         if not ret:
+#             break
+
+#         real_frame_id += 1
+
+#         if real_frame_id % stride != 0:
+#             continue
+
+#         h, w, _ = frame.shape
+#         frame = cv2.resize(frame, (w // 6, h // 6))
+
+#         # frames.append(frame)
+#         # frame_ids.append(real_frame_id)
+#         if is_black_frame(frame):
+#             continue  
+
+#         frames.append(frame)
+#         frame_ids.append(real_frame_id)
+
+
+#         if len(frames) >= window:
+#             # --- Snapshot matrix
+#             X1, X2 = build_snapshot_matrix(frames)
+
+#             # --- DMD
+#             mu, Phi = compute_dmd_torch(X1, X2, r=r, device=device)
+#             alpha = compute_amplitudes_torch(Phi, X1[:, 0], device=device)
+
+#             if len(alpha) > 0:
+#                 idx_bg = extract_background_mode(mu)
+#                 amp_bg = np.abs(alpha[idx_bg])
+
+#                 if all_amplitudes:
+#                     delta = abs(amp_bg - all_amplitudes[-1])
+#                 else:
+#                     delta = 0.0
+
+#                 all_amplitudes.append(amp_bg)
+#                 all_delta.append(delta)
+
+#                 # frame réelle associée à cette DMD
+#                 dmd_frame_ids.append(frame_ids[-1])
+
+#             # --- Fenêtre glissante
+#             frames.pop(0)
+#             frame_ids.pop(0)
+
+#     cap.release()
+
+#     # --------------------------------------------------
+#     # Seuil adaptatif (stable car stats cohérentes)
+#     # --------------------------------------------------
+#     if all_delta:
+#         mu_d = float(np.mean(all_delta))
+#         sigma_d = float(np.std(all_delta))
+#         T = mu_d + 2 * sigma_d
+#     else:
+#         T = 0.0
+
+#     # --------------------------------------------------
+#     # Détection des cuts (indices réels)
+#     # --------------------------------------------------
+#     for i, d in enumerate(all_delta):
+#         if d > T:
+#             f = dmd_frame_ids[i]
+#             cuts.append([f - stride, f])
+
+#     return cuts, all_amplitudes, all_delta
+
+
+
+def dmd_shot_detection(video_path, window=5, r=10):
+    device = "cuda" if torch.cuda.is_available() else "cpu"
+
+    cap = cv2.VideoCapture(video_path)
+    if not cap.isOpened():
+        print(f"[ERREUR] Impossible d'ouvrir {video_path}")
+        return [], [], []
+
     frames = []
     cuts = []
     all_amplitudes = []
     all_delta = []
+    dmd_frame_ids = []
 
     frame_id = 0
 
@@ -90,59 +225,48 @@ def dmd_shot_detection(video_path, window=25, threshold=150):
         if not ret:
             break
 
-        height, width, layers = frame.shape
-        new_h = int(height / 6)
-        new_w = int(width / 6)
-        #print(f"{new_h},{new_w}")
-        resize = cv2.resize(frame, (new_w, new_h))
+        h, w, _ = frame.shape
+        frame = cv2.resize(frame, (w // 6, h // 6))
 
-        frames.append(resize)
         frame_id += 1
 
-        # une fenêtre complète
+        if is_black_frame(frame):
+            continue  
+
+        frames.append(frame)
+        
+
         if len(frames) >= window:
-            #print(frame_id)
             X1, X2 = build_snapshot_matrix(frames)
-            mu, Phi = compute_dmd(X1, X2)
-            alpha = compute_amplitudes(Phi, X1[:, 0])
+            mu, Phi = compute_dmd_torch(X1, X2, r=r, device=device)
+            alpha = compute_amplitudes_torch(Phi, X1[:, 0], device=device)
 
-            if len(alpha)>0 : 
-                idx_bg = extract_background_mode(mu, Phi)
+            if len(alpha) > 0:
+                idx_bg = extract_background_mode(mu)
+                amp_bg = np.abs(alpha[idx_bg])
 
-                amp_bg = abs(alpha[idx_bg])
-                #print(amp_bg)
-
-                if len(all_amplitudes) > 0:
-                    delta = abs(amp_bg - all_amplitudes[-1])
-                else:
-                    delta = 0
+                delta = (
+                    abs(amp_bg - all_amplitudes[-1])
+                    if all_amplitudes else 0
+                )
 
                 all_amplitudes.append(amp_bg)
                 all_delta.append(delta)
+                dmd_frame_ids.append(frame_id)
 
-                # if delta > threshold:
-                #     cuts.append(frame_id)
-                #     frames = []
-                # else:
-                #     frames[:] = frames[-1:]
-                #frames[:] = frames[-4:]
-                frames.pop(0)
-            else : 
-                all_amplitudes.append(0)
+            frames.pop(0)
+
     cap.release()
 
-    mu = float(np.mean(all_delta))
-    print("mu : ",mu)
-    sigma = float(np.std(all_delta))
-    T = mu + 2 * sigma
+    # ---- seuil adaptatif
+    mu_d = float(np.mean(all_delta)) if all_delta else 0
+    sigma_d = float(np.std(all_delta)) if all_delta else 0
+    T = mu_d + 2 * sigma_d
 
-
-    print(T)
-    cpt=0
-    for a in all_delta:
-        if a > T : cuts.append([cpt+4,cpt+5])
-        cpt+=1
-
+    for i, d in enumerate(all_delta):
+        if d > T:
+            f = dmd_frame_ids[i]
+            cuts.append([f - 1, f])
 
     return cuts, all_amplitudes, all_delta
 
@@ -153,29 +277,76 @@ def Merge_res(results):
         return []
     merged = [results[0]]
     for r in results[1:]:
-        if abs(merged[-1][1] - r[0]) <= 1 :
-            merged[-1][1]=r[1]
+        if abs(merged[-1][1] - r[0]) <= 1:
+            merged[-1][1] = r[1]
         else:
             merged.append(r)
     return merged
 
 
+def write_res(output_file, res):
+    with open(output_file, "w") as f:
+        for r in res:
+            f.write(f"{r[0]}\t{r[1]}\n")
+
+
+def process_videos_in_directory(directory, output_dir):
+    os.makedirs(output_dir, exist_ok=True)
+
+    video_files = [
+        f for f in os.listdir(directory)
+        if f.lower().endswith(('.mp4', '.avi', '.mkv', '.mov'))
+    ]
+
+    for video in video_files:
+        video_path = os.path.join(directory, video)
+        name = os.path.splitext(video)[0]
+        out = os.path.join(output_dir, f"{name}.txt")
+
+        if os.path.exists(out):
+            continue
+
+        print("Traitement :", name)
+        res, _, _ = dmd_shot_detection(video_path)
+        write_res(out, Merge_res(res))
+
 if __name__ == '__main__':
-    import argparse
-    parser = argparse.ArgumentParser(description='DMD for SBD')
-    parser.add_argument('video', help='chemin vers la vidéo')
-    parser.add_argument('--w', type=int, default=5)
-    parser.add_argument('--t', type=int, default=150)
-    args = parser.parse_args()
+    # import argparse
+    # parser = argparse.ArgumentParser(description='DMD for SBD')
+    # parser.add_argument('video', help='chemin vers la vidéo')
+    # parser.add_argument('--w', type=int, default=5)
+    # args = parser.parse_args()
 
-    boundaries,amp,deltas = dmd_shot_detection(args.video,args.w,args.t)
+    # boundaries,amp,deltas = dmd_shot_detection(args.video,args.w)
 
-    print("Cuts détectés :", boundaries)
-    print("cuts mergés : ",Merge_res(boundaries))
+    # print("Cuts détectés :", boundaries)
+    # print("cuts mergés : ",Merge_res(boundaries))
 
-    plt.figure(figsize=(14,4))
-    plt.plot(amp, label='hist amplitude')
-    plt.plot(deltas, label='hist amplitude')
+    # plt.figure(figsize=(14,4))
+    # plt.plot(amp, label='hist amplitude')
+    # plt.plot(deltas, label='hist amplitude')
+
+    # plt.show()
+
+    # import argparse
+
+    # parser = argparse.ArgumentParser()
+    # parser.add_argument('list', help='chemin list')
+    # args = parser.parse_args()
+
+
+    # input_directory = r"../../../Dataset/Dataset_Shot/V3C/V3C1/videos" 
+    # ech_basename = os.path.splitext(os.path.basename(args.list))[0]
+    # output_directory = r"../Experimentation/Bi_V3C1"  # Dossier de sortie
+    # output_directory = output_directory+"_"+ech_basename
+
+    # with open(args.list, "r", encoding="utf-8") as f:
+    #     for line in f:
+    #         line = line.strip()  # enlève \n et les espaces
+    #         #print("Traitement de la vidéo : ",line)
+    #         dir_prov=os.path.join(input_directory, line)
+    #         process_videos_in_directory(dir_prov, output_directory)
+
 
     #long dissolve transition
     # plt.axvspan(100-args.w, 180-args.w, alpha=0.12, color='red')
@@ -201,6 +372,14 @@ if __name__ == '__main__':
     # plt.text(853-args.w, max(amp), "vv", rotation=90, fontsize=8)      
     # plt.text(1030-args.w, max(amp), "vv", rotation=90, fontsize=8)
     # plt.text(1172-args.w, max(amp), "vv", rotation=90, fontsize=8)
-    plt.show()
+    
+    # input_directory = r"../../../Dataset/Dataset_Shot/BBC/videos" 
+    # output_directory = r"../Experimentation/BBC_TEST/Bi_BBC"  # Dossier de sortie
+
+    input_directory = r"../../../Dataset/Dataset_Shot/AutoShot/video" 
+    output_directory = r"../Experimentation/AutoShot_TEST/Bi_AutoShot"  # Dossier de sortie
+    
+    process_videos_in_directory(input_directory, output_directory)
+
 
     

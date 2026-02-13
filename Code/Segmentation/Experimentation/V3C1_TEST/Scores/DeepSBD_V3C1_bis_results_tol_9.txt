@@ -1,0 +1,39 @@
+=== Évaluation transitions | Tolérance = 9 frames ===
+Méthode : DeepSBD_V3C1_bis
+
+STRICT
+DeepSBD_V3C1_echantillon_1 | vidéos=1000 | TP=22246 FP=16591 FN=117555 | P=0.5728 R=0.1591 F1=0.2491 | Frontières=4.1773
+DeepSBD_V3C1_echantillon_10 | vidéos=1000 | TP=22048 FP=16841 FN=120939 | P=0.5669 R=0.1542 F1=0.2425 | Frontières=4.1856
+DeepSBD_V3C1_echantillon_2 | vidéos=1000 | TP=22323 FP=16901 FN=116732 | P=0.5691 R=0.1605 F1=0.2504 | Frontières=4.1886
+DeepSBD_V3C1_echantillon_3 | vidéos=1000 | TP=21030 FP=16013 FN=117843 | P=0.5677 R=0.1514 F1=0.2391 | Frontières=4.1762
+DeepSBD_V3C1_echantillon_4 | vidéos=999 | TP=21238 FP=15905 FN=117618 | P=0.5718 R=0.1529 F1=0.2413 | Frontières=4.1852
+DeepSBD_V3C1_echantillon_5 | vidéos=999 | TP=22109 FP=16420 FN=117624 | P=0.5738 R=0.1582 F1=0.2481 | Frontières=4.2053
+DeepSBD_V3C1_echantillon_6 | vidéos=1000 | TP=21092 FP=17053 FN=128399 | P=0.5529 R=0.1411 F1=0.2248 | Frontières=4.1725
+DeepSBD_V3C1_echantillon_7 | vidéos=1000 | TP=23069 FP=17437 FN=126562 | P=0.5695 R=0.1542 F1=0.2427 | Frontières=4.1725
+DeepSBD_V3C1_echantillon_8 | vidéos=1000 | TP=22868 FP=17153 FN=122435 | P=0.5714 R=0.1574 F1=0.2468 | Frontières=4.1656
+DeepSBD_V3C1_echantillon_9 | vidéos=1000 | TP=21166 FP=16381 FN=116654 | P=0.5637 R=0.1536 F1=0.2414 | Frontières=4.1799
+
+=== Statistiques globales (sur échantillons) ===
+Precision | mean=0.5680 std=0.0058 min=0.5529 max=0.5738
+Recall | mean=0.1543 std=0.0052 min=0.1411 max=0.1605
+F1 | mean=0.2426 std=0.0069 min=0.2248 max=0.2504
+Frontières | mean=4.1809 std=0.0000 min=0.0000 max=0.0000
+
+
+COOL
+DeepSBD_V3C1_echantillon_1 | vidéos=1000 | TP=37542 FP=1295 FN=102259 | P=0.9667 R=0.2685 F1=0.4203 | Moyenne=1.0347
+DeepSBD_V3C1_echantillon_10 | vidéos=1000 | TP=37691 FP=1198 FN=105296 | P=0.9692 R=0.2636 F1=0.4145 | Moyenne=1.0328
+DeepSBD_V3C1_echantillon_2 | vidéos=1000 | TP=38064 FP=1160 FN=100991 | P=0.9704 R=0.2737 F1=0.4270 | Moyenne=1.0356
+DeepSBD_V3C1_echantillon_3 | vidéos=1000 | TP=35920 FP=1123 FN=102953 | P=0.9697 R=0.2587 F1=0.4084 | Moyenne=1.0301
+DeepSBD_V3C1_echantillon_4 | vidéos=999 | TP=36004 FP=1139 FN=102852 | P=0.9693 R=0.2593 F1=0.4091 | Moyenne=1.0324
+DeepSBD_V3C1_echantillon_5 | vidéos=999 | TP=37323 FP=1206 FN=102410 | P=0.9687 R=0.2671 F1=0.4187 | Moyenne=1.0335
+DeepSBD_V3C1_echantillon_6 | vidéos=1000 | TP=36846 FP=1299 FN=112645 | P=0.9659 R=0.2465 F1=0.3927 | Moyenne=1.0357
+DeepSBD_V3C1_echantillon_7 | vidéos=1000 | TP=39339 FP=1167 FN=110292 | P=0.9712 R=0.2629 F1=0.4138 | Moyenne=1.0346
+DeepSBD_V3C1_echantillon_8 | vidéos=1000 | TP=38743 FP=1278 FN=106560 | P=0.9681 R=0.2666 F1=0.4181 | Moyenne=1.0355
+DeepSBD_V3C1_echantillon_9 | vidéos=1000 | TP=36417 FP=1130 FN=101403 | P=0.9699 R=0.2642 F1=0.4153 | Moyenne=1.0331
+
+=== Statistiques globales (sur échantillons) ===
+Precision_cool | mean=0.9689 std=0.0015 min=0.9659 max=0.9712
+Recall_cool | mean=0.2631 std=0.0070 min=0.2465 max=0.2737
+F1_cool | mean=0.4138 std=0.0087 min=0.3927 max=0.4270
+Moyenne | mean=1.0338 std=0.0000 min=0.0000 max=5.0000
