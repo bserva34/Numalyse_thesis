@@ -43,6 +43,18 @@ def parse_result_file(filepath):
             parts = re.findall(r"mean=([0-9.]+)", line)
             metrics["F1_cool"] = float(parts[0])
 
+        if line.startswith("Precision_mid"):
+            parts = re.findall(r"mean=([0-9.]+)", line)
+            metrics["Precision_mid"] = float(parts[0])
+
+        if line.startswith("Recall_mid"):
+            parts = re.findall(r"mean=([0-9.]+)", line)
+            metrics["Recall_mid"] = float(parts[0])
+                
+        if line.startswith("F1_mid"):
+            parts = re.findall(r"mean=([0-9.]+)", line)
+            metrics["F1_mid"] = float(parts[0])
+
     return metrics
 
 
@@ -91,11 +103,53 @@ if __name__ == "__main__":
 
     plt.xlabel("Tolérance (frames)")
     plt.ylabel("F1 score (STRICT)")
-    plt.title("F1 vs Tolérance")
+    plt.title("F1 vs Tolérance STRICT")
     plt.legend()
     plt.grid(True)
     plt.tight_layout()
     plt.savefig(os.path.dirname(args.results_folder)+"/comparison_F1_strict.png")
+    plt.close()
+
+    # ===========================
+    # Courbes Précision vs tolérance
+    # ===========================
+    plt.figure()
+
+    for method in data:
+
+        tolerances = sorted(data[method].keys())
+        prec = [data[method][t]["Precision"] for t in tolerances]
+
+        plt.plot(tolerances, prec, marker='o', label=method)
+
+    plt.xlabel("Tolérance (frames)")
+    plt.ylabel("Précision (STRICT)")
+    plt.title("Précision vs Tolérance STRICT")
+    plt.legend()
+    plt.grid(True)
+    plt.tight_layout()
+    plt.savefig(os.path.dirname(args.results_folder)+"/comparison_Precision_strict.png")
+    plt.close()
+
+    # ===========================
+    # Courbes Rappel vs tolérance
+    # ===========================
+    plt.figure()
+
+    for method in data:
+
+        tolerances = sorted(data[method].keys())
+        prec = [data[method][t]["Recall"] for t in tolerances]
+
+        plt.plot(tolerances, prec, marker='o', label=method)
+
+    plt.xlabel("Tolérance (frames)")
+    plt.ylabel("Rappel (STRICT)")
+    plt.title("Rappel vs Tolérance STRICT")
+    plt.legend()
+    plt.grid(True)
+    plt.tight_layout()
+    plt.savefig(os.path.dirname(args.results_folder)+"/comparison_Rappel_strict.png")
     plt.close()
 
 
@@ -113,16 +167,120 @@ if __name__ == "__main__":
 
     plt.xlabel("Tolérance (frames)")
     plt.ylabel("F1 score (COOL)")
-    plt.title("F1 COOL vs Tolérance")
+    plt.title("F1 vs Tolérance COOL")
     plt.legend()
     plt.grid(True)
     plt.tight_layout()
     plt.savefig(os.path.dirname(args.results_folder)+"/comparison_F1_cool.png")
     plt.close()
 
+    # ===========================
+    # Courbes Précision vs tolérance COOL
+    # ===========================
+    plt.figure()
 
-    print("✅ Graphiques générés :")
-    print(" - comparison_F1_strict.png")
-    print(" - comparison_F1_cool.png")
+    for method in data:
+
+        tolerances = sorted(data[method].keys())
+        prec = [data[method][t]["Precision_cool"] for t in tolerances]
+
+        plt.plot(tolerances, prec, marker='o', label=method)
+
+    plt.xlabel("Tolérance (frames)")
+    plt.ylabel("Précision (COOL)")
+    plt.title("Précision vs Tolérance COOL")
+    plt.legend()
+    plt.grid(True)
+    plt.tight_layout()
+    plt.savefig(os.path.dirname(args.results_folder)+"/comparison_Precision_cool.png")
+    plt.close()
+
+    # =========================== 
+    # Courbes Rappel vs tolérance COOL
+    # ===========================
+    plt.figure()
+
+    for method in data:
+
+        tolerances = sorted(data[method].keys())
+        prec = [data[method][t]["Recall_cool"] for t in tolerances]
+
+        plt.plot(tolerances, prec, marker='o', label=method)
+
+    plt.xlabel("Tolérance (frames)")
+    plt.ylabel("Rappel (COOL)")
+    plt.title("Rappel vs Tolérance COOL")
+    plt.legend()
+    plt.grid(True)
+    plt.tight_layout()
+    plt.savefig(os.path.dirname(args.results_folder)+"/comparison_Rappel_cool.png")
+    plt.close()
+    
+
+    # =========================== 
+    # Courbes Precision MID vs tolérance
+    # ===========================
+    plt.figure()
+
+    for method in data:
+
+        tolerances = sorted(data[method].keys())
+        prec = [data[method][t]["Precision_mid"] for t in tolerances]
+
+        plt.plot(tolerances, prec, marker='o', label=method)
+
+    plt.xlabel("Tolérance (frames)")
+    plt.ylabel("Precision MID")
+    plt.title("Precision vs Tolérance MID")
+    plt.legend()
+    plt.grid(True)
+    plt.tight_layout()
+    plt.savefig(os.path.dirname(args.results_folder)+"/comparison_Precision_mid.png")
+    plt.close()
+
+    # =========================== 
+    # Courbes Rappel MID vs tolérance
+    # ===========================
+    plt.figure()
+
+    for method in data:
+
+        tolerances = sorted(data[method].keys())
+        prec = [data[method][t]["Recall_mid"] for t in tolerances]
+
+        plt.plot(tolerances, prec, marker='o', label=method)
+
+    plt.xlabel("Tolérance (frames)")
+    plt.ylabel("Rappel MID")
+    plt.title("Rappel vs Tolérance MID")
+    plt.legend()
+    plt.grid(True)
+    plt.tight_layout()
+    plt.savefig(os.path.dirname(args.results_folder)+"/comparison_Rappel_mid.png")
+    plt.close()
 
 
+
+    # =========================== 
+    # Courbes F1 MID vs tolérance
+    # ===========================
+    plt.figure()
+
+    for method in data:
+
+        tolerances = sorted(data[method].keys())
+        prec = [data[method][t]["F1_mid"] for t in tolerances]
+
+        plt.plot(tolerances, prec, marker='o', label=method)
+
+    plt.xlabel("Tolérance (frames)")
+    plt.ylabel("F1-Score MID")
+    plt.title("F1 vs Tolérance MID")
+    plt.legend()
+    plt.grid(True)
+    plt.tight_layout()
+    plt.savefig(os.path.dirname(args.results_folder)+"/comparison_F1_mid.png")
+    plt.close()
+
+
+    print("Graphiques générés")

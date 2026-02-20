@@ -1,6 +1,0 @@
-TP total = 110220
-FP total = 68489
-FN total = 45917
-Précision = 0.6168
-Rappel = 0.7059
-F1-Score = 0.6583

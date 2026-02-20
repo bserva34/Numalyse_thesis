@@ -697,6 +697,24 @@ if __name__ == '__main__':
     #         process_videos_in_directory(dir_prov, output_directory)
     
 
-    input_directory = r"../../../Dataset/Dataset_Shot/AutoShot/video" 
-    output_directory = r"../Experimentation/AutoShot_TEST/Suguna_AutoShot"  # Dossier de sortie
+    # input_directory = r"../../../Dataset/Dataset_Shot/ClipShots/videos/merged" 
+    # output_directory = r"../Experimentation/ClipShots_TEST/Suguna"  # Dossier de sortie
+
+    # input_directory = r"../../../Dataset/Dataset_Shot/AutoShot/video" 
+    # output_directory = r"../Experimentation/AutoShot_TEST/Suguna_AutoShot"  # Dossier de sortie
+
+    input_directory = r"../../../Dataset/Dataset_Shot/BBC/BBC_Fade" 
+    output_directory = r"../Experimentation/BBC_Fade/Suguna"  # Dossier de sortie
     process_videos_in_directory(input_directory, output_directory)
+
+    input_directory = r"../../../Dataset/Dataset_Shot/BBC/BBC_FadeBlack" 
+    output_directory = r"../Experimentation/BBC_FadeBlack/Suguna"  # Dossier de sortie
+    process_videos_in_directory(input_directory, output_directory)
+
+    input_directory = r"../../../Dataset/Dataset_Shot/BBC/BBC_FadeBlack_mirror" 
+    output_directory = r"../Experimentation/BBC_FadeBlack_mirror/Suguna"  # Dossier de sortie
+    process_videos_in_directory(input_directory, output_directory)
+
+    # input_directory = r"../../../Dataset/Dataset_Shot/BBC/BBC_Alea" 
+    # output_directory = r"../Experimentation/BBC_Alea/Suguna"  # Dossier de sortie
+    # process_videos_in_directory(input_directory, output_directory)

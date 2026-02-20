@@ -277,7 +277,19 @@ if __name__ == "__main__":
     model.eval()
     svm = joblib.load("weights_save/svm_deepsbd.pkl")
 
-    input_directory = r"../../../Dataset/Dataset_Shot/AutoShot/video" 
-    output_directory = r"../Experimentation/AutoShot_TEST/DeepSBD_AutoShot"  # Dossier de sortie
+    # input_directory = r"../../../Dataset/Dataset_Shot/AutoShot/video" 
+    # output_directory = r"../Experimentation/AutoShot_TEST/DeepSBD_AutoShot"  # Dossier de sortie
+    # process_videos_in_directory(input_directory, output_directory,model,svm)
+
+
+    input_directory = r"../../../Dataset/Dataset_Shot/BBC/BBC_Fade" 
+    output_directory = r"../Experimentation/BBC_Fade/DeepSBD"  # Dossier de sortie
     process_videos_in_directory(input_directory, output_directory,model,svm)
 
+    input_directory = r"../../../Dataset/Dataset_Shot/BBC/BBC_FadeBlack" 
+    output_directory = r"../Experimentation/BBC_FadeBlack/DeepSBD"  # Dossier de sortie
+    process_videos_in_directory(input_directory, output_directory,model,svm)
+
+    input_directory = r"../../../Dataset/Dataset_Shot/BBC/BBC_FadeBlack_mirror" 
+    output_directory = r"../Experimentation/BBC_FadeBlack_mirror/DeepSBD"  # Dossier de sortie
+    process_videos_in_directory(input_directory, output_directory,model,svm)

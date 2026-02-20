@@ -1,0 +1,28 @@
+=== Évaluation transitions | Tolérance = 0 frames ===
+Méthode : BBC_TEST/Bi_fenetre
+
+STRICT
+global | vidéos=11 | TP=1 FP=3815 FN=4843 | P=0.0003 R=0.0002 F1=0.0002 | Frontières=0.0000
+
+=== Statistiques globales (sur échantillons) ===
+Precision | mean=0.0003 std=0.0000 min=0.0003 max=0.0003
+Recall | mean=0.0002 std=0.0000 min=0.0002 max=0.0002
+F1 | mean=0.0002 std=0.0000 min=0.0002 max=0.0002
+Frontières | mean=0.0000 std=0.0000 min=0.0000 max=0.0000
+
+
+COOL
+global | vidéos=11 | TP=9 FP=3807 FN=4835 | P=0.0024 R=0.0019 F1=0.0021 | Moyenne=1.0000
+
+=== Statistiques globales (sur échantillons) ===
+Precision_cool | mean=0.0024 std=0.0000 min=0.0024 max=0.0024
+Recall_cool | mean=0.0019 std=0.0000 min=0.0019 max=0.0019
+F1_cool | mean=0.0021 std=0.0000 min=0.0021 max=0.0021
+Moyenne | mean=1.0000 std=0.0000 min=0.0000 max=1.0000
+
+
+MID
+global | vidéos=11 | TP=2 FP=3814 FN=4842 | P=0.0005 R=0.0004 F1=0.0005
+Precision_mid | mean=0.0005
+Recall_mid | mean=0.0004
+F1_mid | mean=0.0005

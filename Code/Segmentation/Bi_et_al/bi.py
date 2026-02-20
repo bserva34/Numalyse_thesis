@@ -258,15 +258,35 @@ def dmd_shot_detection(video_path, window=5, r=10):
 
     cap.release()
 
-    # ---- seuil adaptatif
+    # # ---- seuil adaptatif
     mu_d = float(np.mean(all_delta)) if all_delta else 0
     sigma_d = float(np.std(all_delta)) if all_delta else 0
-    T = mu_d + 2 * sigma_d
+    T_GLOBAL = mu_d + 2. * sigma_d
+    print("Seuil global : ",T_GLOBAL)
+
 
     for i, d in enumerate(all_delta):
-        if d > T:
+        if d > T_GLOBAL:
             f = dmd_frame_ids[i]
             cuts.append([f - 1, f])
+
+    # window_stat = 250
+
+    # for i in range(len(all_delta)):
+    #     start = max(0, i - window_stat // 2)
+    #     end = min(len(all_delta), i + window_stat // 2)
+
+    #     local = all_delta[start:end]
+
+    #     mu = np.mean(local)
+    #     sigma = np.std(local)
+    #     T = mu + 5 * sigma
+
+    #     if all_delta[i] > T :
+    #         f = dmd_frame_ids[i]
+    #         cuts.append([f - 1, f])
+    #         #print(T)
+
 
     return cuts, all_amplitudes, all_delta
 
@@ -374,11 +394,26 @@ if __name__ == '__main__':
     # plt.text(1172-args.w, max(amp), "vv", rotation=90, fontsize=8)
     
     # input_directory = r"../../../Dataset/Dataset_Shot/BBC/videos" 
-    # output_directory = r"../Experimentation/BBC_TEST/Bi_BBC"  # Dossier de sortie
+    # output_directory = r"../Experimentation/BBC_TEST/Bi_bis_fenetre_BBC"  # Dossier de sortie
 
-    input_directory = r"../../../Dataset/Dataset_Shot/AutoShot/video" 
-    output_directory = r"../Experimentation/AutoShot_TEST/Bi_AutoShot"  # Dossier de sortie
+    # input_directory = r"../../../Dataset/Dataset_Shot/AutoShot/video" 
+    # output_directory = r"../Experimentation/AutoShot_TEST/Bi_fenetre_AutoShot"  # Dossier de sortie
+
+    # input_directory = r"../../../Dataset/Dataset_Shot/ClipShots/videos" 
+    # output_directory = r"../Experimentation/ClipShots_TEST/Bi_ClipShots"  # Dossier de sortie
     
+    #process_videos_in_directory(input_directory, output_directory)
+
+    input_directory = r"../../../Dataset/Dataset_Shot/BBC/BBC_Fade" 
+    output_directory = r"../Experimentation/BBC_Fade/Bi_2"  # Dossier de sortie
+    process_videos_in_directory(input_directory, output_directory)
+
+    input_directory = r"../../../Dataset/Dataset_Shot/BBC/BBC_FadeBlack" 
+    output_directory = r"../Experimentation/BBC_FadeBlack/Bi_2"  # Dossier de sortie
+    process_videos_in_directory(input_directory, output_directory)
+
+    input_directory = r"../../../Dataset/Dataset_Shot/BBC/BBC_FadeBlack_mirror" 
+    output_directory = r"../Experimentation/BBC_FadeBlack_mirror/Bi_2"  # Dossier de sortie
     process_videos_in_directory(input_directory, output_directory)
 
 

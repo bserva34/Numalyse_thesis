@@ -1,0 +1,28 @@
+=== Évaluation transitions | Tolérance = 8 frames ===
+Méthode : BBC_Fade/Adaptive
+
+STRICT
+global | vidéos=11 | TP=940 FP=143 FN=3904 | P=0.8680 R=0.1941 F1=0.3172 | Frontières=0.0532
+
+=== Statistiques globales (sur échantillons) ===
+Precision | mean=0.8680 std=0.0000 min=0.8680 max=0.8680
+Recall | mean=0.1941 std=0.0000 min=0.1941 max=0.1941
+F1 | mean=0.3172 std=0.0000 min=0.3172 max=0.3172
+Frontières | mean=0.0532 std=0.0000 min=0.0000 max=0.0000
+
+
+COOL
+global | vidéos=11 | TP=1036 FP=47 FN=3808 | P=0.9566 R=0.2139 F1=0.3496 | Moyenne=1.0019
+
+=== Statistiques globales (sur échantillons) ===
+Precision_cool | mean=0.9566 std=0.0000 min=0.9566 max=0.9566
+Recall_cool | mean=0.2139 std=0.0000 min=0.2139 max=0.2139
+F1_cool | mean=0.3496 std=0.0000 min=0.3496 max=0.3496
+Moyenne | mean=1.0019 std=0.0000 min=0.0000 max=2.0000
+
+
+MID
+global | vidéos=11 | TP=950 FP=133 FN=3894 | P=0.8772 R=0.1961 F1=0.3206
+Precision_mid | mean=0.8772
+Recall_mid | mean=0.1961
+F1_mid | mean=0.3206

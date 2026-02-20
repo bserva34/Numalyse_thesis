@@ -1,0 +1,28 @@
+=== Évaluation transitions | Tolérance = 11 frames ===
+Méthode : AutoShot_TEST/Suguna
+
+STRICT
+global | vidéos=648 | TP=6818 FP=5295 FN=11668 | P=0.5629 R=0.3688 F1=0.4456 | Frontières=1.6832
+
+=== Statistiques globales (sur échantillons) ===
+Precision | mean=0.5629 std=0.0000 min=0.5629 max=0.5629
+Recall | mean=0.3688 std=0.0000 min=0.3688 max=0.3688
+F1 | mean=0.4456 std=0.0000 min=0.4456 max=0.4456
+Frontières | mean=1.6832 std=0.0000 min=0.0000 max=0.0000
+
+
+COOL
+global | vidéos=648 | TP=7124 FP=4989 FN=11362 | P=0.5881 R=0.3854 F1=0.4656 | Moyenne=1.0758
+
+=== Statistiques globales (sur échantillons) ===
+Precision_cool | mean=0.5881 std=0.0000 min=0.5881 max=0.5881
+Recall_cool | mean=0.3854 std=0.0000 min=0.3854 max=0.3854
+F1_cool | mean=0.4656 std=0.0000 min=0.4656 max=0.4656
+Moyenne | mean=1.0758 std=0.0000 min=0.0000 max=3.0000
+
+
+MID
+global | vidéos=648 | TP=6977 FP=5136 FN=11509 | P=0.5760 R=0.3774 F1=0.4560
+Precision_mid | mean=0.5760
+Recall_mid | mean=0.3774
+F1_mid | mean=0.4560

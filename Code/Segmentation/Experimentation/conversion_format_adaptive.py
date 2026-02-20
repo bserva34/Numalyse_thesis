@@ -1,7 +1,7 @@
 import os
 
-input_root = "AutoShot_TEST/Adaptive_AutoShot"
-output_root = "AutoShot_TEST/Adaptive_AutoShot_bis"
+input_root = "BBC_Fade/Adaptive"
+output_root = "BBC_Fade/Adaptive_bis"
 
 
 os.makedirs(output_root, exist_ok=True)

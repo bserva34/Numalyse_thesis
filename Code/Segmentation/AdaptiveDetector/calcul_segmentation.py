@@ -57,8 +57,14 @@ def process_videos_in_directory(directory, output_dir):
             process_video_with_detector(video_path, detector_class, output_dir)
 
 if __name__ == "__main__":
-    input_directory = r"../../../Dataset/Dataset_Shot/AutoShot/video" 
-    output_directory = r"../Experimentation/AutoShot_TEST/Adaptive_AutoShot"  # Dossier de sortie
+    # input_directory = r"../../../Dataset/Dataset_Shot/AutoShot/video" 
+    # output_directory = r"../Experimentation/AutoShot_TEST/Adaptive_AutoShot"  # Dossier de sortie
+
+    # input_directory = r"../../../Dataset/Dataset_Shot/ClipShots/videos/merged" 
+    # output_directory = r"../Experimentation/ClipShots_TEST/Adaptive"  # Dossier de sortie
+
+    input_directory = r"../../../Dataset/Dataset_Shot/BBC/BBC_FadeBlack_mirror" 
+    output_directory = r"../Experimentation/BBC_FadeBlack_mirror/Adaptive"  # Dossier de sortie
     
     process_videos_in_directory(input_directory, output_directory)
 

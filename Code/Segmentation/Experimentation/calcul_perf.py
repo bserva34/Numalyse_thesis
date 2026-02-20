@@ -3,6 +3,10 @@ import numpy as np
 
 # ===================== CONFIG =====================
 # PATH_GT = "../../../Dataset/Dataset_Shot/V3C/V3C1/msb"
+#PATH_GT = "../../../Dataset/Dataset_Shot/AutoShot/annotations"
+#PATH_GT = "../../../Dataset/Dataset_Shot/ClipShots/annotations/annotations"
+
+#PATH_GT = "../../../Dataset/Dataset_Shot/BBC/annotations"
 PATH_GT = "../../../Dataset/Dataset_Shot/BBC/annotations"
 # =================================================
 
@@ -85,9 +89,11 @@ def match_transitions_with_tolerance(gt_transitions, pred_transitions, tol):
 
     for p_end, p_start in pred_transitions:
         #print(f"PREDICTION : {p_end}/{p_start}")
+
         for idx, (g_end, g_start) in enumerate(gt_transitions):
             if idx in gt_used:
                 continue
+            #print(f"GT : {g_end}/{g_start} ")
 
             if abs(p_end - g_end) <= tol and abs(p_start - g_start) <= tol:
                 TP += 1
@@ -131,6 +137,31 @@ def match_transitions_with_tolerance_cool(gt_transitions, pred_transitions, tol)
 
 
     return TP, FP, FN, cpt_tab
+
+
+def match_middle_transitions(gt_transitions, pred_transitions, tol):
+    gt_used = set()
+    TP = 0
+    for p_end, p_start in pred_transitions:
+
+        p_mid = (p_end + p_start) / 2
+
+        for idx, (g_end, g_start) in enumerate(gt_transitions):
+
+            g_mid = (g_end + g_start) / 2
+
+            if abs(p_mid- g_mid) <= tol :
+                if idx in gt_used:
+                    continue
+                TP += 1
+                gt_used.add(idx)
+                break
+
+    FP = len(pred_transitions) - TP
+    FN = len(gt_transitions) - TP
+
+    return TP, FP, FN
+
 # ===================================================
 
 
@@ -169,6 +200,7 @@ for sample_name, sample_path in samples.items():
 
     TP = FP = FN = 0
     TP_cool = FP_cool = FN_cool = 0
+    TP_mid = FP_mid = FN_mid = 0
     video_count = 0
     cpt_tab = []
     tab_front = []
@@ -193,7 +225,9 @@ for sample_name, sample_path in samples.items():
         # ===== Lecture GT =====
         # gt_plans = read_gt_plans_tsv(gt_file)
         gt_plans = read_gt_plans_txt(gt_file)
-        gt_transitions = plans_to_transitions(gt_plans)
+
+        #gt_transitions = read_gt_plans_txt(gt_file) #Other TEST
+        gt_transitions = plans_to_transitions(gt_plans) #BBC TEST 
 
         # ===== Lecture prédictions =====
         pred_transitions = read_pred_transitions_txt(pred_file)
@@ -207,6 +241,10 @@ for sample_name, sample_path in samples.items():
             gt_transitions, pred_transitions, TOLERANCE
         )
 
+        TP_loc_mid, FP_loc_mid, FN_loc_mid = match_middle_transitions(
+            gt_transitions, pred_transitions, TOLERANCE
+        )
+
         TP += TP_loc
         FP += FP_loc
         FN += FN_loc
@@ -214,6 +252,10 @@ for sample_name, sample_path in samples.items():
         TP_cool += TP_loc_cool
         FP_cool += FP_loc_cool
         FN_cool += FN_loc_cool
+
+        TP_mid += TP_loc_mid
+        FP_mid += FP_loc_mid
+        FN_mid += FN_loc_mid
 
         cpt_tab=np.concatenate((cpt_tab,cpt_tab_prov))
         tab_front=np.concatenate((tab_front,tab_front_prov))
@@ -225,6 +267,10 @@ for sample_name, sample_path in samples.items():
     Precision_cool = TP_cool / (TP_cool + FP_cool) if (TP_cool + FP_cool) > 0 else 0
     Recall_cool = TP_cool / (TP_cool + FN_cool) if (TP_cool + FN_cool) > 0 else 0
     F1_cool = 2 * Precision_cool * Recall_cool / (Precision_cool + Recall_cool) if (Precision_cool + Recall_cool) > 0 else 0
+
+    Precision_mid = TP_mid / (TP_mid + FP_mid) if (TP_mid + FP_mid) > 0 else 0
+    Recall_mid = TP_mid / (TP_mid + FN_mid) if (TP_mid + FN_mid) > 0 else 0
+    F1_mid = 2 * Precision_mid * Recall_mid / (Precision_mid + Recall_mid) if (Precision_mid + Recall_mid) > 0 else 0
 
     valid_cpt = cpt_tab[cpt_tab != 0]
 
@@ -259,7 +305,13 @@ for sample_name, sample_path in samples.items():
         "F1_cool": F1_cool,
         "Moyenne": moyenne,
         "Max_m": max_m,
-        "Moyenne_front" : moyenne_front
+        "Moyenne_front" : moyenne_front,
+        "TP_mid": TP_mid,
+        "FP_mid": FP_mid,
+        "FN_mid": FN_mid,
+        "Precision_mid": Precision_mid,
+        "Recall_mid": Recall_mid,
+        "F1_mid": F1_mid
     })
 
 
@@ -339,6 +391,22 @@ with open(OUTPUT_FILE, "w") as f:
             f"{metric} | mean={mean:.4f} std={std:.4f} "
             f"min={mn:.4f} max={mx:.4f}\n"
         )
+
+
+    f.write(f"\n\nMID\n")
+    for r in results:
+        f.write(
+            f"{r['sample']} | vidéos={r['videos']} | "
+            f"TP={r['TP_mid']} FP={r['FP_mid']} FN={r['FN_mid']} | "
+            f"P={r['Precision_mid']:.4f} "
+            f"R={r['Recall_mid']:.4f} "
+            f"F1={r['F1_mid']:.4f}\n"
+        )
+
+        f.write(f"Precision_mid | mean={r['Precision_mid']:.4f}\n")
+        f.write(f"Recall_mid | mean={r['Recall_mid']:.4f}\n")
+        f.write(f"F1_mid | mean={r['F1_mid']:.4f}")
+
 
 
 print(f"✅ Résultats sauvegardés dans {OUTPUT_FILE}")

@@ -147,6 +147,28 @@ if __name__ == "__main__":
 
     model, device = load_autoshot_model()
 
-    input_directory = r"../../../Dataset/Dataset_Shot/AutoShot/video" 
-    output_directory = r"../Experimentation/AutoShot_TEST/AutoShot_AutoShot"  # Dossier de sortie
+    # input_directory = r"../../../Dataset/Dataset_Shot/AutoShot/video" 
+    # output_directory = r"../Experimentation/AutoShot_TEST/AutoShot_AutoShot"  # Dossier de sortie
+
+    # input_directory = r"../../../Dataset/Dataset_Shot/ClipShots/videos/merged" 
+    # output_directory = r"../Experimentation/ClipShots_TEST/AutoShot_ClipShots"  # Dossier de sortie
+
+    input_directory = r"../../../Dataset/Dataset_Shot/BBC/BBC_FadeBlack_mirror" 
+    output_directory = r"../Experimentation/BBC_FadeBlack_mirror/AutoShot"  # Dossier de sortie
+
     process_videos_in_directory(input_directory, output_directory,model,device)
+
+    input_directory = r"../../../Dataset/Dataset_Shot/BBC/BBC_FadeBlack" 
+    output_directory = r"../Experimentation/BBC_FadeBlack/AutoShot"  # Dossier de sortie
+
+    process_videos_in_directory(input_directory, output_directory,model,device)
+
+    input_directory = r"../../../Dataset/Dataset_Shot/BBC/BBC_Fade" 
+    output_directory = r"../Experimentation/BBC_Fade/AutoShot"  # Dossier de sortie
+
+    process_videos_in_directory(input_directory, output_directory,model,device)
+
+    # input_directory = r"../../../Dataset/Dataset_Shot/BBC/BBC_Alea" 
+    # output_directory = r"../Experimentation/BBC_Alea/AutoShot"  # Dossier de sortie
+
+    # process_videos_in_directory(input_directory, output_directory,model,device)

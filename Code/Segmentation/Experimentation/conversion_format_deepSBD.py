@@ -1,7 +1,7 @@
 import os
 
-input_root = "AutoShot_TEST/DeepSBD_AutoShot"
-output_root = "AutoShot_TEST/DeepSBD_AutoShot_bis"
+input_root = "BBC_FadeBlack_mirror/DeepSBD"
+output_root = "BBC_FadeBlack_mirror/DeepSBD_bis"
 
 os.makedirs(output_root, exist_ok=True)
 
