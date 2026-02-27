@@ -1,7 +1,13 @@
 import os
 
-input_root = "BBC_FadeBlack_mirror/DeepSBD"
-output_root = "BBC_FadeBlack_mirror/DeepSBD_bis"
+input_root = "BBC_Fade/DeepSBD_bis"
+output_root = "BBC_Fade/DeepSBD_bis_bis"
+
+# input_root = "BBC_FadeBlack/DeepSBD_bis"
+# output_root = "BBC_FadeBlack/DeepSBD_bis_bis"
+
+# input_root = "BBC_FadeBlack_mirror/DeepSBD_bis"
+# output_root = "BBC_FadeBlack_mirror/DeepSBD_bis_bis"
 
 os.makedirs(output_root, exist_ok=True)
 

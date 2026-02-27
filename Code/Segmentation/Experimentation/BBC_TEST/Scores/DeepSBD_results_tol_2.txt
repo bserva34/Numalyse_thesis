@@ -1,28 +1,30 @@
 === Évaluation transitions | Tolérance = 2 frames ===
 Méthode : BBC_TEST/DeepSBD
 
+Coverage=0.4195 | Overflow=1.6866 | IoU=0.0878
+
 STRICT
-global | vidéos=11 | TP=1 FP=2175 FN=4843 | P=0.0005 R=0.0002 F1=0.0003 | Frontières=1.0000
+global | vidéos=11 | TP=0 FP=2153 FN=4844 | P=0.0000 R=0.0000 F1=0.0000 | Frontières=0.0000
 
 === Statistiques globales (sur échantillons) ===
-Precision | mean=0.0005 std=0.0000 min=0.0005 max=0.0005
-Recall | mean=0.0002 std=0.0000 min=0.0002 max=0.0002
-F1 | mean=0.0003 std=0.0000 min=0.0003 max=0.0003
-Frontières | mean=1.0000 std=0.0000 min=0.0000 max=0.0000
+Precision | mean=0.0000 std=0.0000 min=0.0000 max=0.0000
+Recall | mean=0.0000 std=0.0000 min=0.0000 max=0.0000
+F1 | mean=0.0000 std=0.0000 min=0.0000 max=0.0000
+Frontières | mean=0.0000 std=0.0000 min=0.0000 max=0.0000
 
 
 COOL
-global | vidéos=11 | TP=522 FP=1654 FN=4322 | P=0.2399 R=0.1078 F1=0.1487 | Moyenne=1.0307
+global | vidéos=11 | TP=564 FP=1589 FN=4280 | P=0.2620 R=0.1164 F1=0.1612 | Moyenne=1.0195
 
 === Statistiques globales (sur échantillons) ===
-Precision_cool | mean=0.2399 std=0.0000 min=0.2399 max=0.2399
-Recall_cool | mean=0.1078 std=0.0000 min=0.1078 max=0.1078
-F1_cool | mean=0.1487 std=0.0000 min=0.1487 max=0.1487
-Moyenne | mean=1.0307 std=0.0000 min=0.0000 max=2.0000
+Precision_cool | mean=0.2620 std=0.0000 min=0.2620 max=0.2620
+Recall_cool | mean=0.1164 std=0.0000 min=0.1164 max=0.1164
+F1_cool | mean=0.1612 std=0.0000 min=0.1612 max=0.1612
+Moyenne | mean=1.0195 std=0.0000 min=0.0000 max=2.0000
 
 
 MID
-global | vidéos=11 | TP=1221 FP=955 FN=3623 | P=0.5611 R=0.2521 F1=0.3479
-Precision_mid | mean=0.5611
-Recall_mid | mean=0.2521
-F1_mid | mean=0.3479
+global | vidéos=11 | TP=1765 FP=388 FN=3079 | P=0.8198 R=0.3644 F1=0.5045
+Precision_mid | mean=0.8198
+Recall_mid | mean=0.3644
+F1_mid | mean=0.5045

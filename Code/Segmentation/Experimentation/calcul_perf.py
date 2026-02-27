@@ -162,6 +162,76 @@ def match_middle_transitions(gt_transitions, pred_transitions, tol):
 
     return TP, FP, FN
 
+def compute_transition_coverage_overflow(gt_transitions, pred_transitions):
+    coverages = []
+    overflows = []
+
+    for g_end, g_start in gt_transitions:
+
+        g_min = min(g_end, g_start)
+        g_max = max(g_end, g_start)
+        g_length = g_max - g_min + 1
+
+        best_overlap = 0
+        best_pred_length = 0
+
+        for p_end, p_start in pred_transitions:
+
+            p_min = min(p_end, p_start)
+            p_max = max(p_end, p_start)
+
+            inter_start = max(g_min, p_min)
+            inter_end = min(g_max, p_max)
+
+            if inter_end >= inter_start:
+                overlap = inter_end - inter_start + 1
+                if overlap > best_overlap:
+                    best_overlap = overlap
+                    best_pred_length = p_max - p_min + 1
+
+        if best_overlap > 0:
+            coverage = best_overlap / g_length
+            overflow = (best_pred_length - best_overlap) / g_length
+        else:
+            coverage = 0
+            overflow = 0
+
+        coverages.append(coverage)
+        overflows.append(overflow)
+
+    return np.mean(coverages), np.mean(overflows)
+
+def compute_transition_iou(gt_transitions, pred_transitions):
+    ious = []
+
+    for g_end, g_start in gt_transitions:
+
+        g_min = min(g_end, g_start)
+        g_max = max(g_end, g_start)
+
+        best_iou = 0
+
+        for p_end, p_start in pred_transitions:
+
+            p_min = min(p_end, p_start)
+            p_max = max(p_end, p_start)
+
+            inter_start = max(g_min, p_min)
+            inter_end = min(g_max, p_max)
+
+            if inter_end >= inter_start:
+                intersection = inter_end - inter_start + 1
+                union = (g_max - g_min + 1) + (p_max - p_min + 1) - intersection
+                iou = intersection / union
+
+                if iou > best_iou:
+                    best_iou = iou
+
+        ious.append(best_iou)
+
+    return np.mean(ious)
+
+
 # ===================================================
 
 
@@ -205,6 +275,10 @@ for sample_name, sample_path in samples.items():
     cpt_tab = []
     tab_front = []
 
+    coverage_total=[]
+    overflow_total=[]
+    iou_total=[]
+
 
     for pred_filename in os.listdir(sample_path):
         if not pred_filename.endswith(".txt"):
@@ -244,6 +318,17 @@ for sample_name, sample_path in samples.items():
         TP_loc_mid, FP_loc_mid, FN_loc_mid = match_middle_transitions(
             gt_transitions, pred_transitions, TOLERANCE
         )
+
+        cov_tr, over_tr = compute_transition_coverage_overflow(
+            gt_transitions, pred_transitions
+        )
+
+        iou_prov = compute_transition_iou(gt_transitions,pred_transitions)
+
+        iou_total.append(iou_prov)
+
+        coverage_total.append(cov_tr)
+        overflow_total.append(over_tr)
 
         TP += TP_loc
         FP += FP_loc
@@ -286,6 +371,10 @@ for sample_name, sample_path in samples.items():
     else:
         moyenne_front = 0
 
+    moyenne_coverage=np.mean(coverage_total)
+    moyenne_overflow=np.mean(overflow_total)
+    moyenne_iou=np.mean(iou_total)
+
 
 
     results.append({
@@ -311,7 +400,10 @@ for sample_name, sample_path in samples.items():
         "FN_mid": FN_mid,
         "Precision_mid": Precision_mid,
         "Recall_mid": Recall_mid,
-        "F1_mid": F1_mid
+        "F1_mid": F1_mid,
+        "Cov":moyenne_coverage,
+        "Over":moyenne_overflow,
+        "IoU":moyenne_iou
     })
 
 
@@ -355,6 +447,14 @@ stats_cool = {
 with open(OUTPUT_FILE, "w") as f:
     f.write(f"=== Évaluation transitions | Tolérance = {TOLERANCE} frames ===\n")
     f.write(f"Méthode : {METHOD_PATH}\n\n")
+
+    for r in results:
+        f.write(
+            f"Coverage={r['Cov']:.4f} | "
+            f"Overflow={r['Over']:.4f} | "
+            f"IoU={r['IoU']:.4f}\n\n"
+        )
+
 
     f.write(f"STRICT\n")
     for r in results:
@@ -406,6 +506,8 @@ with open(OUTPUT_FILE, "w") as f:
         f.write(f"Precision_mid | mean={r['Precision_mid']:.4f}\n")
         f.write(f"Recall_mid | mean={r['Recall_mid']:.4f}\n")
         f.write(f"F1_mid | mean={r['F1_mid']:.4f}")
+
+
 
 
 

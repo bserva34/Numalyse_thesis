@@ -261,7 +261,7 @@ def dmd_shot_detection(video_path, window=5, r=10):
     # # ---- seuil adaptatif
     mu_d = float(np.mean(all_delta)) if all_delta else 0
     sigma_d = float(np.std(all_delta)) if all_delta else 0
-    T_GLOBAL = mu_d + 2. * sigma_d
+    T_GLOBAL = mu_d + 4. * sigma_d
     print("Seuil global : ",T_GLOBAL)
 
 
@@ -331,22 +331,22 @@ def process_videos_in_directory(directory, output_dir):
         write_res(out, Merge_res(res))
 
 if __name__ == '__main__':
-    # import argparse
-    # parser = argparse.ArgumentParser(description='DMD for SBD')
-    # parser.add_argument('video', help='chemin vers la vidéo')
-    # parser.add_argument('--w', type=int, default=5)
-    # args = parser.parse_args()
+    import argparse
+    parser = argparse.ArgumentParser(description='DMD for SBD')
+    parser.add_argument('video', help='chemin vers la vidéo')
+    parser.add_argument('--w', type=int, default=5)
+    args = parser.parse_args()
 
-    # boundaries,amp,deltas = dmd_shot_detection(args.video,args.w)
+    boundaries,amp,deltas = dmd_shot_detection(args.video,args.w)
 
-    # print("Cuts détectés :", boundaries)
-    # print("cuts mergés : ",Merge_res(boundaries))
+    print("Cuts détectés :", boundaries)
+    print("cuts mergés : ",Merge_res(boundaries))
 
-    # plt.figure(figsize=(14,4))
-    # plt.plot(amp, label='hist amplitude')
-    # plt.plot(deltas, label='hist amplitude')
+    plt.figure(figsize=(14,4))
+    plt.plot(amp, label='hist amplitude')
+    plt.plot(deltas, label='hist amplitude')
 
-    # plt.show()
+    plt.show()
 
     # import argparse
 
@@ -404,17 +404,17 @@ if __name__ == '__main__':
     
     #process_videos_in_directory(input_directory, output_directory)
 
-    input_directory = r"../../../Dataset/Dataset_Shot/BBC/BBC_Fade" 
-    output_directory = r"../Experimentation/BBC_Fade/Bi_2"  # Dossier de sortie
-    process_videos_in_directory(input_directory, output_directory)
+    # input_directory = r"../../../Dataset/Dataset_Shot/BBC/BBC_Fade" 
+    # output_directory = r"../Experimentation/BBC_Fade/Bi_2"  # Dossier de sortie
+    # process_videos_in_directory(input_directory, output_directory)
 
-    input_directory = r"../../../Dataset/Dataset_Shot/BBC/BBC_FadeBlack" 
-    output_directory = r"../Experimentation/BBC_FadeBlack/Bi_2"  # Dossier de sortie
-    process_videos_in_directory(input_directory, output_directory)
+    # input_directory = r"../../../Dataset/Dataset_Shot/BBC/BBC_FadeBlack" 
+    # output_directory = r"../Experimentation/BBC_FadeBlack/Bi_2"  # Dossier de sortie
+    # process_videos_in_directory(input_directory, output_directory)
 
-    input_directory = r"../../../Dataset/Dataset_Shot/BBC/BBC_FadeBlack_mirror" 
-    output_directory = r"../Experimentation/BBC_FadeBlack_mirror/Bi_2"  # Dossier de sortie
-    process_videos_in_directory(input_directory, output_directory)
+    # input_directory = r"../../../Dataset/Dataset_Shot/BBC/BBC_FadeBlack_mirror" 
+    # output_directory = r"../Experimentation/BBC_FadeBlack_mirror/Bi_2"  # Dossier de sortie
+    # process_videos_in_directory(input_directory, output_directory)
 
 
     

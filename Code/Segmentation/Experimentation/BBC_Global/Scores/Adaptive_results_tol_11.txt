@@ -1,6 +1,8 @@
 === Évaluation transitions | Tolérance = 11 frames ===
 Méthode : BBC_Global/Adaptive
 
+Coverage=0.3279 | Overflow=0.0004 | IoU=0.3277
+
 STRICT
 global | vidéos=44 | TP=6370 FP=4821 FN=12991 | P=0.5692 R=0.3290 F1=0.4170 | Frontières=0.0461
 

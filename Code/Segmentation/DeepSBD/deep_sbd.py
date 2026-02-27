@@ -273,7 +273,7 @@ if __name__ == "__main__":
 
     device = "cuda" if torch.cuda.is_available() else "cpu"
     model = C3D_SBD().to(device)
-    model.load_state_dict(torch.load("weights_save/c3d_sbd_best_save.pth", map_location=device))
+    model.load_state_dict(torch.load("weights_save/c3d_sbd_best.pth", map_location=device))
     model.eval()
     svm = joblib.load("weights_save/svm_deepsbd.pkl")
 
@@ -281,15 +281,19 @@ if __name__ == "__main__":
     # output_directory = r"../Experimentation/AutoShot_TEST/DeepSBD_AutoShot"  # Dossier de sortie
     # process_videos_in_directory(input_directory, output_directory,model,svm)
 
+    input_directory = r"../../../Dataset/Dataset_Shot/BBC/BBC_base" 
+    output_directory = r"../Experimentation/BBC_TEST/DeepSBD_bis"  # Dossier de sortie
+    process_videos_in_directory(input_directory, output_directory,model,svm)
+
 
     input_directory = r"../../../Dataset/Dataset_Shot/BBC/BBC_Fade" 
-    output_directory = r"../Experimentation/BBC_Fade/DeepSBD"  # Dossier de sortie
+    output_directory = r"../Experimentation/BBC_Fade/DeepSBD_bis"  # Dossier de sortie
     process_videos_in_directory(input_directory, output_directory,model,svm)
 
     input_directory = r"../../../Dataset/Dataset_Shot/BBC/BBC_FadeBlack" 
-    output_directory = r"../Experimentation/BBC_FadeBlack/DeepSBD"  # Dossier de sortie
+    output_directory = r"../Experimentation/BBC_FadeBlack/DeepSBD_bis"  # Dossier de sortie
     process_videos_in_directory(input_directory, output_directory,model,svm)
 
     input_directory = r"../../../Dataset/Dataset_Shot/BBC/BBC_FadeBlack_mirror" 
-    output_directory = r"../Experimentation/BBC_FadeBlack_mirror/DeepSBD"  # Dossier de sortie
+    output_directory = r"../Experimentation/BBC_FadeBlack_mirror/DeepSBD_bis"  # Dossier de sortie
     process_videos_in_directory(input_directory, output_directory,model,svm)

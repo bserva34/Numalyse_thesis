@@ -1,6 +1,8 @@
 === Évaluation transitions | Tolérance = 1 frames ===
 Méthode : BBC_FadeBlack/Suguna
 
+Coverage=0.2091 | Overflow=0.1067 | IoU=0.1929
+
 STRICT
 global | vidéos=11 | TP=269 FP=8297 FN=4560 | P=0.0314 R=0.0557 F1=0.0402 | Frontières=0.9870
 

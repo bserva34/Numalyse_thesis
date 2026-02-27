@@ -1,6 +1,8 @@
 === Évaluation transitions | Tolérance = 9 frames ===
 Méthode : BBC_Global/Suguna
 
+Coverage=0.3088 | Overflow=0.5601 | IoU=0.2296
+
 STRICT
 global | vidéos=44 | TP=7125 FP=22163 FN=12236 | P=0.2433 R=0.3680 F1=0.2929 | Frontières=1.1973
 

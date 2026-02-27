@@ -1,6 +1,8 @@
 === Évaluation transitions | Tolérance = 3 frames ===
 Méthode : BBC_FadeBlack/AutoShot
 
+Coverage=0.0701 | Overflow=0.0004 | IoU=0.0699
+
 STRICT
 global | vidéos=11 | TP=244 FP=3276 FN=4585 | P=0.0693 R=0.0505 F1=0.0585 | Frontières=0.0287
 

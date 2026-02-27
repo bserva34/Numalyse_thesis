@@ -1,6 +1,8 @@
 === Évaluation transitions | Tolérance = 7 frames ===
 Méthode : BBC_Fade/Adaptive
 
+Coverage=0.1878 | Overflow=0.0003 | IoU=0.1877
+
 STRICT
 global | vidéos=11 | TP=939 FP=144 FN=3905 | P=0.8670 R=0.1938 F1=0.3169 | Frontières=0.0447
 

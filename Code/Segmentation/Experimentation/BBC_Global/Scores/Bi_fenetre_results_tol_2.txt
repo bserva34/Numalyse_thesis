@@ -1,6 +1,8 @@
 === Évaluation transitions | Tolérance = 2 frames ===
 Méthode : BBC_Global/Bi_fenetre
 
+Coverage=0.0483 | Overflow=0.0784 | IoU=0.0296
+
 STRICT
 global | vidéos=44 | TP=1930 FP=12912 FN=17431 | P=0.1300 R=0.0997 F1=0.1129 | Frontières=1.6199
 

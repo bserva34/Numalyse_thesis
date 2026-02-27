@@ -1,0 +1,30 @@
+=== Évaluation transitions | Tolérance = 1 frames ===
+Méthode : BBC_Dissolve/Suguna
+
+Coverage=0.2416 | Overflow=0.3545 | IoU=0.1990
+
+STRICT
+global | vidéos=33 | TP=2146 FP=21050 FN=12371 | P=0.0925 R=0.1478 F1=0.1138 | Frontières=0.9949
+
+=== Statistiques globales (sur échantillons) ===
+Precision | mean=0.0925 std=0.0000 min=0.0925 max=0.0925
+Recall | mean=0.1478 std=0.0000 min=0.1478 max=0.1478
+F1 | mean=0.1138 std=0.0000 min=0.1138 max=0.1138
+Frontières | mean=0.9949 std=0.0000 min=0.0000 max=0.0000
+
+
+COOL
+global | vidéos=33 | TP=5112 FP=18084 FN=9405 | P=0.2204 R=0.3521 F1=0.2711 | Moyenne=1.0041
+
+=== Statistiques globales (sur échantillons) ===
+Precision_cool | mean=0.2204 std=0.0000 min=0.2204 max=0.2204
+Recall_cool | mean=0.3521 std=0.0000 min=0.3521 max=0.3521
+F1_cool | mean=0.2711 std=0.0000 min=0.2711 max=0.2711
+Moyenne | mean=1.0041 std=0.0000 min=0.0000 max=2.0000
+
+
+MID
+global | vidéos=33 | TP=3473 FP=19723 FN=11044 | P=0.1497 R=0.2392 F1=0.1842
+Precision_mid | mean=0.1497
+Recall_mid | mean=0.2392
+F1_mid | mean=0.1842

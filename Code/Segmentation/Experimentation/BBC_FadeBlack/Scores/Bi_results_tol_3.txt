@@ -1,28 +1,30 @@
 === Évaluation transitions | Tolérance = 3 frames ===
 Méthode : BBC_FadeBlack/Bi
 
+Coverage=0.0037 | Overflow=0.0010 | IoU=0.0035
+
 STRICT
-global | vidéos=11 | TP=2 FP=375 FN=4827 | P=0.0053 R=0.0004 F1=0.0008 | Frontières=1.7500
+global | vidéos=11 | TP=2 FP=803 FN=4827 | P=0.0025 R=0.0004 F1=0.0007 | Frontières=1.5000
 
 === Statistiques globales (sur échantillons) ===
-Precision | mean=0.0053 std=0.0000 min=0.0053 max=0.0053
+Precision | mean=0.0025 std=0.0000 min=0.0025 max=0.0025
 Recall | mean=0.0004 std=0.0000 min=0.0004 max=0.0004
-F1 | mean=0.0008 std=0.0000 min=0.0008 max=0.0008
-Frontières | mean=1.7500 std=0.0000 min=0.0000 max=0.0000
+F1 | mean=0.0007 std=0.0000 min=0.0007 max=0.0007
+Frontières | mean=1.5000 std=0.0000 min=0.0000 max=0.0000
 
 
 COOL
-global | vidéos=11 | TP=12 FP=365 FN=4817 | P=0.0318 R=0.0025 F1=0.0046 | Moyenne=1.0833
+global | vidéos=11 | TP=22 FP=783 FN=4807 | P=0.0273 R=0.0046 F1=0.0078 | Moyenne=1.0455
 
 === Statistiques globales (sur échantillons) ===
-Precision_cool | mean=0.0318 std=0.0000 min=0.0318 max=0.0318
-Recall_cool | mean=0.0025 std=0.0000 min=0.0025 max=0.0025
-F1_cool | mean=0.0046 std=0.0000 min=0.0046 max=0.0046
-Moyenne | mean=1.0833 std=0.0000 min=0.0000 max=2.0000
+Precision_cool | mean=0.0273 std=0.0000 min=0.0273 max=0.0273
+Recall_cool | mean=0.0046 std=0.0000 min=0.0046 max=0.0046
+F1_cool | mean=0.0078 std=0.0000 min=0.0078 max=0.0078
+Moyenne | mean=1.0455 std=0.0000 min=0.0000 max=2.0000
 
 
 MID
-global | vidéos=11 | TP=42 FP=335 FN=4787 | P=0.1114 R=0.0087 F1=0.0161
-Precision_mid | mean=0.1114
-Recall_mid | mean=0.0087
-F1_mid | mean=0.0161
+global | vidéos=11 | TP=80 FP=725 FN=4749 | P=0.0994 R=0.0166 F1=0.0284
+Precision_mid | mean=0.0994
+Recall_mid | mean=0.0166
+F1_mid | mean=0.0284

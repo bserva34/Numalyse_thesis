@@ -99,28 +99,28 @@ def write_res(directory,video_path,boundaries,lenght):
 
 if __name__ == "__main__":
     """execution unique"""
-    # import argparse
-    # parser = argparse.ArgumentParser(description='AutoShot detector')
-    # parser.add_argument('video', help='chemin vers la vidéo mp4/avi')
-    # parser.add_argument('--directory', help='chemin du dossier de sortie', default=None)
-    # parser.add_argument('--v', action='store_true')
-    # args = parser.parse_args()
+    import argparse
+    parser = argparse.ArgumentParser(description='AutoShot detector')
+    parser.add_argument('video', help='chemin vers la vidéo mp4/avi')
+    parser.add_argument('--directory', help='chemin du dossier de sortie', default=None)
+    parser.add_argument('--v', action='store_true')
+    args = parser.parse_args()
 
-    # model, device = load_autoshot_model()
+    model, device = load_autoshot_model()
 
-    # boundaries, preds, frames = predict_video(model, device, args.video)
-    # print("Coupures détectées :", boundaries)
+    boundaries, preds, frames = predict_video(model, device, args.video)
+    print("Coupures détectées :", boundaries)
 
-    # if args.directory : 
-    #     write_res(args.directory,args.video,boundaries,len(frames))
+    if args.directory : 
+        write_res(args.directory,args.video,boundaries,len(frames))
 
-    # # Visualisation
-    # if args.v:
-    #     output_dir = "results_autoshot"
-    #     os.makedirs(output_dir, exist_ok=True)
-    #     vis = visualize_predictions(frames, predictions=(preds > 0.296).astype(np.uint8))
-    #     vis.save(os.path.join(output_dir, os.path.basename(args.video).replace(".mp4", "_shots.png")))
-    #     print(f"Résultat sauvegardé : {output_dir}")
+    # Visualisation
+    if args.v:
+        output_dir = "results_autoshot"
+        os.makedirs(output_dir, exist_ok=True)
+        vis = visualize_predictions(frames, predictions=(preds > 0.296).astype(np.uint8))
+        vis.save(os.path.join(output_dir, os.path.basename(args.video).replace(".mp4", "_shots.png")))
+        print(f"Résultat sauvegardé : {output_dir}")
 
     """exuction multiple sur dossier"""
     # import argparse
@@ -145,7 +145,7 @@ if __name__ == "__main__":
     #         dir_prov=os.path.join(input_directory, line)
     #         process_videos_in_directory(dir_prov, output_directory,model,device)
 
-    model, device = load_autoshot_model()
+    #model, device = load_autoshot_model()
 
     # input_directory = r"../../../Dataset/Dataset_Shot/AutoShot/video" 
     # output_directory = r"../Experimentation/AutoShot_TEST/AutoShot_AutoShot"  # Dossier de sortie
@@ -153,20 +153,20 @@ if __name__ == "__main__":
     # input_directory = r"../../../Dataset/Dataset_Shot/ClipShots/videos/merged" 
     # output_directory = r"../Experimentation/ClipShots_TEST/AutoShot_ClipShots"  # Dossier de sortie
 
-    input_directory = r"../../../Dataset/Dataset_Shot/BBC/BBC_FadeBlack_mirror" 
-    output_directory = r"../Experimentation/BBC_FadeBlack_mirror/AutoShot"  # Dossier de sortie
+    # input_directory = r"../../../Dataset/Dataset_Shot/BBC/BBC_FadeBlack_mirror" 
+    # output_directory = r"../Experimentation/BBC_FadeBlack_mirror/AutoShot"  # Dossier de sortie
 
-    process_videos_in_directory(input_directory, output_directory,model,device)
+    # process_videos_in_directory(input_directory, output_directory,model,device)
 
-    input_directory = r"../../../Dataset/Dataset_Shot/BBC/BBC_FadeBlack" 
-    output_directory = r"../Experimentation/BBC_FadeBlack/AutoShot"  # Dossier de sortie
+    # input_directory = r"../../../Dataset/Dataset_Shot/BBC/BBC_FadeBlack" 
+    # output_directory = r"../Experimentation/BBC_FadeBlack/AutoShot"  # Dossier de sortie
 
-    process_videos_in_directory(input_directory, output_directory,model,device)
+    # process_videos_in_directory(input_directory, output_directory,model,device)
 
-    input_directory = r"../../../Dataset/Dataset_Shot/BBC/BBC_Fade" 
-    output_directory = r"../Experimentation/BBC_Fade/AutoShot"  # Dossier de sortie
+    # input_directory = r"../../../Dataset/Dataset_Shot/BBC/BBC_Fade" 
+    # output_directory = r"../Experimentation/BBC_Fade/AutoShot"  # Dossier de sortie
 
-    process_videos_in_directory(input_directory, output_directory,model,device)
+    # process_videos_in_directory(input_directory, output_directory,model,device)
 
     # input_directory = r"../../../Dataset/Dataset_Shot/BBC/BBC_Alea" 
     # output_directory = r"../Experimentation/BBC_Alea/AutoShot"  # Dossier de sortie

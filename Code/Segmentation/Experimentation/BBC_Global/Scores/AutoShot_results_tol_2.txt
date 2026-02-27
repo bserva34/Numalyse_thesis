@@ -1,6 +1,8 @@
 === Évaluation transitions | Tolérance = 2 frames ===
 Méthode : BBC_Global/AutoShot
 
+Coverage=0.3422 | Overflow=0.0117 | IoU=0.3383
+
 STRICT
 global | vidéos=44 | TP=6656 FP=7562 FN=12705 | P=0.4681 R=0.3438 F1=0.3964 | Frontières=0.0699
 
