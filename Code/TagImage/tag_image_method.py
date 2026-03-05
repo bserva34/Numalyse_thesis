@@ -12,26 +12,26 @@ from scipy.spatial.distance import cdist
 import matplotlib.pyplot as plt
 
 
+# Pondération Temporel 
 def double_gaussian_equal(x, t, epsilon):
     """
-    Generates a double Gaussian weight over frame indices.
-    x: array-like frame indices
-    t: total number of frames
-    epsilon: 0.1 * t by default
-    """
+    t : nombre de frames / longueurs de plans
+    epsilon : 0.1*t / décalage de la deuxième gaussienne 
+    sigma : largeur de chaque gaussienne 
+    """ 
     sigma = 0.15 * t
     A = 1.0
     g1 = A * np.exp(-((x - t/2)**2) / (2 * sigma**2))
     g2 = A * np.exp(-((x - (t - epsilon))**2) / (2 * sigma**2))
     return g1 + g2
 
+# Pondération de Qualité
+def compute_sharpness(frame):
+    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    return cv2.Laplacian(gray, cv2.CV_64F).var()
 
-def compute_label_histogram(frame, model, transform, thr, num_classes, device, sigma_pos):
-    # Convert BGR to PIL RGB
-    pil = Image.fromarray(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB))
-    img_t = transform(pil).unsqueeze(0).to(device)
-    with torch.no_grad():
-        out = model(img_t)[0]
+
+def compute_hist_from_output(frame, out, thr, num_classes, sigma_pos):
 
     # Extract detections
     scores = out['scores'].cpu().numpy()
@@ -57,26 +57,15 @@ def compute_label_histogram(frame, model, transform, thr, num_classes, device, s
     dy = (cy - cy_img) / cy_img
     dist = np.sqrt(dx**2 + dy**2)
 
-    # pondération spatial
+    # Pondération spatial
     w_pos = np.exp(-0.5 * (dist / sigma_pos)**2)
-
-    # Taille (aire) normalisée
-    area = (boxes_f[:, 2] - boxes_f[:, 0]) * (boxes_f[:, 3] - boxes_f[:, 1])
-    a_norm = area / (H * W)
-
-    # Pondération totale = score * w_pos * a_norm
-    weights = scores_f * w_pos 
-
-    # Histogramme
+    weights = scores_f * w_pos
+    
+    # Création de l'histogramme
     hist = np.zeros(num_classes, dtype=np.float32)
-    for label, w in zip(labels_f, weights):
-        hist[label] += w
+    np.add.at(hist, labels_f, weights)
 
     return hist
-
-def compute_sharpness(frame):
-    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-    return cv2.Laplacian(gray, cv2.CV_64F).var()
 
 
 def main():
@@ -86,96 +75,128 @@ def main():
     parser.add_argument('--thr', type=float, default=0.7, help='Detection score threshold')
     parser.add_argument('--metric', default='euclidean', choices=['euclidean', 'cityblock', 'cosine'],
                         help='Distance metric to use')
-    parser.add_argument('--topk', type=int, default=1, help='Number of nearest frames to select')
     parser.add_argument('--sigma-pos', type=float, default=0.5,
                         help='Spatial weighting sigma (normalized distance)')
+    parser.add_argument('--batch-size', type=int, default=None)
     args = parser.parse_args()
 
+    #création du dossier s'il n'existe pas 
     os.makedirs(args.out, exist_ok=True)
 
+    #extraction des frames
     cap = cv2.VideoCapture(args.video)
-    frames = []
-    while True:
-        ret, frame = cap.read()
-        if not ret:
-            break
-        frames.append(frame)
-    cap.release()
-    if not frames:
-        print("Error: No frames read from video.")
+    num_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
+
+    if num_frames == 0:
+        print("Error: No frames in video.")
         return
 
-    num_frames = len(frames)
+
     epsilon = 0.1 * num_frames
 
-    # Prepare detection model
+    # Préparation du modèle de détection
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    if args.batch_size:
+        batch_size = args.batch_size
+    else:
+        batch_size = 4 if device.type == "cuda" else 1
+    # Print qui permet de voir si le gpu est détecté
+    print(batch_size)
+    print("Device : ",device)
+
     model = models.detection.fasterrcnn_resnet50_fpn(
         weights=models.detection.FasterRCNN_ResNet50_FPN_Weights.DEFAULT
     ).to(device).eval()
     transform = T.ToTensor()
 
-    # nb classe + background
+    # Nombre de classes du detecteur 
     num_classes = 91
 
-    # First pass
+    # Première passe
     histograms = []
     sharpness_scores = []
-    print("Computing weighted label histograms for each frame...")
-    for frame in tqdm(frames, desc="Histograms"):
-        hist = compute_label_histogram(frame, model, transform, args.thr, num_classes, device, args.sigma_pos)
-        histograms.append(hist)
-        sharpness_scores.append(compute_sharpness(frame))
+
+    batch_frames = []
+    batch_imgs = []
+
+    cap = cv2.VideoCapture(args.video)
+    cap.set(cv2.CAP_PROP_POS_FRAMES, 0)
+
+    print("Computing weighted label histograms (batched)...")
+
+    for i in tqdm(range(num_frames), desc="Histograms"):
+        ret, frame = cap.read()
+        if not ret:
+            break
+
+        # Stock frame pour sharpness
+        batch_frames.append(frame)
+
+        # Préparation image pour modèle
+        pil = Image.fromarray(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB))
+        batch_imgs.append(transform(pil))
+
+        # Si batch plein → inference
+        if len(batch_imgs) == batch_size or i == num_frames - 1:
+
+            imgs = [img.to(device) for img in batch_imgs]
+
+            with torch.no_grad():
+                outputs = model(imgs)
+
+            for frame_b, out in zip(batch_frames, outputs):
+
+                hist = compute_hist_from_output(
+                    frame_b, out,
+                    args.thr, num_classes,
+                    args.sigma_pos
+                )
+
+                histograms.append(hist)
+                sharpness_scores.append(compute_sharpness(frame_b))
+
+            batch_frames = []
+            batch_imgs = []
+
+    cap.release()
+
+    histograms = np.stack(histograms, axis=0)
+    sharpness_scores = np.array(sharpness_scores)
     histograms = np.stack(histograms, axis=0)
 
     #normalisation qualité
     sharpness_scores = np.array(sharpness_scores)
     sharpness_scores /= sharpness_scores.max() 
 
-    #pondération qualité
-    histograms = np.array(histograms)
+    #Application de la pondération de qualité
     histograms *= sharpness_scores[:, None]  
 
-    # pondération tempo
+    # Application de la pondération temporelle
     x = np.arange(num_frames, dtype=float)
     weights_t = double_gaussian_equal(x, num_frames, epsilon)
-    weights_t /= weights_t.sum()
+    weights_t /= weights_t.sum()    
     hist_t = np.average(histograms, axis=0, weights=weights_t)
 
     # calcul distance entre chaque histo et histo de référence
     dists = cdist(histograms, hist_t[None, :], metric=args.metric).squeeze()
 
-    # Select top-k frames
-    topk_idxs = np.argsort(dists)[:args.topk]
-    print(f"Selected frame indices: {topk_idxs.tolist()}")
+    # Selection de la frame best
+    top_idxs = np.argsort(dists)[:1]
+    id_frame = top_idxs[0]
 
-    # Save results
+
+    # Sauvegarde des résultats
     base = os.path.splitext(os.path.basename(args.video))[0]
-    for rank, idx in enumerate(topk_idxs, start=1):
-        out_path = os.path.join(args.out, f"{base}_keyframe_rank{rank}_{idx:04d}.jpg")
-        cv2.imwrite(out_path, frames[idx])
-        print(f"Rank {rank}: frame {idx}, distance {dists[idx]:.4f} -> {out_path}")
+    out_path = os.path.join(args.out, f"{base}_keyframe__{id_frame:04d}.jpg")
 
-    # plt.figure(figsize=(12, 6))
-    # x = np.arange(num_classes)
+    cap = cv2.VideoCapture(args.video)
+    cap.set(cv2.CAP_PROP_POS_FRAMES, id_frame)
+    ret, frame = cap.read()
+    cap.release()
 
-    # # Histogramme moyen (pondéré spatio-temporellement)
-    # plt.plot(x, hist_t, label="Histogramme moyen (pondéré)", linewidth=2)
+    if ret:
+        cv2.imwrite(out_path, frame)
 
-    # # Histogramme de la frame sélectionnée numéro 1
-    # idx1 = topk_idxs[0]
-    # plt.plot(x, histograms[idx1], label=f"Frame sélectionnée {idx1}", linewidth=2)
-
-    # plt.title(f"Comparaison des histogrammes – {base}")
-    # plt.xlabel("Index de classe (COCO)")
-    # plt.ylabel("Score pondéré")
-    # plt.legend()
-    # plt.tight_layout()
-
-    # # Correction du nom de dossier (args.out au lieu de out_dir)
-    # graph2_path = os.path.join(args.out, f"{base}_graph2_histogram_comparison.png")
-    # plt.savefig(graph2_path)
-    # plt.close()
 
 
 if __name__ == '__main__':
