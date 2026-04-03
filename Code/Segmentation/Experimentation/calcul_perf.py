@@ -1,5 +1,9 @@
 import os
 import numpy as np
+import cv2
+from collections import defaultdict
+import matplotlib.pyplot as plt
+
 
 # ===================== CONFIG =====================
 # PATH_GT = "../../../Dataset/Dataset_Shot/V3C/V3C1/msb"
@@ -8,6 +12,8 @@ import numpy as np
 
 #PATH_GT = "../../../Dataset/Dataset_Shot/BBC/annotations"
 PATH_GT = "../../../Dataset/Dataset_Shot/BBC/annotations"
+
+#PATH_GT = "../../../Dataset/Dataset_Shot/CineShots/annotations"
 # =================================================
 
 
@@ -87,8 +93,14 @@ def match_transitions_with_tolerance(gt_transitions, pred_transitions, tol):
 
     tab_front = []
 
+    not_find=[]
+
+    histogram = defaultdict(int)
+    stat_trans = []
+
     for p_end, p_start in pred_transitions:
         #print(f"PREDICTION : {p_end}/{p_start}")
+        find=False
 
         for idx, (g_end, g_start) in enumerate(gt_transitions):
             if idx in gt_used:
@@ -102,14 +114,24 @@ def match_transitions_with_tolerance(gt_transitions, pred_transitions, tol):
                 tab_front.append(abs(p_end - g_end))
                 tab_front.append(abs(p_start - g_start))
 
-                #print(f"Prediction :{p_end}/{p_start} - GT : {g_end}/{g_start} ")
+                len_trans = abs(g_end-g_start)
+                if len_trans > 0 :
+                    histogram[len_trans] += 1
+                    stat_trans.append(len_trans)
 
+                #print(f"Prediction :{p_end}/{p_start} - GT : {g_end}/{g_start} ")
+                find=True
                 break
+
+        if not find:
+            #print(f"PREDICTION : {p_end}/{p_start}")
+            not_find.append((p_end,p_start))
 
     FP = len(pred_transitions) - TP
     FN = len(gt_transitions) - TP
 
-    return TP, FP, FN, tab_front
+    return TP, FP, FN, tab_front, not_find, dict(histogram),stat_trans
+
 
 def match_transitions_with_tolerance_cool(gt_transitions, pred_transitions, tol):
     """
@@ -119,6 +141,9 @@ def match_transitions_with_tolerance_cool(gt_transitions, pred_transitions, tol)
     TP = 0
 
     cpt_tab = np.zeros(len(gt_transitions))
+
+    histogram = defaultdict(int)
+    stat_trans = []
 
     for p_end, p_start in pred_transitions:
         for idx, (g_end, g_start) in enumerate(gt_transitions):
@@ -130,18 +155,27 @@ def match_transitions_with_tolerance_cool(gt_transitions, pred_transitions, tol)
                 TP += 1
                 gt_used.add(idx)
                 cpt_tab[idx]+=1
+
+                len_trans = abs(g_end-g_start)
+                if len_trans > 0 :
+                    histogram[len_trans] += 1
+                    stat_trans.append(len_trans)
+
                 break
 
     FP = len(pred_transitions) - TP
     FN = len(gt_transitions) - TP
 
 
-    return TP, FP, FN, cpt_tab
+    return TP, FP, FN, cpt_tab, dict(histogram),stat_trans
 
 
 def match_middle_transitions(gt_transitions, pred_transitions, tol):
     gt_used = set()
     TP = 0
+    histogram = defaultdict(int)
+    stat_trans = []
+
     for p_end, p_start in pred_transitions:
 
         p_mid = (p_end + p_start) / 2
@@ -155,12 +189,17 @@ def match_middle_transitions(gt_transitions, pred_transitions, tol):
                     continue
                 TP += 1
                 gt_used.add(idx)
+                len_trans = abs(g_end-g_start)
+                if len_trans > 0 :
+                    histogram[len_trans] += 1
+                    stat_trans.append(len_trans)
+
                 break
 
     FP = len(pred_transitions) - TP
     FN = len(gt_transitions) - TP
 
-    return TP, FP, FN
+    return TP, FP, FN, dict(histogram),stat_trans
 
 def compute_transition_coverage_overflow(gt_transitions, pred_transitions):
     coverages = []
@@ -231,6 +270,53 @@ def compute_transition_iou(gt_transitions, pred_transitions):
 
     return np.mean(ious)
 
+# def plot_hist(histogram,name):
+#     errors = sorted(histogram.keys())
+#     counts = [histogram[e] for e in errors]
+
+#     # total = sum(counts)
+#     # print(total)
+#     # counts_norm = [c / total for c in counts]
+
+#     plt.figure()
+#     plt.bar(errors, counts)
+
+#     plt.xlabel("Longueur Transition")
+#     plt.ylabel("Occurence")
+#     plt.title("Histogramme des longueurs de transition detecté")
+#     plt.xlim(0, 250)
+
+#     plt.savefig(name,dpi=800)
+
+
+def plot_hist(histogram,name):
+    plt.figure(figsize=(8, 5)) 
+    plt.hist(histogram, bins=20) 
+    plt.title("Distribution des longueurs de transitions") 
+    plt.xlabel("Frames") 
+    plt.ylabel("Fréquence") 
+    plt.grid(True) 
+    graph_path = name 
+    plt.savefig(graph_path) 
+
+def stat_trans(tab):
+    print("Moyenne : ",np.mean(tab))
+    print("Variance: ",np.std(tab))
+    print("Mediane : ",np.median(tab))
+
+
+    q1 = np.percentile(tab, 25)
+    q3 = np.percentile(tab, 75)
+    iqr = q3 - q1
+    print("Ecart interquartile : ", iqr)
+    print("Maximum : ",np.max(tab))
+    print("Nb Transition : ",len(tab))
+
+def save_hist(histogram, name):
+    with open(name, "w") as f:
+        for length, count in histogram.items():
+            f.write(f"{length} {count}\n")
+
 
 # ===================================================
 
@@ -250,7 +336,14 @@ if __name__ == "__main__":
     left_part = os.path.dirname(METHOD_PATH)
 
 
-    OUTPUT_FILE = left_part+"/Scores/"+ name + f"_results_tol_{TOLERANCE}.txt"
+    OUTPUT_FILE = left_part+"/Hist/"+ name + f"_results_tol_{TOLERANCE}.txt"
+    OUTPUT_HIST_STRICT = left_part+"/Hist/"+ name + f"_hist_strict_tol_{TOLERANCE}.png"
+    OUTPUT_HIST_COOL = left_part+"/Hist/"+ name + f"_hist_cool_tol_{TOLERANCE}.png"
+    OUTPUT_HIST_MID = left_part+"/Hist/"+ name + f"_hist_mid_tol_{TOLERANCE}.png"
+
+    OUTPUT_HIST_STRICT_TXT = left_part+"/Hist/Hist_strict/"+ name + f"_hist_strict_tol_{TOLERANCE}.txt"
+    OUTPUT_HIST_COOL_TXT = left_part+"/Hist/Hist_cool/"+ name + f"_hist_cool_tol_{TOLERANCE}.txt"
+    OUTPUT_HIST_MID_TXT = left_part+"/Hist/Hist_mid/"+ name + f"_hist_mid_tol_{TOLERANCE}.txt"
 
 results = []
 
@@ -279,6 +372,16 @@ for sample_name, sample_path in samples.items():
     overflow_total=[]
     iou_total=[]
 
+    histogram_strict = defaultdict(int)
+    histogram_cool = defaultdict(int)
+    histogram_mid = defaultdict(int)
+
+    stat_trans_strict = []
+    stat_trans_cool = []
+    stat_trans_mid = []
+
+    nb_trans=0
+
 
     for pred_filename in os.listdir(sample_path):
         if not pred_filename.endswith(".txt"):
@@ -301,23 +404,34 @@ for sample_name, sample_path in samples.items():
         gt_plans = read_gt_plans_txt(gt_file)
 
         #gt_transitions = read_gt_plans_txt(gt_file) #Other TEST
-        gt_transitions = plans_to_transitions(gt_plans) #BBC TEST 
+        gt_transitions = plans_to_transitions(gt_plans) #BBC TEST
+
+        nb_trans+=len(gt_transitions)
 
         # ===== Lecture prédictions =====
         pred_transitions = read_pred_transitions_txt(pred_file)
 
         # ===== Matching =====
-        TP_loc, FP_loc, FN_loc, tab_front_prov = match_transitions_with_tolerance(
+        TP_loc, FP_loc, FN_loc, tab_front_prov, not_find_prov, histogram_strict_prov, stat_trans_strict_prov = match_transitions_with_tolerance(
             gt_transitions, pred_transitions, TOLERANCE
         )
 
-        TP_loc_cool, FP_loc_cool, FN_loc_cool, cpt_tab_prov = match_transitions_with_tolerance_cool(
+        for key, value in histogram_strict_prov.items():
+            histogram_strict[key] += value
+
+        TP_loc_cool, FP_loc_cool, FN_loc_cool, cpt_tab_prov, histogram_cool_prov, stat_trans_cool_prov  = match_transitions_with_tolerance_cool(
             gt_transitions, pred_transitions, TOLERANCE
         )
 
-        TP_loc_mid, FP_loc_mid, FN_loc_mid = match_middle_transitions(
+        for key, value in histogram_cool_prov.items():
+            histogram_cool[key] += value
+
+        TP_loc_mid, FP_loc_mid, FN_loc_mid, histogram_mid_prov, stat_trans_mid_prov = match_middle_transitions(
             gt_transitions, pred_transitions, TOLERANCE
         )
+
+        for key, value in histogram_mid_prov.items():
+            histogram_mid[key] += value
 
         cov_tr, over_tr = compute_transition_coverage_overflow(
             gt_transitions, pred_transitions
@@ -344,6 +458,29 @@ for sample_name, sample_path in samples.items():
 
         cpt_tab=np.concatenate((cpt_tab,cpt_tab_prov))
         tab_front=np.concatenate((tab_front,tab_front_prov))
+
+        stat_trans_strict=np.concatenate((stat_trans_strict,stat_trans_strict_prov))
+        stat_trans_cool=np.concatenate((stat_trans_cool,stat_trans_cool_prov))
+        stat_trans_mid=np.concatenate((stat_trans_mid,stat_trans_mid_prov))
+
+
+    # cap = cv2.VideoCapture("../../../Dataset/Dataset_Shot/CineShots/videos/LaVieDAdele.m4v")
+
+    # for end,start in not_find_prov:
+
+    #     cap.set(cv2.CAP_PROP_POS_FRAMES, end)
+    #     ret, frame_end = cap.read()
+
+    #     cap.set(cv2.CAP_PROP_POS_FRAMES, start)
+    #     ret, frame_start = cap.read()
+
+    #     name1 = "TEST_CUT_DETECTION/Not_merged/frame_"+str(end)+".png"
+    #     name2 = "TEST_CUT_DETECTION/Not_merged/frame_"+str(start)+".png"
+    #     cv2.imwrite(name1, frame_end)
+    #     cv2.imwrite(name2, frame_start)
+
+    # cap.release()
+
 
     Precision = TP / (TP + FP) if (TP + FP) > 0 else 0
     Recall = TP / (TP + FN) if (TP + FN) > 0 else 0
@@ -405,6 +542,24 @@ for sample_name, sample_path in samples.items():
         "Over":moyenne_overflow,
         "IoU":moyenne_iou
     })
+
+    plot_hist(stat_trans_strict,OUTPUT_HIST_STRICT)
+    plot_hist(stat_trans_cool,OUTPUT_HIST_COOL)
+    plot_hist(stat_trans_mid,OUTPUT_HIST_MID)
+    
+    print(name)
+    # print("STRICT")
+    # stat_trans(stat_trans_strict)
+    # print("COOL")
+    # stat_trans(stat_trans_cool)
+    # print("MID")
+    # stat_trans(stat_trans_mid)
+
+    save_hist(histogram_strict,OUTPUT_HIST_STRICT_TXT)
+    save_hist(histogram_cool,OUTPUT_HIST_COOL_TXT)
+    save_hist(histogram_mid,OUTPUT_HIST_MID_TXT)
+
+
 
 
 # # Sauvegarde données brutes pour visualisation ultérieure

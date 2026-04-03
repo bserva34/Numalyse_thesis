@@ -1,0 +1,30 @@
+=== Évaluation transitions | Tolérance = 9 frames ===
+Méthode : TEST_CUT_DETECTION/Adaptive
+
+Coverage=0.9443 | Overflow=0.0071 | IoU=0.9419
+
+STRICT
+global | vidéos=1 | TP=1656 FP=12 FN=101 | P=0.9928 R=0.9425 F1=0.9670 | Frontières=0.0220
+
+=== Statistiques globales (sur échantillons) ===
+Precision | mean=0.9928 std=0.0000 min=0.9928 max=0.9928
+Recall | mean=0.9425 std=0.0000 min=0.9425 max=0.9425
+F1 | mean=0.9670 std=0.0000 min=0.9670 max=0.9670
+Frontières | mean=0.0220 std=0.0000 min=0.0000 max=0.0000
+
+
+COOL
+global | vidéos=1 | TP=1656 FP=12 FN=101 | P=0.9928 R=0.9425 F1=0.9670 | Moyenne=1.0000
+
+=== Statistiques globales (sur échantillons) ===
+Precision_cool | mean=0.9928 std=0.0000 min=0.9928 max=0.9928
+Recall_cool | mean=0.9425 std=0.0000 min=0.9425 max=0.9425
+F1_cool | mean=0.9670 std=0.0000 min=0.9670 max=0.9670
+Moyenne | mean=1.0000 std=0.0000 min=0.0000 max=1.0000
+
+
+MID
+global | vidéos=1 | TP=1656 FP=12 FN=101 | P=0.9928 R=0.9425 F1=0.9670
+Precision_mid | mean=0.9928
+Recall_mid | mean=0.9425
+F1_mid | mean=0.9670

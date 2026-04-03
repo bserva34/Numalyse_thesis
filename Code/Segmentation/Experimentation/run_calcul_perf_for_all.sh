@@ -7,6 +7,11 @@
 
 #METHOD_PATH=("Adaptive_V3C1_bis" "AutoShot_V3C1" "Bi_V3C1" "DeepSBD_V3C1_bis" "Suguna_V3C1")
 
+METHOD_PATH=("BBC_Fade/TransnetV2_cinema"
+"BBC_FadeBlack/TransnetV2_cinema"
+"BBC_FadeBlack_mirror/TransnetV2_cinema"
+"BBC_TEST/TransnetV2_cinema")
+
 METHOD_PATH=("BBC_TEST/Adaptive" 
 "BBC_TEST/AutoShot" 
 "BBC_TEST/Bi" 
@@ -41,7 +46,7 @@ METHOD_PATH=("BBC_TEST/Adaptive"
 "BBC_Global/Bi_fenetre" 
 "BBC_Global/DeepSBD" 
 "BBC_Global/Suguna"
-"BBC_Global/TransnetV2"*
+"BBC_Global/TransnetV2"
 "BBC_Dissolve/Adaptive" 
 "BBC_Dissolve/AutoShot" 
 "BBC_Dissolve/Bi" 
@@ -50,6 +55,18 @@ METHOD_PATH=("BBC_TEST/Adaptive"
 "BBC_Dissolve/Suguna"
 "BBC_Dissolve/TransnetV2"
 )
+
+
+METHOD_PATH=(
+"BBC_Dissolve/Adaptive" 
+"BBC_Dissolve/Suguna"
+"BBC_Dissolve/Bi" 
+"BBC_Dissolve/Bi_fenetre" 
+"BBC_Dissolve/DeepSBD" 
+"BBC_Dissolve/TransnetV2"
+"BBC_Dissolve/AutoShot" 
+)
+
 
 
 #METHOD_PATH=("BBC_TEST/Adaptive" "BBC_TEST/AutoShot" "BBC_TEST/Bi" "BBC_TEST/Bi_fenetre" "BBC_TEST/DeepSBD" "BBC_TEST/Suguna")
@@ -61,7 +78,7 @@ METHOD_PATH=("BBC_TEST/Adaptive"
 
 
 
-for t in {0..12}
+for t in {6..6}
 do
 	for i in "${METHOD_PATH[@]}"
 	do

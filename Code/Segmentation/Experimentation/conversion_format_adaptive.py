@@ -1,7 +1,10 @@
 import os
 
-input_root = "BBC_FadeBlack_mirror/TransnetV2"
-output_root = "BBC_FadeBlack_mirror/TransnetV2_bis"
+input_root = "BBC_TEST/Adaptive_PT"
+output_root = "BBC_TEST/Adaptive_PT_bis"
+
+# input_root = "BBC_FadeBlack_mirror/TransnetV2_cinema"
+# output_root = "BBC_FadeBlack_mirror/TransnetV2_cinema_bis"
 
 
 os.makedirs(output_root, exist_ok=True)

@@ -1,0 +1,30 @@
+=== Évaluation transitions | Tolérance = 8 frames ===
+Méthode : TEST_CUT_DETECTION/TransnetV2_cinema
+
+Coverage=0.9719 | Overflow=0.0384 | IoU=0.9640
+
+STRICT
+global | vidéos=1 | TP=1725 FP=685 FN=32 | P=0.7158 R=0.9818 F1=0.8279 | Frontières=0.0565
+
+=== Statistiques globales (sur échantillons) ===
+Precision | mean=0.7158 std=0.0000 min=0.7158 max=0.7158
+Recall | mean=0.9818 std=0.0000 min=0.9818 max=0.9818
+F1 | mean=0.8279 std=0.0000 min=0.8279 max=0.8279
+Frontières | mean=0.0565 std=0.0000 min=0.0000 max=0.0000
+
+
+COOL
+global | vidéos=1 | TP=1726 FP=684 FN=31 | P=0.7162 R=0.9824 F1=0.8284 | Moyenne=1.0041
+
+=== Statistiques globales (sur échantillons) ===
+Precision_cool | mean=0.7162 std=0.0000 min=0.7162 max=0.7162
+Recall_cool | mean=0.9824 std=0.0000 min=0.9824 max=0.9824
+F1_cool | mean=0.8284 std=0.0000 min=0.8284 max=0.8284
+Moyenne | mean=1.0041 std=0.0000 min=0.0000 max=2.0000
+
+
+MID
+global | vidéos=1 | TP=1725 FP=685 FN=32 | P=0.7158 R=0.9818 F1=0.8279
+Precision_mid | mean=0.7158
+Recall_mid | mean=0.9818
+F1_mid | mean=0.8279
