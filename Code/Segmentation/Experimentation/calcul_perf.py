@@ -543,9 +543,9 @@ for sample_name, sample_path in samples.items():
         "IoU":moyenne_iou
     })
 
-    plot_hist(stat_trans_strict,OUTPUT_HIST_STRICT)
-    plot_hist(stat_trans_cool,OUTPUT_HIST_COOL)
-    plot_hist(stat_trans_mid,OUTPUT_HIST_MID)
+    # plot_hist(stat_trans_strict,OUTPUT_HIST_STRICT)
+    # plot_hist(stat_trans_cool,OUTPUT_HIST_COOL)
+    # plot_hist(stat_trans_mid,OUTPUT_HIST_MID)
     
     print(name)
     # print("STRICT")

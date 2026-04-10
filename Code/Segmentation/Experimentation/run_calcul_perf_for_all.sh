@@ -58,13 +58,13 @@ METHOD_PATH=("BBC_TEST/Adaptive"
 
 
 METHOD_PATH=(
-"BBC_Dissolve/Adaptive" 
-"BBC_Dissolve/Suguna"
-"BBC_Dissolve/Bi" 
-"BBC_Dissolve/Bi_fenetre" 
-"BBC_Dissolve/DeepSBD" 
-"BBC_Dissolve/TransnetV2"
-"BBC_Dissolve/AutoShot" 
+"BBC_Global/Adaptive" 
+"BBC_Global/AutoShot" 
+"BBC_Global/Bi" 
+"BBC_Global/Bi_fenetre" 
+"BBC_Global/DeepSBD" 
+"BBC_Global/Suguna"
+"BBC_Global/TransnetV2"
 )
 
 
