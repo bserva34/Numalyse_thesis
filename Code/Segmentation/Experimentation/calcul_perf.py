@@ -96,6 +96,8 @@ def match_transitions_with_tolerance(gt_transitions, pred_transitions, tol):
     not_find=[]
 
     histogram = defaultdict(int)
+    histogram_var = []
+
     stat_trans = []
 
     for p_end, p_start in pred_transitions:
@@ -115,9 +117,13 @@ def match_transitions_with_tolerance(gt_transitions, pred_transitions, tol):
                 tab_front.append(abs(p_start - g_start))
 
                 len_trans = abs(g_end-g_start)
+                prev_len = g_start - gt_transitions[idx-1][1] if idx > 0 else 0
+                next_len = gt_transitions[idx+1][0] - g_end if idx < len(gt_transitions)-1 else 0
                 if len_trans > 0 :
                     histogram[len_trans] += 1
                     stat_trans.append(len_trans)
+                    histogram_var.append((len_trans, prev_len, next_len, 1))
+
 
                 #print(f"Prediction :{p_end}/{p_start} - GT : {g_end}/{g_start} ")
                 find=True
@@ -127,10 +133,18 @@ def match_transitions_with_tolerance(gt_transitions, pred_transitions, tol):
             #print(f"PREDICTION : {p_end}/{p_start}")
             not_find.append((p_end,p_start))
 
+    for idx, (g_end, g_start) in enumerate(gt_transitions):
+        if idx not in gt_used:
+            len_trans = abs(g_end - g_start)
+            prev_len = g_start - gt_transitions[idx-1][1] if idx > 0 else 0
+            next_len = gt_transitions[idx+1][0] - g_end if idx < len(gt_transitions)-1 else 0
+
+            histogram_var.append((len_trans, prev_len, next_len, 0))
+
     FP = len(pred_transitions) - TP
     FN = len(gt_transitions) - TP
 
-    return TP, FP, FN, tab_front, not_find, dict(histogram),stat_trans
+    return TP, FP, FN, tab_front, not_find, dict(histogram),stat_trans, histogram_var
 
 
 def match_transitions_with_tolerance_cool(gt_transitions, pred_transitions, tol):
@@ -144,6 +158,7 @@ def match_transitions_with_tolerance_cool(gt_transitions, pred_transitions, tol)
 
     histogram = defaultdict(int)
     stat_trans = []
+    histogram_var = []
 
     for p_end, p_start in pred_transitions:
         for idx, (g_end, g_start) in enumerate(gt_transitions):
@@ -157,17 +172,27 @@ def match_transitions_with_tolerance_cool(gt_transitions, pred_transitions, tol)
                 cpt_tab[idx]+=1
 
                 len_trans = abs(g_end-g_start)
+                prev_len = g_start - gt_transitions[idx-1][1] if idx > 0 else 0
+                next_len = gt_transitions[idx+1][0] - g_end if idx < len(gt_transitions)-1 else 0
                 if len_trans > 0 :
                     histogram[len_trans] += 1
                     stat_trans.append(len_trans)
+                    histogram_var.append((len_trans, prev_len, next_len, 1))
 
                 break
+    for idx, (g_end, g_start) in enumerate(gt_transitions):
+        if idx not in gt_used:
+            len_trans = abs(g_end - g_start)
+            prev_len = g_start - gt_transitions[idx-1][1] if idx > 0 else 0
+            next_len = gt_transitions[idx+1][0] - g_end if idx < len(gt_transitions)-1 else 0
+
+            histogram_var.append((len_trans, prev_len, next_len, 0))
 
     FP = len(pred_transitions) - TP
     FN = len(gt_transitions) - TP
 
 
-    return TP, FP, FN, cpt_tab, dict(histogram),stat_trans
+    return TP, FP, FN, cpt_tab, dict(histogram),stat_trans, histogram_var
 
 
 def match_middle_transitions(gt_transitions, pred_transitions, tol):
@@ -175,6 +200,7 @@ def match_middle_transitions(gt_transitions, pred_transitions, tol):
     TP = 0
     histogram = defaultdict(int)
     stat_trans = []
+    histogram_var = []
 
     for p_end, p_start in pred_transitions:
 
@@ -190,16 +216,27 @@ def match_middle_transitions(gt_transitions, pred_transitions, tol):
                 TP += 1
                 gt_used.add(idx)
                 len_trans = abs(g_end-g_start)
+                prev_len = g_start - gt_transitions[idx-1][1] if idx > 0 else 0
+                next_len = gt_transitions[idx+1][0] - g_end if idx < len(gt_transitions)-1 else 0
                 if len_trans > 0 :
                     histogram[len_trans] += 1
                     stat_trans.append(len_trans)
+                    histogram_var.append((len_trans, prev_len, next_len, 1))
 
                 break
+
+    for idx, (g_end, g_start) in enumerate(gt_transitions):
+        if idx not in gt_used:
+            len_trans = abs(g_end - g_start)
+            prev_len = g_start - gt_transitions[idx-1][1] if idx > 0 else 0
+            next_len = gt_transitions[idx+1][0] - g_end if idx < len(gt_transitions)-1 else 0
+
+            histogram_var.append((len_trans, prev_len, next_len, 0))
 
     FP = len(pred_transitions) - TP
     FN = len(gt_transitions) - TP
 
-    return TP, FP, FN, dict(histogram),stat_trans
+    return TP, FP, FN, dict(histogram),stat_trans, histogram_var
 
 def compute_transition_coverage_overflow(gt_transitions, pred_transitions):
     coverages = []
@@ -317,6 +354,11 @@ def save_hist(histogram, name):
         for length, count in histogram.items():
             f.write(f"{length} {count}\n")
 
+def save_hist_var(histogram,name):
+    with open(name, "w") as f:
+        for t, prev, next_, d in histogram:
+            f.write(f"{t} {prev} {next_} {d}\n")
+
 
 # ===================================================
 
@@ -344,6 +386,10 @@ if __name__ == "__main__":
     OUTPUT_HIST_STRICT_TXT = left_part+"/Hist/Hist_strict/"+ name + f"_hist_strict_tol_{TOLERANCE}.txt"
     OUTPUT_HIST_COOL_TXT = left_part+"/Hist/Hist_cool/"+ name + f"_hist_cool_tol_{TOLERANCE}.txt"
     OUTPUT_HIST_MID_TXT = left_part+"/Hist/Hist_mid/"+ name + f"_hist_mid_tol_{TOLERANCE}.txt"
+
+    OUTPUT_HIST_VAR_STRICT_TXT = left_part+"/Hist/Hist_VAR_strict/"+ name + f"_hist_strict_tol_{TOLERANCE}.txt"
+    OUTPUT_HIST_VAR_COOL_TXT = left_part+"/Hist/Hist_VAR_cool/"+ name + f"_hist_cool_tol_{TOLERANCE}.txt"
+    OUTPUT_HIST_VAR_MID_TXT = left_part+"/Hist/Hist_VAR_mid/"+ name + f"_hist_mid_tol_{TOLERANCE}.txt"
 
 results = []
 
@@ -375,6 +421,10 @@ for sample_name, sample_path in samples.items():
     histogram_strict = defaultdict(int)
     histogram_cool = defaultdict(int)
     histogram_mid = defaultdict(int)
+
+    histogram_var_strict = np.empty((0, 4))
+    histogram_var_cool = np.empty((0, 4))
+    histogram_var_mid = np.empty((0, 4))
 
     stat_trans_strict = []
     stat_trans_cool = []
@@ -412,21 +462,21 @@ for sample_name, sample_path in samples.items():
         pred_transitions = read_pred_transitions_txt(pred_file)
 
         # ===== Matching =====
-        TP_loc, FP_loc, FN_loc, tab_front_prov, not_find_prov, histogram_strict_prov, stat_trans_strict_prov = match_transitions_with_tolerance(
+        TP_loc, FP_loc, FN_loc, tab_front_prov, not_find_prov, histogram_strict_prov, stat_trans_strict_prov, histogram_var_strict_prov = match_transitions_with_tolerance(
             gt_transitions, pred_transitions, TOLERANCE
         )
 
         for key, value in histogram_strict_prov.items():
             histogram_strict[key] += value
 
-        TP_loc_cool, FP_loc_cool, FN_loc_cool, cpt_tab_prov, histogram_cool_prov, stat_trans_cool_prov  = match_transitions_with_tolerance_cool(
+        TP_loc_cool, FP_loc_cool, FN_loc_cool, cpt_tab_prov, histogram_cool_prov, stat_trans_cool_prov, histogram_var_cool_prov  = match_transitions_with_tolerance_cool(
             gt_transitions, pred_transitions, TOLERANCE
         )
 
         for key, value in histogram_cool_prov.items():
             histogram_cool[key] += value
 
-        TP_loc_mid, FP_loc_mid, FN_loc_mid, histogram_mid_prov, stat_trans_mid_prov = match_middle_transitions(
+        TP_loc_mid, FP_loc_mid, FN_loc_mid, histogram_mid_prov, stat_trans_mid_prov , histogram_var_mid_prov= match_middle_transitions(
             gt_transitions, pred_transitions, TOLERANCE
         )
 
@@ -462,6 +512,10 @@ for sample_name, sample_path in samples.items():
         stat_trans_strict=np.concatenate((stat_trans_strict,stat_trans_strict_prov))
         stat_trans_cool=np.concatenate((stat_trans_cool,stat_trans_cool_prov))
         stat_trans_mid=np.concatenate((stat_trans_mid,stat_trans_mid_prov))
+
+        histogram_var_strict=np.concatenate((histogram_var_strict,histogram_var_strict_prov))
+        histogram_var_cool=np.concatenate((histogram_var_cool,histogram_var_cool_prov))
+        histogram_var_mid=np.concatenate((histogram_var_mid,histogram_var_mid_prov))
 
 
     # cap = cv2.VideoCapture("../../../Dataset/Dataset_Shot/CineShots/videos/LaVieDAdele.m4v")
@@ -555,9 +609,13 @@ for sample_name, sample_path in samples.items():
     # print("MID")
     # stat_trans(stat_trans_mid)
 
-    save_hist(histogram_strict,OUTPUT_HIST_STRICT_TXT)
-    save_hist(histogram_cool,OUTPUT_HIST_COOL_TXT)
-    save_hist(histogram_mid,OUTPUT_HIST_MID_TXT)
+    # save_hist(histogram_strict,OUTPUT_HIST_STRICT_TXT)
+    # save_hist(histogram_cool,OUTPUT_HIST_COOL_TXT)
+    # save_hist(histogram_mid,OUTPUT_HIST_MID_TXT)
+
+    save_hist_var(histogram_var_strict,OUTPUT_HIST_VAR_STRICT_TXT)
+    save_hist_var(histogram_var_cool,OUTPUT_HIST_VAR_COOL_TXT)
+    save_hist_var(histogram_var_mid,OUTPUT_HIST_VAR_MID_TXT)
 
 
 

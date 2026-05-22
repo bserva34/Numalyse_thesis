@@ -1,5 +1,6 @@
 /Dataset/Dataset_Scene/
 /Dataset/Dataset_Shot/
+/Dataset/Dataset_CMC/
 /Code/Segmentation/AdaptiveDetector/adaptive_env/
 /Code/Segmentation/autoshot/autoshot_env/
 /Code/Segmentation/Bi_et_al/bi_env/
