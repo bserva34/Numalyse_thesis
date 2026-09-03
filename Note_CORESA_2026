@@ -1,0 +1,105 @@
+idée NUMALYSE : 
+reconstruction du scène spatial d'un film en scène 3D
+séparer au sein d'une frame du film les différents plans 
+
+TAG-IMAGE : intégration info de cadrage (type, angle de vue)
+accord inter annotateurs 
+
+
+---------CORESA 2026---------
+
+**************************************************Tuto 1************************************************** 
+From Traditional 3D to Gaussian Splatting Representation and Compression : Neus Sabater 
+
+InterDigital Company : R&D
+grosse collaboration avec univ et industrial
+
+Light field : tous les réunion lumineux de l'environnement
+Radiance field : representation math de comment intéragisse les rayons  
+
+différent support d'acquisition : camera rig 
+
+la capture doit etre faite en fonction de notre utilisation post
+mise au point post prise de vue
+
+donnée 3D au lieu de vidéo -> parallax (immersion dans la scène)
+
+mal à l'aise en VR car pas de parallax 
+
+NeRF et 3DGS 
+
+Sfm (COLMAP) : calibration caméra / estimation de pose
+point d'intérêt matching peux poser problème dans le cas de scène ou le nb de PI est très faible
+plan de paysage problématique au ciné
+
+Format de Représentation :
+- multi view + depth : estimation de profondeur donc potentiellement des erreurs 
+- nuage de pts + mesh : on peut faire des rendus du coup 
+- multiple plans images (MPI) :  chaque plan info RGB + alpha , chaque plan ne correspond pas à une profondeur de la scène 
+
+il existe aussi des 4DGS 
+
+MPEG pour le compression 3D
+
+
+**************************************************Tuto 2**************************************************
+
+Volumetric video technologiees for real time immersive communication : Alexandre Mercat (Tampere University)
+
+Video Communication Pipeline : capture/encodage/transmission/decodage/visionnage -> contrainte : latence (400ms max acceptable) /temps réel
+
+Volumetric Communication Pipeline : pareil -> latence max 900 ms
+
+Donnée volumetric : meshes, point clouds et gausian splats 
+
+rgb + depth map = 3D point cloud 
+
+RGB-D sensor :
+-active : infrarouge pour mesurer la profondeur
+-passif : img left/right -> calcul profondeur 
+
+LiDAR sensor : actif
+capture en tournant
+
+une caméra est souvent insuffisant donc on ajoute plusieurs point de vue 
+implique une sync des caméras 
+sauf dans le cas des actives car confusion des infrarouges
+
+chaque caméra aura sont point cloud avec son propre repère il faut donc harmoniser
+
+problème de couleur en fonction de l'éclairage
+
+dataset crée avec 32 caméra system capture
+
+dual capture avec capteur simple + évolué 
+
+Diff standard de compression : un par type de representation
+
+Compression des données volumetric : 1 min de vidéo = 40go
+
+mpeg et draco
+
+V3C : V-PCC (Point cloud)/ V- (Mesh) / (Video immersive)
+
+
+original : 3.6 gbps 
+TMC2 solution logiciel de compression, 1 min par frame
+uvgVPCCencode bien plus performant
+
+
+
+**************************************************Tuto 3**************************************************
+
+Ultra-low bitrate video conferencing with generative face video coding : Giuseppe Valenzise
+
+intro codec video
+
+GFVC : Generative Face Video Coding
+
+
+Wessim Omezzine : Quand le mouvement émerge des co-activations : modélisation probabiliste des dépendances spatio-temporelles pour les flux de caméras événementielles 
+
+
+Marie Tahon :
+
+accord inter annotateur : utilisation de seulement les segments avec unanimité 

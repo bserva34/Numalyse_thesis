@@ -1,0 +1,17 @@
+Prompt 1 :
+Peux-tu extraire, dans ce plan, l’image la plus représentative et/ou celle qui permet de l’identifier le plus facilement au sein du film ?
+Peux-tu générer une image représentant ce plan du film, ou une image permettant d’identifier le plus facilement ce plan au sein du film ?
+
+mistral : impossible de charger une vidéo
+claude :  aucun résultats fournit, tourne en boucle.
+
+cherche à identifier le film, les personnages, le contexte etc ...
+
+
+
+Prompt 2 :
+Peux-tu extraire, dans ce plan, l’image la plus représentative c'est à dire celle qui permet d'identifier le plan le plus facilement au sein du film ? Explique nous tes critères de sélection. Cette extraction doit être reproductible.
+
+
+Prompt 3 :
+Peux-tu extraire, dans ce plan, l’image la plus représentative, c'est-à-dire celle qui permet d'identifier le plan le plus facilement au sein du film ? Explique-nous tes critères de sélection en sachant qu'il est important que tu ne tiennes pas compte du contexte du film et ne te bases seulement sur des éléments visuels et des règles de cinéma. Cette extraction doit être reproductible.

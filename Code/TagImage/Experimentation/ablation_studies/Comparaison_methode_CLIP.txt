@@ -1,0 +1,40 @@
+Méthode : Our method.txt
+Moyenne : 0.1338404411764706
+Ecart type : 0.09257503241923824
+Médiane : 0.116493
+Ecart inter-quartile : 0.11873724999999999
+Maximum : 0.500573
+Aire sous la courbe (AUC) : 0.8676470588235294
+---------
+Méthode : Our method_base+CSW.txt
+Moyenne : 0.16769982352941176
+Ecart type : 0.09625133414704705
+Médiane : 0.148127
+Ecart inter-quartile : 0.10492374999999998
+Maximum : 0.546724
+Aire sous la courbe (AUC) : 0.8397058823529412
+---------
+Méthode : Our method_base+SW.txt
+Moyenne : 0.15268411764705883
+Ecart type : 0.10895675659684353
+Médiane : 0.127409
+Ecart inter-quartile : 0.1545385
+Maximum : 0.529633
+Aire sous la courbe (AUC) : 0.8455882352941178
+---------
+Méthode : Our method_base+TW.txt
+Moyenne : 0.1730405294117647
+Ecart type : 0.11365629950017142
+Médiane : 0.147978
+Ecart inter-quartile : 0.13804850000000002
+Maximum : 0.528939
+Aire sous la courbe (AUC) : 0.825
+---------
+Méthode : Our method_base.txt
+Moyenne : 0.18788829411764707
+Ecart type : 0.11263880645662186
+Médiane : 0.17229250000000002
+Ecart inter-quartile : 0.11356750000000002
+Maximum : 0.546724
+Aire sous la courbe (AUC) : 0.8117647058823529
+---------

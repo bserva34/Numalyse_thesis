@@ -1,0 +1,7 @@
+video	video_duration(s)	execution_time(s)	ratio
+02S_Arizona-Jim_Plan 1.mp4	31.84	76.44	2.401
+dinerdecons3.mp4	17.38	39.39	2.267
+
+Temps total video: 49.22s
+Temps total : 115.83s
+Ratio total : 2.353

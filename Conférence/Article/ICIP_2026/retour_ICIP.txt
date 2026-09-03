@@ -1,0 +1,199 @@
+----------Reviewer #1
+Author Feedback
+Summary:
+This paper extracts tag-image from the video based on a weighted histogram. The contribution of this work is the proposed histogram. In the proposed histogram, the bins are object classes and the frequency is the sum of the confidence score of each instance of that class in the image. The paper suggest three weighting schemes to be applied on the histogram namely i) Centered spatial weighting, ii) Sharpness weighting and iii) Temporal weighting. The distance between frame-level histogram and average of all such histograms over the entire image is used to fine the tag-image.
+
+Comments:
+1. Abstract is bit superficial, other than the problem and that the solution is based on histogram it does not tell much, novelty/innovation is not clear.
+
+2. It is not clear how to normalize this histogram for e.g. between close-up shots and wide field of view shots both will have very different frequencies of the occurrence of objects
+
+3. It seems Centered spatial weighting makes the approach limited to certain type of content i.e. auteur films.
+
+4. The sharpness of the fth frame, denoted wQ(f) is a scalar or matrix because Laplacian of the f-th frame will be a matrix. If it is a scaler then it should be mentioned how the values inside the matrix are aggregated into a single values. If wQ(f) then the equation should use wQ(f)(x_i, y_i). In short then equations needs bit of fixing.
+
+5. In Eq. 1 it is stated the C_k is detected in frame f, from here f seems to be a image. Just before Eq. 6 it is state f \in {1, ..., N} and in the Eq. 6 f is used as an index
+
+6. Most of the weights are computed using some form of un-nromalized exponent which makes its similar to Gaussian. Question is why Gaussian weighting is not used which offers a better normalization as compared to adhoc normalization used in this
+
+7. Overall the method seems quite naive and comparison is also done with paper from 2016 and 2019, except 1 from 2023
+
+
+
+----------Reviewer #2----------
+Author Feedback
+This paper focuses on a specialized task: picking a single, most representative "tag-image" from a cinematic shot. Rather than relying on simple frame selection, the authors use an object detector to create class-occurrence histograms and then apply a triple-weighting system: spatial, temporal, and sharpness to find the frame that best matches the shot's overall semantic content.
+Strengths:
+1/ Expert-Collaborative Framework: By working with film scholars to define "tag-images" as distinct from standard key-frames, the authors show a deep understanding of the specific requirements for cinematic analysis.
+2/ Narrative-Aware Temporal Weighting: The "Double Gaussian" function is a clever, mathematically sound way to prioritize frames near a shot's middle or end where narrative climaxes typically occur.
+3/ High-Level Human Validation: Utilizing 16 film analysis experts to rank the extracted images gives the results a level of qualitative authority that is often missing in purely automated studies.
+4/ Rigorous Methodological Testing: The ablation study effectively proves that each component - spatial, temporal, and sharpness is necessary to achieve the reported performance gains.
+
+Areas for Improvement
+1/ Outdated Technical Backbone: Using Faster R-CNN (a 2017 architecture) as the core detector is a significant drawback for a 2026 conference. Without a comparison against modern, transformer-based or real-time detectors like YOLOv10, the technical approach feels quite dated.
+2/ Insufficient Validation Scale: While the expert feedback is valuable, performing that study on only 10 film shots is a very limited sample size. It’s hard to claim these rules are robust when they've only been tested on such a small fraction of cinematic styles.
+3/ Incremental Innovation: The core methodology builds very directly on the work of Chen et al.. Moving to histogram-based statistics is a logical step, but it feels like a relatively minor refinement rather than a major shift in the field.
+4/ Narrative Generalization: The temporal weighting assumes a standard narrative arc for every shot. The paper would be much stronger if it addressed how this weighting might fail in non-traditional cinema, such as experimental films or documentaries that don't follow a climax-based structure.
+Notation Consistency: There are minor errors in the manuscript
+
+While the interdisciplinary focus and expert involvement are great, the paper is technically too thin for a high-level vision conference. The combination of an outdated detector and a tiny 10-shot validation set means the work doesn't yet provide the rigorous proof needed for a definite accept. To be successful, the authors need to modernize their backbone and test on a much wider variety of film shots.
+
+
+
+----------Reviewer #3----------
+Author Feedback
+The manuscript presents a histogram-based method for extracting a representative tag-image from individual film shots. The proposed approach models the semantic content of frames using object detection outputs and selects the frame whose histogram is closest to the average histogram of the shot. The method is further enhanced with spatial, temporal, and sharpness weightings inspired by cinematographic principles.
+The paper addresses an interesting problem in multimedia analysis related to video summarization and film indexing. The methodology is clearly described and the evaluation includes both quantitative metrics and expert-based qualitative assessment. Overall, the work represents a useful contribution; however, several aspects could be improved to strengthen the clarity and positioning of the study.
+
+Strengths
+- The paper addresses a relevant task in multimedia analysis: automatic extraction of representative frames from film shots.
+- The histogram-based representation of object detection outputs provides an interpretable semantic modeling of frame content.
+- The spatial, temporal, and sharpness weightings are well motivated by cinematic principles.
+- The evaluation includes both objective metrics and expert-based assessment, which is appropriate given the subjective nature of the task.
+
+Paper Weaknesses
+• Positioning of the contribution.
+The proposed approach combines histogram statistics with spatial, temporal, and sharpness weightings. While effective, the manuscript could clarify more explicitly how this strategy differs conceptually from existing key-frame extraction methods based on object detection or feature aggregation.
+
+• Dataset scale.
+The evaluation is conducted on relatively small datasets (105 annotated shots and a second dataset of 10 shots evaluated by experts). While the expert evaluation is valuable, a brief discussion on how the method may generalize to larger or more diverse video collections would strengthen the work.
+
+• Evaluation metrics.
+The evaluation mainly relies on the Bhattacharyya distance between histograms. While appropriate for histogram comparison, discussing alternative similarity measures could further support the robustness of the evaluation.
+
+• Parameter discussion.
+The parameters used for spatial and temporal weighting are reported but not extensively discussed. A brief justification or discussion of their selection would improve methodological transparency.
+
+
+
+----------Reviewer #4----------
+Author Feedback
+The proposed method is histogram-based over detected classes for semantic consistency to video tag-image/key-image summarization (the representative image of the sequence). The authors propose a centered spatial weighting and temporal weights to capture climaxes and then attempt to align computational extraction with expert based film analysis. This is interesting for sure, since it uses an evaluation involving 16 experts - something refreshing than purely data-driven methods that ignore artistry in cinema and movie-making.
+However, there are some statistical weaknesses to the approach. It seems that the approach is an incremental extension to Chen et al., relying to standard heuristics like Laplacian variance. Also the central assumptions seem a little oversimplified (e.g. central objects are more relevant). Also, there is no discussion on how some of these technique would fail – maybe for art films or avant-garde films that sometimes break convention with long takes or uncommon action sequences.
+The experimental validation also seems a little weak. The main quantitative evaluation uses 105 shots with ground truth from a single expert; the authors do run a second study with 16 experts, but on only 10 shots - too few to substantiate claims about robustness across diverse shot types; a strict ranking or inter-rater agreement on a unique best frame would provide stronger evidence. The paper also does not report reliability or disagreement among experts, so the multi-expert study complements the first experiment but is not a substitute for dense, per-shot multi-annotator ground truth. Overall, the evidence supports relative comparisons under these narrow conditions but does not yet establish a robust or broad application beyond the tested settings.
+
+
+
+----------Reviewer #5----------
+Author Feedback
+This paper tackles the problem of selecting a representative frame (referred to as a tag-image) for a given film shot, which is an interesting and relatively underexplored topic in the context of film analysis. The motivation is well presented, especially considering the diversity and subjectivity inherent to cinematic content.
+The proposed method is simple, intuitive, and easy to follow. It relies on representing each frame using object-based histograms and selecting the frame that best matches the average representation of the shot. The inclusion of spatial, temporal, and sharpness weightings is well justified and aligns with common cinematic principles, such as central composition, narrative progression, and visual quality. While each component is standard, their combination is meaningful and adapted to the task. The ablation study also provides useful insights into the contribution of each component.
+The experimental results indicate that the proposed method performs better than the compared baselines, including in an evaluation involving human experts. This is a valuable aspect, as the notion of representativeness is inherently subjective and benefits from human assessment.
+That said, the overall level of technical novelty is relatively limited. The approach mainly combines existing techniques (object detection, histogram-based representations, and heuristic weightings) rather than introducing fundamentally new ideas. In addition, the experimental validation could be strengthened. The multi-expert evaluation is conducted on only 10 shots, which may not be sufficient to fully capture the variability of cinematic content. Moreover, experts are allowed to select multiple images per shot, which may inflate selection rates and reduce the discriminative power of the evaluation. The first dataset relies on a single expert annotation, which may introduce bias. Furthermore, more details regarding the evaluation protocol and expert agreement would improve the reliability of the conclusions.
+
+In summary, the paper presents a clear and practically relevant approach, but the contribution remains incremental and would benefit from a stronger and more comprehensive evaluation.
+
+
+
+----------Rebuttal----------
+
+Différence avec Chen et al. (pas réellement une innovation) : on a juste repris le principe de l'utilisation d'un détecteur d'objets, mais on l'exploite d'une manière complètement différente. 
+
+Ponderation temporelle et spatial, limite à un style en particulier (films d'auteurs) et donc ne fonctionnerai pas sur des docs et films expérimentaux ou encore sur des plans très longs (plans séquences).
+
+R-CNN, 
+
+Taille du dataset/Unique VV/ Métrique évaluation / Sélection Multiple qui gonfle les scores/
+
+
+We would like to thank the reviewers for their careful reading and constructive comments, which have enabled us to clarify the positioning and methodological choices of our work. We respond below to the main questions raised.
+
+Tout d'abord par rapport à l'innovation de notre méthode par rapport aux méthodes de l'état de l'art, la où les méthodes existantes calcul un score pour chaque frame de la vidéo à partir de caratéristiques tel quel soit, fixe un seuil, puis sélectionne un ensemble N d'images. Notre méthode, elle, est concu afin de déterminer la frame qui se rapproche au mieux de la représentation statistique du plan. Par rapport, à la méthode de Chen et al. nous nous somme inspiré de l'exploitation d'un détecteur d'objet afin de scorer chaque frame, mais l'exploitation de ce détecteur d'objet n'est pas du tout similaire, la méthode de Chen et al. cherche surtout à détecter la frame contenant le plus d'objet et en particulier celle contenant des humains.
+
+Concernant les pondérations temporelles, spatiales et de qualités; elles ont étais élaboré en étroite collaboration avec des experts dans le domaine (i.e des chercheurs/enseignents qui pratique de façon régulière et expertes l'analyse d'oeuvres cinématographiques). Avec pour objectif d'avoir une méthode qui analyse des aspects importants dans le cinéma et qui ne sont pas considérer dans les méthodes de l'état de l'art. Les différentes pondérations sont une proposition de notre part, qui a pour but de fonctionner sur le cinéma en général, et non pas sur des cas particulier. On est bien conscient que sur certain type de film notre pondération temporelle proposé n'est pas pertinente, c'est pour cela que elle peut etre modifier et adapter à un certain type de contenu tous en gardant le reste de la méthode.
+Notre méthode à pour but de proposer un pipeline général et adaptable à des domaines plus niches du cinéma.
+
+Regarding the object detector.
+We agree with the observation that newer detectors could improve performance or execution speed. However, the detector used is not a central element of the contribution: the method is independent of the detection model and can be based on any detector providing scores by class, with the K parameter adapting accordingly. This choice is primarily for clarity and reproducibility.
+
+Pour notre premier dataset de test le fait d'avoir une unique valeur de véritée est discutable. On aurait eu un ensemble de valeurs de vérités différent par experts, ainsi que si on avait voulu avoir une valeur de vérité décidé par un accor inter experts, cela aurait eté compliqué. Etant donné que chaque expert à ses méthodes de travail et sa propre expérience, il voit les choses de façon de très différente. On a donc fait le choix de faire une première évaluation par rapport à un seul expert puis se reposer sur notre deuxième protocole d'évaluation afin de comparer notre méthodes sur un panel d'expert. 
+Sur la métrique d'évaluation on est d'accord que celle ci pourrait être renforcer par d'autre métriques tel que la distance chi deux, ce qui par ailleurs serait facilement réalisable pour nous.
+
+Concernant notre protocole d'évaluation par les experts, on est conscient que le nombre de plan évalué est léger, mais c'est un choix assumé de notre part. Nous avons préféré favoriser la qualité des évaluations plutot que la quantité, le groupe de 16 experts qui ont évalué les résultats de chaque méthode sont des chercheurs/enseignants expérimenté et qualifié pour l'analyse de film. La possibilité de sélectionner un ensemble d'image n'a pas pour volonté de gonfler les scores mais d'évaluer équitablement et indépedemment chaque méthode. Il est bien important que pour notre problématique il n'y a pas une unique valeur de véritée mais un ensemble de résultats qui peuvent convenir à un expert.
+
+On entend et comprend l'ensemble des retours qui ont été fait notamment parce que ce sont des questions que nous avons souvent évoqué, mais pour synthétiser notre objectif est de proposer une méthode applicable et fonctionnante sur le cinéma et les experts en général. Mais aussi à la fois facilement modulable afin de la faire fonctionner sur ces plus niches.
+
+Finally, if the article is accepted, we will correct the few inconsistencies found in the equations to ensure a clear presentation.
+
+
+----------Rebuttal2----------
+
+We would like to thank the reviewers for their careful reading and constructive comments, which have helped us clarify the positioning and methodological choices of our work. We respond below to the main questions raised.
+
+Tout d’abord, concernant l’innovation de notre méthode par rapport à l’état de l’art : les méthodes existantes calculent généralement un score pour chaque frame de la vidéo à partir de différentes caractéristiques, fixent un seuil, puis sélectionnent un ensemble de N images. Notre méthode, en revanche, est conçue pour déterminer la frame qui se rapproche le mieux de la représentation statistique du plan.
+
+Par rapport à la méthode de Chen et al., nous nous sommes inspirés de l’utilisation d’un détecteur d’objets pour attribuer un score à chaque frame. Toutefois, l’exploitation de ce détecteur diffère fortement : Chen et al. cherchent principalement à identifier la frame contenant le plus d’objets, en particulier des humains, tandis que notre approche s’inscrit dans une logique différente, centrée sur la représentativité globale du plan.
+
+Concernant les pondérations temporelles, spatiales et de qualité, celles-ci ont été élaborées en étroite collaboration avec des experts du domaine (chercheurs et enseignants pratiquant régulièrement l’analyse d’œuvres cinématographiques). L’objectif était d’intégrer des aspects importants en cinéma qui ne sont généralement pas pris en compte dans les méthodes de l’état de l’art. Ces pondérations constituent une proposition visant à fonctionner de manière générale sur des œuvres cinématographiques variées, et non sur des cas particuliers. Nous sommes toutefois conscients que, pour certains types de films, la pondération temporelle proposée peut ne pas être optimale. C’est pourquoi elle peut être ajustée et adaptée à des contenus spécifiques, tout en conservant le reste du pipeline. Notre objectif est donc de proposer une méthode générale, mais également modulable pour des domaines plus spécialisés du cinéma.
+
+Regarding the object detector, we agree that more recent models could improve performance or computational efficiency. However, the detector itself is not a central contribution of our work. The proposed method is independent of the specific detection model and can rely on any detector providing class-wise scores, with the parameter K adapting accordingly. Our choice was primarily guided by clarity and reproducibility.
+
+Concernant le premier dataset de test, l’utilisation d’une unique valeur de vérité peut effectivement être discutée. Obtenir plusieurs annotations issues de différents experts, ou définir une vérité de référence basée sur un consensus, aurait été complexe, étant donné que chaque expert possède ses propres méthodes d’analyse et sa sensibilité. Nous avons donc fait le choix de réaliser une première évaluation basée sur un seul expert, puis de compléter cette analyse avec un second protocole impliquant un panel d’experts afin de comparer les différentes méthodes.
+
+Concernant la métrique d’évaluation, nous reconnaissons qu’elle pourrait être enrichie par d’autres mesures, telles que la distance du chi-deux, ce qui serait relativement simple à mettre en œuvre dans notre cadre.
+
+Enfin, concernant le protocole d’évaluation par les experts, nous sommes conscients que le nombre de plans évalués est limité. Il s’agit toutefois d’un choix assumé : nous avons privilégié la qualité des évaluations plutôt que la quantité. Les 16 experts ayant participé à l’étude sont des chercheurs et enseignants expérimentés, qualifiés pour l’analyse filmique. La possibilité de sélectionner un ensemble d’images ne vise pas à favoriser artificiellement les résultats, mais à permettre une évaluation équitable et indépendante de chaque méthode. Il est important de souligner que, dans notre problématique, il n’existe pas une unique vérité, mais plutôt un ensemble de résultats pouvant être jugés pertinents selon les experts.
+
+Nous comprenons l’ensemble des remarques formulées, d’autant plus que ces questions ont également été discutées au cours de nos travaux. En synthèse, notre objectif est de proposer une méthode à la fois robuste et applicable au cinéma en général, tout en restant suffisamment flexible pour être adaptée à des contextes plus spécifiques.
+
+Finally, if the paper is accepted, we will correct the remaining inconsistencies in the equations to ensure a clearer and more rigorous presentation.
+
+
+
+----------Rebuttal2 Anglais----------
+
+We would like to thank the reviewers for their careful reading and constructive comments, which have helped us clarify the positioning and methodological choices of our work. We respond below to the main questions raised.
+
+We would also like to clarify that the method we propose is not strictly tied to the specifications outlined in this article. Thus, temporal or spatial weightings, the choice of object detector, the choice of distance between histograms, and so on, can be modified without altering the core concept of tag image selection that we propose. Our goal is therefore to propose a general method that is also adaptable for more specialized areas of cinema.
+
+First, regarding the innovation of our method compared to the state of the art: existing methods generally calculate a score for each frame of the video based on various features, set a threshold, and then select a set of N images. Our method, on the other hand, is designed to determine the frame that best matches the statistical representation of the shot.
+
+Compared to the method by Chen et al., we drew inspiration from the use of an object detector to assign a score to each frame. However, the way we utilize this detector differs significantly: Chen et al. primarily seek to identify the frame containing the most objects, particularly humans, whereas our approach follows a different logic, centered on the overall representativeness of the shot.
+
+The temporal, spatial, and quality weightings were developed in close collaboration with experts in the field (researchers and educators who regularly analyze cinematic works). The goal was to incorporate important aspects of cinema that are generally not taken into account in state-of-the-art methods. These weightings are intended to work generally across a variety of cinematic works, rather than for specific cases. We are, however, aware that for certain types of films, the proposed temporal weighting may not be optimal.
+
+
+########This is why it can be adjusted and adapted to specific content, while retaining the rest of the pipeline. Our goal is therefore to propose a general method that is also adaptable for more specialized areas of cinema.
+
+Regarding the object detector, we agree that more recent models could improve performance or computational efficiency. However, the detector itself is not a central contribution of our work. The proposed method is independent of the specific detection model and can rely on any detector providing class-wise scores, with the parameter K adapting accordingly. Our choice was primarily guided by clarity and reproducibility.########
+
+Regarding the first test dataset, the use of a single ground truth can indeed be debated. Obtaining multiple annotations from different experts, or defining a reference ground truth based on consensus, would have been complex, given that each expert has their own analysis methods and biases. We therefore chose to conduct an initial evaluation based on a single expert, then supplement this analysis with a second protocol involving a panel of experts in order to compare the different methods.
+
+Regarding the evaluation metric, we acknowledge that it could be enhanced by other measures, such as the chi-square distance, which would be relatively simple to implement within our framework.
+
+Regarding the expert evaluation protocol, we are aware that the number of shots evaluated is limited. However, this was a deliberate choice: we prioritized the quality of the evaluations over quantity. The 16 experts who participated in the study are experienced researchers and educators qualified in film analysis. The ability to select a set of images is not intended to artificially skew the results, but rather to enable a fair and independent evaluation of each method. It is important to emphasize that, in our research framework, there is no single truth, but rather a set of results that experts may deem relevant.
+
+As you know, setting up an experiment involving a large number of experts is quite complicated, and it is also difficult to keep them occupied for a long period of time. We were able to conduct this experiment during a symposium. We engaged all the experts present for a period of time that fit within the symposium’s schedule. We are planning to conduct an online experiment that would allow us to engage a larger community over a longer period of time.
+
+We understand all the comments made, especially since these issues were also discussed during our work. In summary, our goal is to propose a method that is both robust and applicable to cinema in general, while remaining flexible enough to be adapted to more specific contexts.
+
+Finally, if the paper is accepted, we will correct the remaining inconsistencies in the equations to ensure a clearer and more rigorous presentation.
+
+
+----------Rebuttal3 Anglais----------
+
+We would like to thank the reviewers for their careful reading and constructive comments, which have helped us clarify the positioning and methodological choices of our work. We respond below to the main questions raised.
+
+We would also like to clarify that the method we propose is not strictly tied to the specifications outlined in this article. Thus, temporal or spatial weightings, the choice of neural network, the choice of distance between histograms, and so on, can be modified without altering the core concept of tag image selection that we propose. Our goal is therefore to propose a general method that is easy to replicate and can also be adapted for more specialized areas of cinema.
+
+First, regarding the innovation of our method compared to the state of the art: existing methods generally calculate a score for each frame of the video based on various features, set a threshold, and then select a set of N images. Our method, on the other hand, is designed to determine the frame that best matches the statistical representation of the shot.
+
+Compared to the method by Chen et al., we drew inspiration from the use of an object detector to assign a score to each frame. However, the way we utilize this detector differs significantly: Chen et al. primarily seek to identify the frame containing the most objects, particularly humans, whereas our approach follows a different logic, centered on the overall representativeness of the shot.
+
+The temporal, spatial, and quality weightings were developed in close collaboration with experts in the field (researchers and educators who regularly analyze cinematic works). The goal was to incorporate important aspects of cinema that are generally not taken into account in state-of-the-art methods. These weightings are intended to work generally across a variety of cinematic works, rather than for specific cases. We are, however, aware that for certain types of films, the proposed temporal weighting may not be optimal.
+
+Regarding the first test dataset, the use of a single ground truth can indeed be debated. Obtaining multiple annotations from different experts, or defining a reference ground truth based on consensus, would have been complex, given that each expert has their own analysis methods and biases. We therefore chose to conduct an initial evaluation based on a single expert, then supplement this analysis with a second protocol involving a panel of experts in order to compare the different methods.
+
+Regarding the evaluation metric, we acknowledge that it could be enhanced by other measures, such as the chi-square distance, which would be relatively simple to implement within our framework.
+
+We are aware that the number of scenes evaluated remains limited, but this was a deliberate choice: we prioritized the quality of the evaluations. The 16 experts involved are researchers and instructors with extensive experience in film analysis. The ability to select a set of images is intended to ensure a fair and independent evaluation of each method, not to skew the results. In this context, there is no single truth, but rather a set of results deemed relevant by the experts.
+
+As you know, setting up an experiment involving a large number of experts is quite complicated, and it is also difficult to keep them occupied for a long period of time. We carried out this study during a symposium, engaging the experts available for a limited period. An online extension is planned to expand the panel and the duration of participation.
+
+We understand all the comments made, especially since these issues were also discussed during our work. In summary, our goal is to propose a method that is both robust and applicable to cinema in general, while remaining flexible enough to be adapted to more specific contexts.
+
+Finally, if the paper is accepted, we will correct the remaining inconsistencies in the equations to ensure a clearer and more rigorous presentation.
+
+
+
+

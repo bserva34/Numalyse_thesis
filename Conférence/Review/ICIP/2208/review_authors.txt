@@ -1,0 +1,37 @@
+1) Strengths
+
+This paper proposes a spatio-frequency cooperative fusion network (SFCFNet) for multimodal medical image fusion, combining processing in both the frequency and spatial domains. This approach is well-founded and addresses a significant shortcoming of existing methods, which operate primarily in the spatial domain.
+
+The manuscript has several notable strengths:
+
+-Reproducibility and clarity:
+The implementation details, training procedure, and experimental setup are well described. This significantly improves the reproducibility of the proposed method.
+
+-Comprehensive experimental evaluation:
+The method is evaluated on several datasets (MRI-CT, MRI-PET, MRI-SPECT), with comparisons against a wide range of state-of-the-art methods. This strengthens the empirical validation.
+
+-Use of multiple evaluation metrics:
+The use of four metrics (AG, SF, VIF, QAB/F) provides a reasonably comprehensive quantitative evaluation.
+
+-Well-designed ablation study:
+The ablation experiments clearly demonstrate the contribution of the frequency interaction (FI) and spatial compensation (SC) modules in the three medical fusion tasks. This justifies the architectural choices.
+
+
+2)Weaknesses and Suggestions
+
+Although the article is generally sound, several points warrant attention to improve its quality and scientific rigor:
+
+1 - Lack of references for certain evaluation metrics
+
+The manuscript uses standard evaluation metrics (AG, SF, VIF, QAB/F).
+The AG and SF metrics can be considered to have been introduced via the review [1]. However, no references are provided for the definition of the VIF and QAB/F metrics.
+
+For VIF, this is a well-established perceptual indicator whose original publication is clearly identified:
+Yu Han et al., “A new image fusion performance metric based on visual information fidelity”.
+
+Similarly, the QAB/F metric has a well-defined origin in the literature on image fusion and could also be properly referenced.
+
+2. Error in Table 1 (VIF metric)
+
+There appears to be an inconsistency in Table 1 regarding the VIF metric.
+The identification of the best and second-best methods seems incorrect, as the values appear to be reversed. 

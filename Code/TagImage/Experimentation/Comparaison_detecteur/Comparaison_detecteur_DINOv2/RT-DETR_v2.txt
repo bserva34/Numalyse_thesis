@@ -1,0 +1,105 @@
+02S_Arizona-Jim_Plan 1 0.587092
+03S_Johnny Guitar 0.333203
+1242_La Chienne_fin_4'_Plan 4 0.024273
+1242_La Chienne_fin_4'_Plan 5 0.035590
+12S1_Zig-Zag_Plan 2 0.137637
+17_H'sG (pie)_Plan 3 0.808245
+17_H'sG (pie)_Plan 5 0.230475
+205_Foottit et Chocolat (Lumière n° 1140-1141)_Plan 2 0.326923
+231_LaCiotat 0.628620
+381_Proces-Huissier_Plan 8 0.571906
+382_Proces_greffier-piranese_Plan 1 0.701046
+4eme1 0.181023
+4eme2 0.740771
+4eme3 0.462984
+4_31-36_Tribunal_Plan 12 0.564619
+4_31-36_Tribunal_Plan 16 0.098070
+4_31-36_Tribunal_Plan 30 0.856718
+adele1 0.256828
+adele1_bis 0.389157
+dinerdecons1 0.342615
+dinerdecons2 0.529898
+dinerdecons3 0.114159
+dinerdecons4 0.117769
+EvenCowgirlGetTheBlues_Plan 718 0.635048
+EvenCowgirlGetTheBlues_Plan 723 0.086619
+EvenCowgirlGetTheBlues_Plan 728 0.206732
+EvenCowgirlGetTheBlues_Plan 915 0.079672
+EvenCowgirlGetTheBlues_Plan 917 0.634168
+Falstaff 0.057751
+johnwick1 0.248951
+johnwick2 0.111181
+JohnWick2_Plan 1173 0.513793
+JohnWick2_Plan 629 0.115440
+JohnWick2_Plan 867 0.142601
+johnwick3 0.202395
+johnwick4 0.549449
+La.Haine_Plan 115 0.041748
+La.Haine_Plan 428 0.235417
+La.Haine_Plan 470 0.025201
+La_ligne_Verte_Plan 1113 0.074894
+La_ligne_Verte_Plan 1288 0.533706
+lecorniaud1 0.559597
+lecorniaud2 0.192038
+lecorniaud3 0.392386
+lecorniaud4 0.360900
+LeCorniaud_Plan 12 0.309943
+LeCorniaud_Plan 497 0.017538
+LeCorniaud_Plan 547 0.775534
+LeCorniaud_Plan 675 0.517261
+Leon_Plan 1129 0.048680
+Leon_Plan 737 0.025164
+Leon_Plan 786 0.143860
+ManOfTheWest 0.068605
+ManOfTheWest_Plan305 0.482775
+MAN_OF_THE_WEST_SCN_Plan 279 0.310973
+MAN_OF_THE_WEST_SCN_Plan 316 0.598375
+MK_s.1+2_Pont_Plan 24 0.725292
+MOF 0.595860
+montecristo1 0.578122
+montecristo2 0.386341
+montecristo3 0.248638
+Ragtime_STF_Plan 5 0.089848
+Sc.Coupee_Plan 21 0.169447
+Shining 0.680036
+SHINING_Plan 289 0.757194
+adele3 0.362097
+adele4 0.134635
+BARRY_LYNDON_Plan 242 0.244306
+BARRY_LYNDON_Plan 278 0.325124
+BARRY_LYNDON_Plan 39 0.033598
+BARRY_LYNDON_Plan 456 0.032686
+BARRY_LYNDON_Plan 4 0.076718
+BARRY_LYNDON_Plan 90 0.287495
+Better.Call.Saul.S01E08_Plan 387 0.249184
+Better.Call.Saul.S01E08_Plan 42 0.078509
+Better.Call.Saul.S01E08_Plan 454 0.867428
+Better.Call.Saul.S03E01_Plan 131 0.560718
+Better.Call.Saul.S03E01_Plan 97 0.519175
+Better.Call.Saul.S03E03_Plan 268 0.170520
+Better.Call.Saul.S03E03_Plan 376 0.499581
+Better.Call.Saul.S03E03_Plan 70 0.099442
+Better.Call.Saul.S03E04_Plan 322 0.201952
+Better.Call.Saul.S03E4_Plan 225 0.236418
+shinning1 0.047910
+shinning2 0.820713
+shinning3 0.198661
+THE STRAIGHT STORY_Plan 231 0.207446
+THE STRAIGHT STORY_Plan 403 0.867908
+THE STRAIGHT STORY_Plan 413 0.918066
+THE STRAIGHT STORY_Plan 461 0.814290
+THE STRAIGHT STORY_Plan 514 0.281757
+THE STRAIGHT STORY_Plan 665 0.168977
+THE_KILLING_Plan 427 0.653290
+TripToTheMoon1 0.166976
+Vivant parmi les vivants (2023) Sylvère Petit_Plan 132 0.464158
+Vivant parmi les vivants (2023) Sylvère Petit_Plan 31 0.139755
+Vivant parmi les vivants (2023) Sylvère Petit_Plan 338 0.207378
+Vivant parmi les vivants (2023) Sylvère Petit_Plan 343 0.087885
+Vivant parmi les vivants (2023) Sylvère Petit_Plan 394 0.157132
+VV_adele_Plan 1405 0.430372
+adele2 0.261845
+Better.Call.Saul.S03E4_Plan 318 0.148620
+La.Haine_Plan 533 0.297167
+Leon_Plan 947 0.784507
+SHINING_Plan_233 0.262295

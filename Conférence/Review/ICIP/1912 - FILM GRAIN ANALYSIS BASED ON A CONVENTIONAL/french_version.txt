@@ -1,0 +1,103 @@
+Abstract : 
+
+Les résultats expérimentaux obtenus sur des contenus cinématographiques montrent que
+l'utilisation d'un cadre bien conçu pour la gestion du grain cinématographique permet
+de réaliser des économies substantielles en débit binaire sans compromettre la
+qualité visuelle. Ce cadre permet la synthèse du grain cinématographique côté décodeur,
+en tenant compte du contenu. Cette avancée revêtira une importance particulière
+pour les futures normes de codage vidéo, qui devraient
+répondre à la demande croissante de contenus vidéo de haute qualité
+
+
+1) Introduction :
+
+Le grain de la pellicule est une caractéristique perceptuelle importante du contenu cinématographique,
+et il est souvent délibérément préservé ou réintroduit
+dans les chaînes de distribution vidéo modernes. Cependant,
+la nature aléatoire et faiblement corrélée du grain de la pellicule pose un
+défi majeur à la compression vidéo conventionnelle. À des débits binaires
+pratiques (moyens à faibles), les encodeurs ont tendance à atténuer ou
+à supprimer le grain, ce qui compromet la qualité visuelle et l'intention artistique.
+À l'inverse, préserver le grain du film en recourant à un débit binaire élevé, par exemple
+à des débits binaires élevés, se traduit par une compression inefficace. Cela
+crée un défi technique qui nécessite des méthodes spécialisées,
+telles que la modélisation du grain du film, qui répondent à la fois à l'efficacité de la compression
+et à la reproduction fidèle des éléments visuels liés au grain.
+
+Afin de préserver efficacement le grain du film, dans les codecs vidéo de pointe
+tels que le Versatile Video Coding (VVC), une alternative
+à l'encodage à haut débit binaire a été mise au point. Elle consiste
+à modéliser et analyser le grain de film avant l'encodage, à
+supprimer le grain de film, à encoder la vidéo, par exemple à des débits
+faibles à moyens, et à resynthétiser le grain de film après le décodage en
+utilisant des paramètres transmis sous forme de métadonnées, comme illustré à la
+figure 1. Le VVC prend en charge nativement la signalisation des paramètres de grain de film
+sous forme de métadonnées via le message Film Grain Characteristics
+Supplemental Enhancement Information (FGC-SEI) [1]. Il permet la signalisation de différents modèles de simulation de grain de film,
+de modes de fusion, de profondeurs de bits, de caractéristiques de transfert,
+d'options de traitement chromatique, etc. Dans cet article, nous
+nous concentrons sur le modèle de filtrage de fréquence, qui a été étudié
+et implémenté dans les codecs VVC, tels que le logiciel de référence VTM
+[2, 3] ou le logiciel Versatile Video Encoder and
+Decoder utilisé en pratique [4–6].
+
+La synthèse du grain de film par filtrage fréquentiel peut s'appuyer sur la spécification présentée dans [7].
+Cette spécification est conforme au format FGC-SEI et
+définit avec précision la synthèse du grain de film dans le domaine
+fréquentiel. La synthèse pour ce même modèle est améliorée dans [8],
+qui propose une conception plus facile à mettre en œuvre avec
+une amélioration visuelle du grain synthétique, tout en restant
+conforme au format FGC-SEI. Compte tenu de l'intérêt croissant
+pour les technologies de grain de film au sein de la communauté
+du codage vidéo, un rapport technique complet a été élaboré
+afin de fournir une vue d'ensemble unifiée des approches actuelles dans ce
+domaine [9]. Des approches basées sur l'apprentissage pour le traitement du grain de film
+ont également été rapportées [10, 11]. Les travaux présentés dans [12] constituent la première
+méthode d'analyse du grain de film basée sur l'apprentissage permettant d'estimer les
+paramètres conventionnels du grain de film compatibles avec la synthèse
+conventionnelle. Ils introduisent également le premier ensemble de données de vidéos granuleuses
+associées à des paramètres FGC-SEI, idéal pour l'entraînement des méthodes d'analyse
+basées sur l'apprentissage.
+
+En nous concentrant sur une méthode conventionnelle et peu complexe,
+nous présentons un outil d’analyse du grain de film (FGA) qui, à partir
+d’une vidéo granuleuse, génère des paramètres de modèle de grain de film au
+format FGC-SEI. Nous abordons à la fois les aspects créatifs et techniques
+d’une distribution efficace du grain de film, en garantissant la qualité esthétique
+tout en optimisant l’encodage pour une meilleure efficacité de compression. Nous présentons en outre des expériences menées sur des contenus représentatifs
+qui démontrent la fidélité visuelle et les économies de débit binaire,
+apportant ainsi des preuves en faveur de l'adoption de ces méthodes dans
+la pratique. Il convient de noter que notre approche d'analyse du grain de film a été
+intégrée au logiciel de référence VTM.
+
+
+2)
+
+3) Method
+
+Un processus d'analyse du grain de film peut être mis en œuvre en tant qu'étape de prétraitement ou dans le cadre du processus d'encodage. Il permet une synthèse du grain de film côté décodeur, tenant compte du contenu. La figure 2 illustre un flux de travail simplifié pour l'analyse du grain de film. L'analyse est généralement divisée en deux groupes : les étapes indépendantes du modèle et les étapes spécifiques au modèle. Les étapes indépendantes du modèle comprennent un prétraitement visant à produire une estimation du bruit (image du grain de film) en débruitant la vidéo et en déterminant la différence entre les paires source et débruitées. Elles comprennent également un prétraitement visant à produire des informations sur les caractéristiques de la vidéo, telles que l'analyse des contours et de la texture afin de déterminer une carte des zones planes et non planes de la scène. Cette étape est réalisée car les composantes à haute fréquence, telles que les contours et la texture, peuvent interférer avec le processus d'analyse du grain de film, qui se situe également dans les hautes fréquences. Par exemple, outre la suppression du bruit, le débruitage peut également altérer les détails de l'image, ce qui conduit à des images de grain de film qui incluent plus que le simple grain de film dans les zones texturées ou aux contours. Les étapes spécifiques au modèle comprennent l'analyse du grain de film et l'estimation des paramètres du modèle sur la base des résultats des étapes précédentes. 
+Il s'agit de déterminer l'intensité du grain du film en fonction de l'intensité de l'image sous-jacente (appelée ici « fonction d'échelle ») et de déterminer les limites de fréquence (fréquences de coupure) aux niveaux d'intensité de l'image concernés. Dans notre travail, l'analyse est effectuée sur une grille de blocs de 16×16 non superposés appartenant à des zones uniformes et dépourvues de texture.
+
+
+4) Expe
+
+Des séquences de test présentant le grain de film d'origine sont encodées à l'aide de VTM (configuration par défaut à accès aléatoire) à différents niveaux de qualité afin d'identifier deux points clés : un premier point où le grain de film commence tout juste à être altéré par l'encodage tout en conservant une qualité visuelle élevée, et un second point où le grain de film est supprimé par l'encodage, mais où le contenu de l'image sous-jacente reste bien préservé (qualité visuelle élevée, l'encodeur agissant comme un débruiteur). Pour déterminer ces points clés, une évaluation visuelle est réalisée par des experts selon la méthode décrite dans [13]. La figure 5 illustre ces points clés pour deux séquences issues de notre ensemble de test. On constate que la préservation de l'intention artistique par le maintien du grain du film lors de la compression nécessite des débits binaires élevés (premier point).
+
+À l'inverse, il est possible d'obtenir un rendu visuel similaire à celui des débits binaires élevés en appliquant des paramètres de modélisation du grain de film bien définis à des débits binaires plus faibles (par exemple, au deuxième point). Pour le démontrer, la synthèse du grain de film telle qu'elle est mise en œuvre dans VTM, à l'aide de paramètres issus de l'analyse FGA qui reproduisent fidèlement l'aspect du grain d'origine, est appliquée aux débits binaires plus faibles indiqués par le deuxième point de la figure 5. Une correspondance étroite entre le grain source et le grain synthétisé est ensuite validée par des experts. Par la suite, en comparant les débits binaires entre ces deux points, on constate qu'une synthèse précise du grain de film tenant compte du contenu se traduit par des économies substantielles de débit binaire, permettant de réaliser des économies de débit BD de 94 % et 96 % pour ces deux séquences tout en conservant une qualité visuelle élevée et en préservant l'intention artistique. La fidélité du grain est également confirmée par la métrique de similarité objective Jensen Shannon Divergence Natural Scene Statistics (JSD-NSS) [14], qui affiche un bon score entre les deux points sélectionnés d'une séquence (voir les scores sur la figure 5). Des économies de débit BD similaires, allant de 85 % à 96 %, sont observées pour d'autres séquences granuleuses que nous avons testées.
+
+La figure 6 met en évidence la capacité de l'algorithme FGA proposé à estimer avec précision les paramètres du grain de film à partir de vidéos granuleuses, permettant ainsi une compression efficace et une synthèse fidèle. Dans ce test, la séquence décodée présente un débit binaire qui préserve les détails de l'image tout en supprimant le grain de film (cf. le deuxième point clé évoqué précédemment). La comparaison entre la séquence décodée avec un grain de film simulé (à l'aide de la sortie du FGA) et la séquence originale montre des scores de similarité élevés, par exemple un score JSD-NSS de 0,001. Des experts ont évalué visuellement le grain de film ajouté, confirmant sa haute qualité et sa grande ressemblance avec l'original. Les résultats montrent que notre FGA, associé à la synthèse conventionnelle du VTM, préserve l'intégrité artistique et l'esthétique du film, même avec une compression importante, offrant une vidéo qui conserve sa qualité cinématographique tout en permettant des réductions substantielles du débit binaire.
+
+Sur la figure 7, nous comparons plus en détail la méthode FGA proposée ici avec l'approche FGA-NN basée sur l'apprentissage [12]. Les deux méthodes atteignent une grande fidélité visuelle par rapport au contenu granuleux d'origine, la méthode FGA conventionnelle surpassant la FGA-NN dans certains cas (comme pour la séquence de la figure 7). Ce comportement peut être en partie attribué à la quantité et à la diversité limitées des données d'apprentissage disponibles pour le réseau neuronal, ce qui peut restreindre sa capacité à généraliser à différentes caractéristiques de grain. De plus, les approches basées sur l'apprentissage pour l'analyse et la synthèse du grain de film sont encore en cours d'évolution. En revanche, la méthode conventionnelle proposée repose sur une modélisation explicite pilotée par le signal, ce qui lui permet de rester robuste pour différents régimes de grain sans apprentissage préalable. Par ailleurs, l'examen des paramètres FGC-SEI estimés révèle que les paramètres produits par notre FGA sont systématiquement proches de la vérité terrain, celle-ci étant définie par des paramètres réglés manuellement et validés par des experts.
+
+5) Conclusion
+
+Les résultats expérimentaux obtenus sur des contenus cinématographiques montrent que l'utilisation d'un cadre bien conçu pour la gestion du grain cinématographique permet de réaliser des économies substantielles en termes de débit binaire sans compromettre la qualité visuelle. Ce cadre permet une synthèse du grain cinématographique côté décodeur, adaptée au contenu. Cette avancée revêtira une importance particulière pour les futures normes de codage vidéo, qui devront répondre à la demande croissante de contenus vidéo de haute qualité.
+
+-------------------------------------------
+
+REVIEW 
+
+The context of the contribution is clearly introduced, with a well-presented state of the art that allows the reader to quickly understand the main objective of the work. In particular, the paper clearly highlights the challenge of significantly reducing the bitrate while preserving the film grain, which is an important perceptual attribute in cinematic content. Thanks to the clear overview figures (Figures 1 and 2), the main idea of the method can be easily understood without needing to go into the mathematical details. While some methodological sections are relatively complex, these visual summaries make the overall approach accessible. Regarding the experimental section, the general methodology is understandable, especially with the help of Figure 5 and the associated explanations. However, the subjective evaluation protocol is only referenced through citation [13], which does not appear to be publicly accessible. This makes it difficult to fully assess the rigor and reproducibility of the evaluation process. The proposed method relies on a conventional and well-structured approach for film grain analysis, combining standard techniques such as denoising, statistical modeling, and frequency analysis. While the method appears sound and well motivated, its level of novelty remains limited as it mainly builds upon existing concepts. The qualitative examples are clear and are supported by quantitative measures such as bitrate savings and grain fidelity using the JSD-NSS metric. Concerning the comparison with the state of the art, only a single example is provided. A more extensive comparison on a larger dataset, using objective metrics such as JSD-NSS as well as the evaluation protocol from [13], would strengthen the validation of the proposed method. Furthermore, the article refers to several video clips in the experimental section, but no references or detailed information are provided regarding these datasets.
+
+
+To provide some context, I am a first-year Ph.D. student with approximately five months of research experience. While I am still developing my expertise in evaluating scientific contributions, I have carefully read this paper and provide the following assessment. Overall, the paper is well structured and clearly written. The application context is well motivated, and the positioning of the contribution with respect to existing pipelines and prior work is clearly explained. The main limitation of the paper lies in the experimental evaluation. Although the general methodology is described, the subjective evaluation protocol is not detailed and is only referenced through citation [13], which does not appear to be publicly accessible. This limits the reproducibility and transparency of the evaluation. Furthermore, only a limited number of examples are presented, and the comparison with the state of the art is restricted to a single method [12]. This comparison also partly relies on an evaluation protocol that is not fully described. A more comprehensive evaluation on a larger dataset, including objective metrics such as JSD-NSS [14] introduced by the authors, would significantly strengthen the paper and provide more convincing evidence of the method’s effectiveness.

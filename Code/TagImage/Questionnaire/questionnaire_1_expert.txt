@@ -1,0 +1,179 @@
+Plan1 
+Expert 1	
+Expert 2	Middle_frame,  Our_method, Chen_et_al
+Expert 3	 Chen_et_al
+Expert 4	
+Expert 5	
+Expert 6	Zhang_et_al
+Expert 7	Our_method, Middle_frame 
+Expert 8	Middle_frame, Our_method
+Expert 9	Middle_frame, Our_method
+Expert 10	Middle_frame, Our_method
+Expert 11	Chen_et_al
+Expert 12	Our_method, Chen_et_al
+Expert 13	 Middle_frame, Our_method
+Expert 14	Our_method, Middle_frame
+Expert 15	Middle_frame, Our_method, Chen_et_al
+Expert 16	Our_method,  Middle_frame
+
+Plan2
+Expert 1	Pei
+Expert 2	Our_method
+Expert 3	
+Expert 4	
+Expert 5	Pei
+Expert 6	Pei
+Expert 7	
+Expert 8	Our_method,  Chen_et_al, Pei
+Expert 9	
+Expert 10	
+Expert 11	Zhang_et_al, Our_method,  Pei, Middle_frame, Chen_et_al
+Expert 12	Pei, Middle_frame, 
+Expert 13	Pei
+Expert 14	Pei, Our_method,  Zhang_et_al, Chen_et_al
+Expert 15	Zhang_et_al,  Middle_frame, Our_method, Pei
+Expert 16	Middle_frame
+
+Plan3
+Expert 1	Pei
+Expert 2	Zhang_et_al
+Expert 3	
+Expert 4	
+Expert 5	
+Expert 6	Our_method
+Expert 7	
+Expert 8	 Middle_frame, Our_method
+Expert 9	 Our_method
+Expert 10	 Zhang_et_al, Our_method
+Expert 11	Zhang_et_al
+Expert 12	
+Expert 13	
+Expert 14	 Zhang_et_al, Our_method
+Expert 15	Middle_frame, Chen_et_al, Our_method,  Zhang_et_al, Pei
+Expert 16	
+
+Plan4
+Expert 1	Zhang_et_al, Middle_frame
+Expert 2	
+Expert 3	
+Expert 4	Chen_et_al
+Expert 5	Zhang_et_al
+Expert 6	Zhang_et_al
+Expert 7	
+Expert 8	Zhang_et_al, Middle_frame, Our_method, Chen_et_al 
+Expert 9	Chen_et_al
+Expert 10	Middle_frame, Our_method, Chen_et_al 
+Expert 11	Zhang_et_al
+Expert 12	Zhang_et_al, Chen_et_al
+Expert 13	Chen_et_al,  Middle_frame, Our_method
+Expert 14	Middle_frame,  Chen_et_al, Our_method
+Expert 15	Chen_et_al, Our_method, Middle_frame 
+Expert 16	
+
+Plan5
+Expert 1	Chen_et_al, Our_method
+Expert 2	Our_method, Chen_et_al
+Expert 3	Our_method, Chen_et_al
+Expert 4	Our_method, Middle_frame, Chen_et_al
+Expert 5	Middle_frame
+Expert 6	
+Expert 7	Chen_et_al, Our_method
+Expert 8	 Chen_et_al, Our_method, Middle_frame
+Expert 9	Our_method
+Expert 10	Pei, Chen_et_al, Our_method, Middle_frame
+Expert 11	Chen_et_al, Our_method
+Expert 12	Our_method
+Expert 13	Chen_et_al, Middle_frame, Our_method
+Expert 14	Zhang_et_al, Pei,  Middle_frame, Our_method, Chen_et_al
+Expert 15	Chen_et_al, Our_method, Middle_frame
+Expert 16	Chen_et_al, Our_method
+
+Plan6
+Expert 1	Our_method, Zhang_et_al, Pei
+Expert 2	Our_method
+Expert 3	Our_method
+Expert 4	Our_method
+Expert 5	Our_method
+Expert 6	Our_method
+Expert 7	Our_method
+Expert 8	Chen_et_al, Our_method
+Expert 9	Our_method
+Expert 10	Our_method
+Expert 11	Our_method, Pei
+Expert 12	
+Expert 13	Our_method
+Expert 14	Our_method, Pei, Chen_et_al, Zhang_et_al, Middle_frame
+Expert 15	Middle_frame, Pei, Zhang_et_al, Our_method, Chen_et_al
+Expert 16	Our_method
+
+Plan7
+Expert 1	Chen_et_al,  Pei
+Expert 2	 Chen_et_al
+Expert 3	Pei
+Expert 4	 Middle_frame, Chen_et_al
+Expert 5	Our_method
+Expert 6	Chen_et_al
+Expert 7	Chen_et_al
+Expert 8	Pei, Our_method, Chen_et_al,  Middle_frame
+Expert 9	
+Expert 10	Our_method, Chen_et_al,  Middle_frame
+Expert 11	Pei, Zhang_et_al, Our_method, Chen_et_al, Middle_frame, 
+Expert 12	Our_method, Pei,  Zhang_et_al, Middle_frame, Chen_et_al
+Expert 13	Our_method, Chen_et_al,  Middle_frame
+Expert 14	Zhang_et_al, Middle_frame, Pei,  Chen_et_al, Our_method
+Expert 15	Pei,  Our_method, Middle_frame, Chen_et_al
+Expert 16	Our_method, Middle_frame
+
+Plan8
+Expert 1	Chen_et_al,  Middle_frame
+Expert 2	Chen_et_al,  Pei
+Expert 3	Chen_et_al
+Expert 4	Pei, Chen_et_al
+Expert 5	
+Expert 6	Middle_frame
+Expert 7	Middle_frame
+Expert 8	Middle_frame
+Expert 9	Middle_frame
+Expert 10	Chen_et_al, Middle_frame,  Pei
+Expert 11	Middle_frame, Pei, Our_method, Zhang_et_al
+Expert 12	Middle_frame
+Expert 13	 Pei, Zhang_et_al, Middle_frame
+Expert 14	Zhang_et_al, Chen_et_al, Middle_frame,  Our_method, Pei
+Expert 15	Chen_et_al,  Our_method, Middle_frame, Zhang_et_al, Pei
+Expert 16	
+
+Plan9
+Expert 1	Chen_et_al
+Expert 2	 Chen_et_al
+Expert 3	Zhang_et_al, Chen_et_al
+Expert 4	 Chen_et_al
+Expert 5	
+Expert 6	
+Expert 7	
+Expert 8	Chen_et_al
+Expert 9	
+Expert 10	
+Expert 11	
+Expert 12	Pei
+Expert 13	
+Expert 14	Pei, Zhang_et_al, Our_method,  Chen_et_al
+Expert 15	Zhang_et_al,  Chen_et_al, Our_method, Pei
+Expert 16	Chen_et_al
+
+Plan10
+Expert 1	Middle_frame
+Expert 2	Our_method, 
+Expert 3	Middle_frame, Our_method
+Expert 4	Our_method
+Expert 5	Our_method
+Expert 6	Zhang_et_al
+Expert 7	Zhang_et_al, Middle_frame, Our_method
+Expert 8	Zhang_et_al, Middle_frame, Chen_et_al, Our_method
+Expert 9	Our_method
+Expert 10	Zhang_et_al, Middle_frame, Our_method 
+Expert 11	Zhang_et_al, Middle_frame, Our_method
+Expert 12	Chen_et_al, Middle_frame
+Expert 13	Middle_frame,  Our_method, Zhang_et_al
+Expert 14	Chen_et_al, Zhang_et_al, Middle_frame,  Our_method
+Expert 15	Our_method, Middle_frame, Zhang_et_al
+Expert 16	Our_method, Middle_frame, Zhang_et_al

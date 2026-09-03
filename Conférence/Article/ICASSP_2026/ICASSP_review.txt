@@ -1,0 +1,120 @@
+***264E :
+
+-pondération temporelle : rien n'appui cette pondération et aucune expérimentation
+
+-limite dataset de test : trop peu pour faire des conclusions statistiques ou de faire une généralisation
+
+-détecteur d'objet obsolète : nb labels trop faible 
+
+-efficacité computationnelle : aucune analyse de cout (cas de plans plus longs)
+
+
+***06FA : 
+
+-taille trop faible du dataset : même chose que pour le premier
+
+-détecteur d'objet obsolète : suggestion d'utilisation de YOLO ou Transformer -> vitesse d'éxecution et qualité des hists
+
+
+***4C14 :
+
+-pondération spatiale : pas d'accord, est ce que cette argument peut être vérifié à partir d'un échantillon de film pris au hasard.
+
+-pondération temporelle : pondération trop classique et manque de nouveauté, pondération concu sur la base de la cohérence entre images ?
+
+-méthode dépendante du modèle de détection : abscence d'analyse de la propagation des erreurs.
+
+-pas d'analyse d'ablation pour les pondérations.
+
+
+***1BE1 :
+
+-algo rien de novateur : adaptation de concept à un domaine
+
+-manque de justification ou test pour le choix des valeurs de variables : seuil de confiance détecteur d'objet, pondération temp eps
+
+-absence analyse complexité : speed, memory ou relation longueur de plan et frame rate
+
+-rule based : pas de traitement des cas d'erreurs de détection, noir et blanc vs couleur
+
+-experimentation : comme les autres et pas de précision sur les paramètres des méthodes que l'on compare, aucune mesure objective
+
+-pas d'analyse d'ablation pour les pondérations.
+
+&erreur& : 
+-confusion eq temporelle : t et N
+-citation [4]
+-format de citation non correct
+-format footnote /= IEEE style
+-correction anglais : “In that case, Equ. (4) becomes:” → typically “In this case, Eq. (4) becomes:”. / “we asked to a group of film analysis experts” → “we asked a group of film-analysis experts”. 
+-figure caption are very brief
+
+
+***Résumé : 
+
+-Expérimentation 3/4 : taille dataset test 
+
+-Pondération Temporelle 2/4, Pondération Spatiale 1/4 : pondération basé sur le dire d'expert en cinéma ? Il demande des expérimentations pour prouver leurs utilités.
+
+-Détecteur d'objet obsolète 2/4 : détecteur dépassé qui peut entrainer des erreurs puis propagations de celle-ci, à l'inverse on pourrait générer de meilleur histogrammes dans un temps bien plus rapide.
+
+-Vitesse d'éxécution/Compléxité (analyse) 2/4 : pas d'analyse de cout et comparaison plan court et long
+
+-Analyse Ablation 2/4 : 
+
+
+
+
+***Response : 
+
+-----------------------------------v1
+
+Nous remercions les évaluateurs pour leur lecture et leurs commentaires qui vont nous permettre d'améliorer au mieux notre article. Nous avons éxaminer l'ensemble des interrogations et nous répondons ci-dessous afin d'éclaircir au mieux.
+
+Pour le dataset de test il ne contient exclusivement des plans issues de films car comme il est spécifié dans le titre de l'article, l'objectif de cette méthode est exclusivement pour le cinéma. 
+Sur le nombre de plan évalué il est certes léger (le choix n'a pas fais à la légère et collaboration avec des experts cinémas qui ont permis de créer un dataset varié) mais on a préféré favoriser le nombre d'experts en cinéma qui évalue les résultats; étant donnée qu'il n'est pas possible comme beaucoup de domaine de créer un dataset avec pour chaque élément une valeur de véritée. D'une part parce que chaque personne fournira des valeurs dé véritées mais aussi parce que la comparaison avec une valeurs de véritée n'est pas pertinent dans le cas d'image. 
+
+Pour le détecteur d'objet on est d'accord avec l'interrogation à ce sujet et les conséquences positives ou bien négatives que celui ci pourrait avoir mais ce n'est pas vraiment la partie importante de la méthode car finalement celle-ci fonctionne avec n'importe quel détecteur d'objet (le seul changement sera la valeur K).
+
+L'ablation studies n'est pas quelque chose que nous avons exprimer dans l'article par manque de place mais c'est bien sur quelque chose que nous avons effectué afin de s'assurer que les différentes pondérations étais pertinentes. Pour vous citer un exemple, on avait pour ambition de pondérer le score de chaque objet en fonction de leurs taille par rapport à la taille de l'image mais cette pondération a été abandonnée car elle étais non pertinentes et détérioré les résultats.
+
+Pour l'analyse computationnel on ne s'est pas vraiment poser la question car dans le cadre du cinéma à part cas exceptionnelle, un plan ne dépasse rarement la minute. Mais si on veut calculer une key frame pour un grand nombre de plan alors l'évaluation d'une frame sur 5 par exemple réduirait considérablement le temps de calcul.
+
+Bien entendu dans le cas oû le papier serait accepter on corrigerais les différentes erreurs d'anglais, l'erreur de citation ainsi qu'on adapterais le format à l'IEEE style pour que ce papier soit clair et en adéquation avec la conférence.
+
+-----------------------------------v2
+
+Nous remercions les évaluateurs pour leur lecture attentive et leurs commentaires constructifs, qui nous ont permis de clarifier le positionnement et les choix méthodologiques de notre travail. Nous répondons ci-dessous aux principales interrogations soulevées.
+
+Concernant le dataset et le protocole d’évaluation.
+Le jeu de test est volontairement composé exclusivement de plans issus de films, conformément à l’objectif explicitement affiché dans le titre et au positionnement de l’article, qui cible le cinéma et non la vidéo générique. Le nombre de plans évalués est effectivement limité ; ce choix résulte d’un compromis assumé entre la diversité des œuvres et la nature de l’évaluation. Dans le contexte du cinéma, il n’existe pas de vérité terrain unique pour la sélection d’une image représentative d’un plan. Une évaluation reposant sur un nombre conséquent d’experts en analyse filmique nous a semblé plus pertinente qu’une comparaison à une pseudo-référence unique, potentiellement arbitraire, pour une tâche intrinsèquement subjective.
+
+Concernant les pondérations spatiale et temporelle.
+Les pondérations proposées reposent sur des principes esthétiques et narratifs issus de la pratique et de la théorie cinématographiques (composition centrale, structuration dramatique des plans). Elles sont volontairement interprétables et heuristiques, et non apprises, ce qui correspond au positionnement du travail. L’objectif n’est pas de modéliser statistiquement toutes les formes de cinéma, mais de proposer un cadre simple, explicite et cohérent avec des conventions largement observées, en particulier dans le cinéma d’auteur.
+
+Concernant le détecteur d’objets.
+Nous partageons l’observation selon laquelle des détecteurs plus récents pourraient améliorer les performances ou la vitesse d’exécution. Toutefois, le détecteur utilisé n’est pas un élément central de la contribution : la méthode est indépendante du modèle de détection et peut s’appuyer sur tout détecteur fournissant des scores par classe, le paramètre K s’adaptant en conséquence. Ce choix vise avant tout la clarté et la reproductibilité.
+
+Concernant l’ablation, la complexité et le choix des paramètres.
+Des expérimentations internes ont été menées afin d’évaluer la pertinence des différentes pondérations ainsi que le choix de leurs paramètres. Compte tenu du format court de l’article, nous avons fait le choix de ne pas détailler ces analyses. Par ailleurs, dans le contexte du cinéma, les plans dépassent rarement une minute ; des stratégies simples d’échantillonnage temporel permettent alors de réduire significativement le coût de calcul si nécessaire.
+
+Enfin, dans le cas où le papier serait accepté, nous corrigerons les erreurs linguistiques, l’erreur de citation identifiée, et adapterons le format aux standards IEEE afin d’assurer une présentation claire et conforme aux attentes de la conférence.
+
+-----------------------------------v2 anglais
+
+We would like to thank the reviewers for their careful reading and constructive comments, which have enabled us to clarify the positioning and methodological choices of our work. We respond below to the main questions raised.
+
+Regarding the dataset and evaluation protocol.
+The test set is deliberately composed exclusively of shots from films, in accordance with the objective explicitly stated in the title and the positioning of the article, which targets cinema and not generic video. The number of shots evaluated is indeed limited; this choice is the result of a conscious tradeoff between the diversity of the works and the nature of the evaluation. In the context of cinema, there is no single truth for selecting an image that is representative of a shot. An evaluation based on a significant number of film analysis experts seemed more relevant to us than a comparison with a single, potentially arbitrary pseudo-reference for an inherently subjective task.
+
+Regarding spatial and temporal weightings.
+The proposed weightings are based on aesthetic and narrative principles derived from cinematographic practice and theory (central composition, dramatic structuring of shots). They are deliberately interpretable and heuristic, rather than learned, which corresponds to the positioning of the work. The aim is not to statistically model all forms of cinema, but to propose a simple, explicit framework that is consistent with widely observed conventions, particularly in auteur cinema.
+
+Regarding the object detector.
+We agree with the observation that newer detectors could improve performance or execution speed. However, the detector used is not a central element of the contribution: the method is independent of the detection model and can be based on any detector providing scores by class, with the K parameter adapting accordingly. This choice is primarily for clarity and reproducibility.
+
+Regarding ablation, complexity, and parameter selection.
+Internal experiments were conducted to evaluate the relevance of different weightings and the choice of their parameters. Given the short format of this article, we have chosen not to detail these analyses. Furthermore, in the context of cinema, shots rarely exceed one minute; simple temporal sampling strategies can therefore significantly reduce the cost of computation if necessary.
+
+Finally, if the paper is accepted, we will correct the linguistic errors and the citation error identified, and adapt the format to IEEE standards to ensure a clear presentation that meets the conference's expectations.
+

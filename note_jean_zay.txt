@@ -1,2 +1,22 @@
-frontale : accès internet 
-travailler sur me $WORK
+login : uhq87hz
+mdp : tu connais
+
+connection terminal : ssh jean-zay
+
+
+connection https://jupyterhub.idris.fr
+terminal : ssh -D localhost:9080 -N -f bserva@jumpbox.lirmm.fr 
+activer proxys 
+
+fin terminal : pkill -f "ssh -D localhost:9080" 
+
+
+charger env/module : module load 
+
+lancer job : sbatch --array=1-${N}%10 run_array.slurm
+
+
+voir les jobs en cours : squeue -u $USER -r (détail)
+kill le job : scancel iddujob_id ou [deb-fin]
+
+

@@ -1,0 +1,39 @@
+video	video_duration(s)	execution_time(s)	ratio
+4_31-36_Tribunal_Plan 12.mp4	15.24	41.30	2.710
+4_31-36_Tribunal_Plan 16.mp4	18.12	49.08	2.709
+Better.Call.Saul.S03E03_Plan 268.mp4	22.98	66.95	2.913
+Better.Call.Saul.S03E03_Plan 376.mp4	20.73	60.63	2.925
+Better.Call.Saul.S03E03_Plan 70.mp4	18.94	56.44	2.980
+Better.Call.Saul.S03E04_Plan 322.mp4	30.03	88.84	2.958
+Better.Call.Saul.S03E4_Plan 225.mp4	18.94	56.34	2.975
+Better.Call.Saul.S03E4_Plan 318.mp4	27.69	81.13	2.929
+EvenCowgirlGetTheBlues_Plan 718.mp4	20.04	53.60	2.675
+EvenCowgirlGetTheBlues_Plan 723.mp4	28.08	74.72	2.661
+EvenCowgirlGetTheBlues_Plan 728.mp4	20.72	55.22	2.665
+EvenCowgirlGetTheBlues_Plan 915.mp4	71.56	189.40	2.647
+EvenCowgirlGetTheBlues_Plan 917.mp4	63.16	167.31	2.649
+Falstaff.mp4	44.12	120.60	2.734
+JohnWick2_Plan 1173.mp4	15.56	40.95	2.632
+JohnWick2_Plan 629.mp4	15.18	39.70	2.615
+JohnWick2_Plan 867.mp4	18.23	47.54	2.608
+La.Haine_Plan 115.mp4	33.03	97.15	2.941
+La.Haine_Plan 428.mp4	33.32	97.63	2.930
+La.Haine_Plan 470.mp4	17.89	53.00	2.962
+La.Haine_Plan 533.mp4	31.66	92.75	2.930
+La_ligne_Verte_Plan 1113.mp4	21.40	55.76	2.606
+La_ligne_Verte_Plan 1288.mp4	35.79	93.00	2.599
+LeCorniaud_Plan 12.mp4	39.20	82.38	2.102
+LeCorniaud_Plan 497.mp4	43.80	92.70	2.117
+LeCorniaud_Plan 547.mp4	76.24	158.80	2.083
+LeCorniaud_Plan 675.mp4	37.12	77.91	2.099
+Leon_Plan 1129.mp4	22.81	50.36	2.207
+Leon_Plan 737.mp4	20.19	44.43	2.201
+Leon_Plan 786.mp4	18.73	41.86	2.235
+Leon_Plan 947.mp4	11.80	26.32	2.230
+MAN_OF_THE_WEST_SCN_Plan 279.mp4	20.56	45.73	2.224
+MAN_OF_THE_WEST_SCN_Plan 316.mp4	25.04	55.67	2.223
+MK_s.1+2_Pont_Plan 24.mp4	15.96	33.49	2.098
+MOF.mp4	17.20	40.69	2.366
+ManOfTheWest.mp4	26.36	58.67	2.226
+ManOfTheWest_Plan305.mp4	25.72	57.01	2.217
+Ragtime_STF_Plan 5.mp4	17.08	59.16	3.464

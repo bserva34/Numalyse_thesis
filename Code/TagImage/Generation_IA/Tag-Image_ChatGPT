@@ -1,0 +1,33 @@
+J’ai extrait le frame le plus représentatif du plan à 12,5 secondes du fichier vidéo.
+
+Pourquoi ce frame ?
+
+Ce choix repose sur des critères objectifs et reproductibles :
+
+Présence simultanée des personnages principaux
+Le frame montre clairement les deux personnages dans une interaction forte.
+Action significative
+Le contact physique (embrassade) rend immédiatement le moment identifiable dans le film.
+Lisibilité visuelle
+visages visibles,
+faible flou de mouvement,
+composition centrée.
+Conservation du décor
+Le décor du couloir reste visible et aide à reconnaître le plan.
+Moment “clé” du plan
+Le frame correspond au pic narratif du mouvement : après l’entrée des personnages et avant leur sortie du champ.
+Procédure reproductible
+
+La sélection peut être automatisée avec le pipeline suivant :
+
+Détection du plan par différence d’histogrammes entre frames.
+Échantillonnage régulier des images du plan.
+Calcul d’un score composite :
+netteté (variance du Laplacien),
+présence de visages,
+taille des visages,
+centralité des sujets,
+stabilité du mouvement.
+Sélection du frame ayant le score maximal.
+
+Cette méthode permet d’obtenir le même résultat sur plusieurs exécutions.

@@ -1,0 +1,92 @@
+ID;Faster R-CNN;RetinaNet;YOLOv8-M;RT-DETR-L
+0;__background__;__background__;person;person
+1;person;person;bicycle;bicycle
+2;bicycle;bicycle;car;car
+3;car;car;motorcycle;motorcycle
+4;motorcycle;motorcycle;airplane;airplane
+5;airplane;airplane;bus;bus
+6;bus;bus;train;train
+7;train;train;truck;truck
+8;truck;truck;boat;boat
+9;boat;boat;traffic light;traffic light
+10;traffic light;traffic light;fire hydrant;fire hydrant
+11;fire hydrant;fire hydrant;stop sign;stop sign
+12;N/A;N/A;parking meter;parking meter
+13;stop sign;stop sign;bench;bench
+14;parking meter;parking meter;bird;bird
+15;bench;bench;cat;cat
+16;bird;bird;dog;dog
+17;cat;cat;horse;horse
+18;dog;dog;sheep;sheep
+19;horse;horse;cow;cow
+20;sheep;sheep;elephant;elephant
+21;cow;cow;bear;bear
+22;elephant;elephant;zebra;zebra
+23;bear;bear;giraffe;giraffe
+24;zebra;zebra;backpack;backpack
+25;giraffe;giraffe;umbrella;umbrella
+26;N/A;N/A;handbag;handbag
+27;backpack;backpack;tie;tie
+28;umbrella;umbrella;suitcase;suitcase
+29;N/A;N/A;frisbee;frisbee
+30;N/A;N/A;skis;skis
+31;handbag;handbag;snowboard;snowboard
+32;tie;tie;sports ball;sports ball
+33;suitcase;suitcase;kite;kite
+34;frisbee;frisbee;baseball bat;baseball bat
+35;skis;skis;baseball glove;baseball glove
+36;snowboard;snowboard;skateboard;skateboard
+37;sports ball;sports ball;surfboard;surfboard
+38;kite;kite;tennis racket;tennis racket
+39;baseball bat;baseball bat;bottle;bottle
+40;baseball glove;baseball glove;wine glass;wine glass
+41;skateboard;skateboard;cup;cup
+42;surfboard;surfboard;fork;fork
+43;tennis racket;tennis racket;knife;knife
+44;bottle;bottle;spoon;spoon
+45;N/A;N/A;bowl;bowl
+46;wine glass;wine glass;banana;banana
+47;cup;cup;apple;apple
+48;fork;fork;sandwich;sandwich
+49;knife;knife;orange;orange
+50;spoon;spoon;broccoli;broccoli
+51;bowl;bowl;carrot;carrot
+52;banana;banana;hot dog;hot dog
+53;apple;apple;pizza;pizza
+54;sandwich;sandwich;donut;donut
+55;orange;orange;cake;cake
+56;broccoli;broccoli;chair;chair
+57;carrot;carrot;couch;couch
+58;hot dog;hot dog;potted plant;potted plant
+59;pizza;pizza;bed;bed
+60;donut;donut;dining table;dining table
+61;cake;cake;toilet;toilet
+62;chair;chair;tv;tv
+63;couch;couch;laptop;laptop
+64;potted plant;potted plant;mouse;mouse
+65;bed;bed;remote;remote
+66;N/A;N/A;keyboard;keyboard
+67;dining table;dining table;cell phone;cell phone
+68;N/A;N/A;microwave;microwave
+69;N/A;N/A;oven;oven
+70;toilet;toilet;toaster;toaster
+71;N/A;N/A;sink;sink
+72;tv;tv;refrigerator;refrigerator
+73;laptop;laptop;book;book
+74;mouse;mouse;clock;clock
+75;remote;remote;vase;vase
+76;keyboard;keyboard;scissors;scissors
+77;cell phone;cell phone;teddy bear;teddy bear
+78;microwave;microwave;hair drier;hair drier
+79;oven;oven;toothbrush;toothbrush
+80;toaster;toaster;-;-
+81;sink;sink;-;-
+82;refrigerator;refrigerator;-;-
+83;N/A;N/A;-;-
+84;book;book;-;-
+85;clock;clock;-;-
+86;vase;vase;-;-
+87;scissors;scissors;-;-
+88;teddy bear;teddy bear;-;-
+89;hair drier;hair drier;-;-
+90;toothbrush;toothbrush;-;-

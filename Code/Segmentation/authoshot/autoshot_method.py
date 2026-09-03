@@ -67,6 +67,8 @@ def process_videos_in_directory(directory, output_dir,model,device):
         if frames is None:
             print(f"[SKIP] Vidéo ignorée : {video_path}")
             continue
+        # vis = visualize_predictions(frames, predictions=(preds > 0.296).astype(np.uint8))
+        # vis.save(os.path.join(output_dir, os.path.basename(video_path).replace(".mp4", "_shots.png")))
         write_res(output_dir,video_path,boundaries,len(frames))
 
 
@@ -129,46 +131,53 @@ if __name__ == "__main__":
     # args = parser.parse_args()
     # model, device = load_autoshot_model()
 
-    # input_directory = r"../../../Dataset/Dataset_Shot/V3C/V3C1/videos"  # Dossier source de vos vidéos
-    # #list_of_videos = r"../../../Dataset/Dataset_Shot/V3C/V3C1/echantillons/echantillon_2.txt"
+    # # input_directory = r"../../../Dataset/Dataset_Shot/V3C/V3C1/videos"  # Dossier source de vos vidéos
+    # # #list_of_videos = r"../../../Dataset/Dataset_Shot/V3C/V3C1/echantillons/echantillon_2.txt"
 
-    # ech_basename = os.path.splitext(os.path.basename(args.list))[0]
+    # # ech_basename = os.path.splitext(os.path.basename(args.list))[0]
 
-    # output_directory = r"../Experimentation/AutoShot_V3C1"  # Dossier de sortie
-    # output_directory = output_directory+"_"+ech_basename
-    # print(output_directory)
+    # # output_directory = r"../Experimentation/AutoShot_V3C1"  # Dossier de sortie
+    # # output_directory = output_directory+"_"+ech_basename
+    # # print(output_directory)
 
-    # with open(args.list, "r", encoding="utf-8") as f:
-    #     for line in f:
-    #         line = line.strip()  # enlève \n et les espaces
-    #         #print("Traitement de la vidéo : ",line)
-    #         dir_prov=os.path.join(input_directory, line)
-    #         process_videos_in_directory(dir_prov, output_directory,model,device)
+    # # with open(args.list, "r", encoding="utf-8") as f:
+    # #     for line in f:
+    # #         line = line.strip()  # enlève \n et les espaces
+    # #         #print("Traitement de la vidéo : ",line)
+    # #         dir_prov=os.path.join(input_directory, line)
+    # #         process_videos_in_directory(dir_prov, output_directory,model,device)
 
-    #model, device = load_autoshot_model()
+    # model, device = load_autoshot_model()
 
-    # input_directory = r"../../../Dataset/Dataset_Shot/AutoShot/video" 
-    # output_directory = r"../Experimentation/AutoShot_TEST/AutoShot_AutoShot"  # Dossier de sortie
+    # # input_directory = r"../../../Dataset/Dataset_Shot/AutoShot/video" 
+    # # output_directory = r"../Experimentation/AutoShot_TEST/AutoShot_AutoShot"  # Dossier de sortie
 
-    # input_directory = r"../../../Dataset/Dataset_Shot/ClipShots/videos/merged" 
-    # output_directory = r"../Experimentation/ClipShots_TEST/AutoShot_ClipShots"  # Dossier de sortie
+    # # input_directory = r"../../../Dataset/Dataset_Shot/ClipShots/videos/merged" 
+    # # output_directory = r"../Experimentation/ClipShots_TEST/AutoShot_ClipShots"  # Dossier de sortie
 
-    # input_directory = r"../../../Dataset/Dataset_Shot/BBC/BBC_FadeBlack_mirror" 
-    # output_directory = r"../Experimentation/BBC_FadeBlack_mirror/AutoShot"  # Dossier de sortie
+    # # input_directory = r"../../../Dataset/Dataset_Shot/BBC/BBC_FadeBlack_mirror" 
+    # # output_directory = r"../Experimentation/BBC_FadeBlack_mirror/AutoShot"  # Dossier de sortie
 
-    # process_videos_in_directory(input_directory, output_directory,model,device)
+    # # process_videos_in_directory(input_directory, output_directory,model,device)
 
-    # input_directory = r"../../../Dataset/Dataset_Shot/BBC/BBC_FadeBlack" 
-    # output_directory = r"../Experimentation/BBC_FadeBlack/AutoShot"  # Dossier de sortie
+    # # input_directory = r"../../../Dataset/Dataset_Shot/BBC/BBC_FadeBlack" 
+    # # output_directory = r"../Experimentation/BBC_FadeBlack/AutoShot"  # Dossier de sortie
 
-    # process_videos_in_directory(input_directory, output_directory,model,device)
+    # # process_videos_in_directory(input_directory, output_directory,model,device)
 
-    # input_directory = r"../../../Dataset/Dataset_Shot/BBC/BBC_Fade" 
-    # output_directory = r"../Experimentation/BBC_Fade/AutoShot"  # Dossier de sortie
+    # # input_directory = r"../../../Dataset/Dataset_Shot/BBC/BBC_Fade" 
+    # # output_directory = r"../Experimentation/BBC_Fade/AutoShot"  # Dossier de sortie
 
-    # process_videos_in_directory(input_directory, output_directory,model,device)
+    # # process_videos_in_directory(input_directory, output_directory,model,device)
 
-    # input_directory = r"../../../Dataset/Dataset_Shot/BBC/BBC_Alea" 
-    # output_directory = r"../Experimentation/BBC_Alea/AutoShot"  # Dossier de sortie
+    # # input_directory = r"../../../Dataset/Dataset_Shot/BBC/BBC_Alea" 
+    # # output_directory = r"../Experimentation/BBC_Alea/AutoShot"  # Dossier de sortie
+
+    # # process_videos_in_directory(input_directory, output_directory,model,device)
+
+    
+
+    # input_directory = r"../../../../../benjamin-serva/Extreme SSD/Film_Numalyse/Dataset_Plan_Q2_corrige/video_corrige" 
+    # output_directory = r"../../../../../benjamin-serva/Extreme SSD/Film_Numalyse/Dataset_Plan_Q2_corrige/verif_corrige"  # Dossier de sortie
 
     # process_videos_in_directory(input_directory, output_directory,model,device)

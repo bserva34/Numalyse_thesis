@@ -1,0 +1,88 @@
+Introduction : Dans le domaine de l'analyse d'oeuvre cinématographique c'est à dire des films, la première étape essentielle à cette analyse consiste à faire une segmentation du film en plan. Cela consiste à identifier les différentes transitions pour caractériser les différents plans composant le film, cette tache peux etre effectué de manière manuelle ou bien de façon automatiser grâce à des méthodes tel que celle de la référence [1]. Le problème étant qu'un film peut être composé de quelques dizaines de plans à plusieurs centaines de plans. Leur problème évident est la question de la visualisation de cette segmentation. 
+
+Motivation : Une solution consiste à associé une image par plan mais pour cela il est nécessaire d'avoir une méthode capable de sélectionner une tel, c'est à dire une image qui permet de représenter le plan et l'identifier, malgrès tous les enjeux du cinéma tel que la forte variation de contenu.
+
+On a introduit un nouveau terme pour désigner ce genre d'image, qu'on appel Tag-image, pour bien faire la distinction avec les key-frames qui sont un ensemble d'image illustrant les étapes clés d'une action/mouvement.
+
+Méthode : Pour répondre à cette problématique nous proposons une méthode qui consiste à générer pour chaque image du plan une représentation statistique de l'occurence d'apparition d'objet à travers un histogramme. La frame qui est retenu en tant que tag-image est celle qui représente le mieux le contenu moyen du plan, c'est à dire celle dont l'histogramme est le plus proche de l'hitogramme moyen. 
+
+Afin d'améliorer la qualité des résultats produits nous y avons intégrer trois pondérations, pondérations basé sur les règles de construction d'un plan de cinéma. La première consiste simplement à favoriser une frame net à une frame floue, la deuxième pondère les objets détecté en fonction de leur positions dans le cadre et enfin la troisième pondère les frames en fonction de leurs positions temporelle dans le plan.
+
+Expérimentation : Pour évaluer la pertinence de notre méthode nous l'avons comparé à différentes méthodes d'extraction de keyframes (légèrement modifié pour qu'elle n'extrait qu'une seul keyframes), "middle frame" qui est une méthode naive et trois méthode de la littérature.
+
+Qualitative comparaison : Dans ce plan de film, ou il y a des entrées de caractère ainsi que des mouvements de caméra. On peut y voir que notre méthode capture le mieux le climax du narrative c'est à dire l'arrivé du nouveaux personnages dans le film et la rencontre avec son ami.
+
+Experts evaluation : Pour confirmer nos observations nous avons fait évalué les différentes méthodes par 16 experts en analyse filmique sur un ensemble de 10 plans de films varié. On peut voir grâce à cette étude que notre méthode produit les tag-images les plus apprécié avec un taux de sélection de 50%, elle est aussi dans 50% des cas celle qui est la plus sélectionné.
+
+Large-scale evaluation : Nous avons aussi effectué une évaluation de plus grande envergure sur un ensemble de 105 plans avec une valeur de références et à l'aide la distance de bhattacharya on voit que notre méthode produit les résultats les plus proches de valeurs de référence avec une meilleur stabilité que les autres méthodes.
+
+Conclusion : On a pu dévelloper une méthode capable de sélectionner une tag-image pour un plan de film en y intégrant des pondérations pertinentes pour le cinéma, grâce à une évulation par des experts nous avons pu constater que notre méthode est celle la plus apprécié. Dans le futur nous aimerions améliorer la construction sémantique de nos histogrammes à l'aide de méthode plus précise.
+
+
+
+---------------------------------------------------------------------------------------
+
+
+
+Introduction
+
+Hello, my name is Benjamin, and I'll present our work on tag-image extraction for film shots.
+
+In film analysis, the first essential step is shot segmentation. The objective is to identify the editing transitions in order to divide a movie into individual shots. This can be done manually by experts or automatically using shot boundary detection methods. 
+
+The challenge is that a feature film may contain from a few dozen to several hundred shots, making the segmentation difficult to visualize and explore as a whole.
+
+Motivation
+
+A natural solution is to associate one representative image with each shot.
+
+However, this image must summarize the semantic and narrative content of the shot despite the large visual diversity found in cinema. We introduced the term tag-image to distinguish it from keyframes, which generally refer to a set of images representing the key stages of an action or movement. 
+
+Method
+
+Our method represents each frame of a shot with a semantic histogram built from the objects detected by an object detector. Each histogram contains one bin per object category. 
+
+
+We then compute the average histogram of the shot and select the frame whose histogram is the closest to this average. The intuition is that this frame is the most representative of the overall shot content. 
+
+
+To improve the selection, we introduce three weighting strategies inspired by cinematic composition:
+
+Sharpness weighting favors visually sharp frames.
+
+Centered spatial weighting gives more importance to objects located near the center of the frame.
+
+Temporal weighting favors frames occurring around the middle or the end of the shot, where the narrative climax is more likely to appear. 
+
+
+Experimental evaluation
+
+We compare our approach with four baseline methods: the naïve Middle Frame approach and three methods from the literature. All competing methods were adapted to produce a single representative frame for a fair comparison. 
+
+
+Qualitative comparison
+
+Here is a representative example.
+
+This shot contains both camera motion and character entrances. The competing methods select visually plausible frames, but our method captures the narrative climax: the moment when the new character arrives and meets his injured companion, which corresponds to the expert annotation. 
+
+
+Expert evaluation
+
+To validate these observations, we conducted a study with 16 film-analysis experts on 10 movie shots.
+
+The experts selected every image they considered representative. Our method achieved the highest selection rate, 51.3%, and was ranked Top-1 in 50% of the evaluated shots, clearly outperforming the other approaches. 
+
+
+Large-scale evaluation
+
+We also performed a quantitative evaluation on 105 annotated shots.
+
+Using the Bhattacharyya distance between the selected image and the expert reference, our method obtained the lowest mean distance and the lowest standard deviation, showing both higher accuracy and better robustness. 
+
+
+Conclusion
+
+To conclude, we proposed a semantic histogram-based method for extracting one representative tag-image per film shot. By integrating spatial, temporal, and sharpness weightings inspired by cinematic rules, our approach is consistently preferred by film-analysis experts.
+
+As future work, we plan to improve the semantic representation of the histograms using more accurate object detection models.

@@ -9,3 +9,12 @@
 /Code/Segmentation/TemporalPerceiver/
 /Code/Segmentation/DeepSBD/dataset/
 /Code/Segmentation/DeepSBD/weights_save/
+
+/Dataset/Dataset_TagImage/
+/Dataset/Dataset_Angle_Level/
+
+/Code/TagImage/Camera_Angle_Level/
+
+*.mp4
+*.avi
+*.mov

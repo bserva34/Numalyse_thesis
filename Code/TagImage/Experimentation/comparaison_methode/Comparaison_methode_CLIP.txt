@@ -1,0 +1,40 @@
+Méthode : Chen et al. method.txt
+Moyenne : 0.16034117647058824
+Ecart type : 0.1020795315515916
+Médiane : 0.150556
+Ecart inter-quartile : 0.16754575000000002
+Maximum : 0.45385
+Aire sous la courbe (AUC) : 0.8397058823529412
+---------
+Méthode : Middle  Frame.txt
+Moyenne : 0.14977367647058823
+Ecart type : 0.10620900387934343
+Médiane : 0.130403
+Ecart inter-quartile : 0.10687025000000001
+Maximum : 0.540468
+Aire sous la courbe (AUC) : 0.85
+---------
+Méthode : Our method.txt
+Moyenne : 0.1352385
+Ecart type : 0.09191906497094253
+Médiane : 0.115591
+Ecart inter-quartile : 0.10392675000000001
+Maximum : 0.501467
+Aire sous la courbe (AUC) : 0.8691176470588236
+---------
+Méthode : Pei method.txt
+Moyenne : 0.21259620588235295
+Ecart type : 0.09455133041518317
+Médiane : 0.2095495
+Ecart inter-quartile : 0.12063825
+Maximum : 0.492864
+Aire sous la courbe (AUC) : 0.7867647058823529
+---------
+Méthode : Zhang et al. method.txt
+Moyenne : 0.2005479411764706
+Ecart type : 0.08846268572113633
+Médiane : 0.1761775
+Ecart inter-quartile : 0.12327674999999999
+Maximum : 0.426555
+Aire sous la courbe (AUC) : 0.801470588235294
+---------

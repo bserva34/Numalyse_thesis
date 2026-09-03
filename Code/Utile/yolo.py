@@ -11,6 +11,8 @@ import cv2
 import os
 from ultralytics import YOLO
 
+from ultralytics import RTDETR
+
 
 def parse_args():
     parser = argparse.ArgumentParser(
@@ -42,7 +44,8 @@ def main():
     args = parse_args()
 
     # Charger le modèle YOLO
-    model = YOLO("yolov8n.pt")
+    #model = YOLO("yolov8m.pt")
+    model = RTDETR("rtdetr-l.pt")
 
     # Créer le dossier de sortie
     os.makedirs(args.output, exist_ok=True)

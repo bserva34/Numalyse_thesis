@@ -1,0 +1,71 @@
+Plan1
+Our_method 10
+Pei 0
+Middle_frame 9
+Zhang_et_al 1
+Chen_et_al 5
+
+Plan2
+Our_method 5
+Pei 9
+Middle_frame 4
+Zhang_et_al 3
+Chen_et_al 3
+
+Plan3
+Our_method 6
+Pei 2
+Middle_frame 2
+Zhang_et_al 5
+Chen_et_al 1
+
+Plan4
+Our_method 5
+Pei 0
+Middle_frame 6
+Zhang_et_al 6
+Chen_et_al 8
+
+Plan5
+Our_method 14
+Pei 2
+Middle_frame 7
+Zhang_et_al 1
+Chen_et_al 12
+
+Plan6
+Our_method 15
+Pei 4
+Middle_frame 2
+Zhang_et_al 3
+Chen_et_al 3
+
+Plan7
+Our_method 9
+Pei 7
+Middle_frame 9
+Zhang_et_al 3
+Chen_et_al 12
+
+Plan8
+Our_method 3
+Pei 7
+Middle_frame 11
+Zhang_et_al 4
+Chen_et_al 7
+
+Plan9
+Our_method 2
+Pei 3
+Middle_frame 0
+Zhang_et_al 3
+Chen_et_al 8
+
+Plan10
+Our_method 13
+Pei 0
+Middle_frame 11
+Zhang_et_al 9
+Chen_et_al 3
+
+

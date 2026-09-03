@@ -1,0 +1,101 @@
+####################################################Prompt 1####################################################
+
+Man of the West : 
+
+Pas d'image obtenu mais une estimation entre 15 et 20 seconde de l'extrait.
+Pas d'image obtenu mais une information d'indication de 18 secondes de l'extrait.
+
+Diner de cons 
+
+Pas d'image obtenu mais une information d'indication de 12 secondes de l'extrait.
+Pas d'image obtenu mais une information d'indication de 06 secondes de l'extrait.
+
+
+####################################################Prompt 2####################################################
+
+ Pour ce plan spécifique, extrait du film Le Dîner de cons, l'image la plus représentative et mémorable se situe précisément à 00:08.
+
+Voici l'analyse de cette image, suivie de la méthode et des critères de sélection pour garantir la reproductibilité de cette extraction.
+
+L'image la plus représentative (00:08)
+À cet instant précis, trois éléments clés du film et de la scène se superposent à l'écran :
+
+La révélation du "con" : C'est le moment exact où François Pignon (Jacques Villeret) apparaît pleinement à l'écran, juste après que Juste Leblanc (Francis Huster) a été annoncé.
+
+La confrontation visuelle : L'image montre le trio central de cette séquence. Pignon est au premier plan à gauche, Leblanc apparaît dans l'embrasure de la porte au centre, et Pierre Brochant (Thierry Lhermitte) les observe depuis le fond du couloir à droite.
+
+Le décor iconique : Le plan large met en valeur le couloir de l'appartement de Brochant, avec ses statues, ses tableaux et son mobilier bourgeois, qui sert de décor à la quasi-totalité du film.
+
+Critères de sélection et méthodologie (Reproductibilité)
+Pour identifier cette image de manière objective et reproductible dans n'importe quel plan de cinéma, on applique trois critères fondamentaux :
+
+1. La complétude narrative (L'action principale)
+Une bonne image représentative ne doit pas être prise au début du plan (souvent vide ou en transition) ni à la fin. Elle doit capturer le climax informationnel du plan.
+
+Application ici : À 00:00, le couloir est vide. À 00:03, Brochant est seul. À 00:08, tous les protagonistes de la scène sont présents et l'intrigue du plan est à son point culminant.
+
+2. La clarté des visages et l'identification des personnages
+Pour qu'un plan soit identifiable "au sein du film", il faut que les acteurs principaux soient visibles, de face ou de trois-quarts, et que leurs expressions soient nettes (pas de flou de mouvement).
+
+Application ici : À 00:05, le visage de Pignon est en partie masqué par la porte. À 00:08, son profil est parfaitement net, son expression ahurie (caractéristique du personnage) est visible, et les deux autres acteurs sont dans le champ.
+
+3. La stabilité de la composition (Le choix du "Keyframe")
+En vidéo, la reproductibilité repose sur le choix du keyframe (image clé) où la caméra stabilise son mouvement (panoramique ou travelling) et où les personnages figent brièvement leur position.
+
+Application ici : Le mouvement de caméra qui suivait l'entrée des invités s'arrête. C'est le moment de transition parfaite juste avant que Pignon et Leblanc ne s'avancent vers Brochant (ce qui modifiera la focale et la disposition à 00:10).
+
+En résumé : Si vous devez automatiser ou reproduire cette extraction, la règle d'or est de chercher l'instant où le nombre de personnages principaux à l'écran est maximal, où le mouvement de caméra se stabilise, et où l'élément perturbateur de la scène est pleinement visible. Dans ce plan de 13 secondes, la formule logique désigne invariablement la 8ème seconde.
+
+
+--------
+
+Pour extraire de façon objective et reproductible l'image la plus représentative de cette séquence (tirée du film Le Dîner de cons), il faut se baser sur des critères de reconnaissance narrative et de composition scénique.
+
+L'image la plus représentative est celle située à 00:11 (ou 00:12).
+
+00:11
+Voici les critères précis et reproductibles qui justifient ce choix :
+
+La complétude des personnages (Critère narratif) : C'est le seul moment de la séquence où les trois personnages clés du plan sont présents simultanément à l'écran et identifiables (François Pignon, Juste Leblanc et Pierre Brochant). Un plan montrant l'interaction ou la confrontation des forces en présence est toujours le plus mémorable pour le spectateur.
+
+L'action centrale (Critère dramatique) : La séquence montre l'arrivée surprise de Juste Leblanc pour soutenir son ami Pierre Brochant (bloqué du dos). Le moment où ils se saluent chaleureusement (l'accolade) est le point culminant (le "climax") de cet extrait, apportant l'information principale de la scène.
+
+La lisibilité du décor (Critère contextuel) : Ce plan large/moyen intègre parfaitement les éléments cultes du décor de l'appartement de Brochant (la statue en bronze au premier plan à gauche, le mobilier bourgeois, les tableaux). Ce décor est un élément d'identification immédiat pour quiconque connaît le film.
+
+Règle de reproductibilité : Pour automatiser ou reproduire ce choix sur n'importe quel extrait similaire, la règle consiste à sélectionner l'image qui combine le climax de l'action (le contact physique/salutation) et le nombre maximal d'acteurs principaux visibles à l'écran.
+
+
+####################################################Prompt 3####################################################
+
+Pour identifier l'image la plus représentative de ce plan de manière purement visuelle et objective, nous devons appliquer des règles de grammaire cinématographique (composition, mouvement, narration visuelle).
+
+L'image la plus représentative se situe à 00:06.
+
+Les critères de sélection (Méthode reproductible)
+Pour que cette extraction soit 100 % reproductible, voici les critères stricts appliqués, classés par ordre de priorité cinématographique :
+
+1. La stabilisation de la composition (Fin du mouvement d'appareil)
+Le plan commence par un panoramique qui balaie le décor pour suivre un premier personnage. Choisir une image au début (00:00 - 00:03) serait trompeur car le cadre est en pleine transition. À 00:06, la caméra a terminé son mouvement principal et se stabilise. C'est le cadre qui va définir la majeure partie de la séquence.
+
+2. La densité de l'information visuelle (L'apogée du plan)
+Une image représentative doit contenir le maximum d'éléments clés qui structurent la scène :
+
+Les lignes de force : À 00:06, le décor utilise la règle des tiers et la perspective du couloir pour guider le regard.
+
+La présence des personnages : C'est le moment où le protagoniste principal au premier plan (à gauche) entre complètement dans le cadre et s'immobilise, faisant face à l'ouverture d'où surgit le second personnage.
+
+3. L'équilibre géométrique et les repères visuels uniques
+Pour identifier ce plan précis dans tout le film, il faut des éléments de décor forts et fixes qui font office de "signature". À 00:06, l'image rassemble de manière parfaitement équilibrée :
+
+La statue sombre sur la commode à gauche.
+
+La statue en bronze surélevée à droite.
+
+L'embrasure de la porte qui sépare verticalement le cadre en deux.
+
+Pourquoi éliminer les autres instants ?
+00:00 à 00:02 : Le décor est vide ou n'affiche qu'un seul personnage de dos/profil. Ce n'est pas représentatif de l'action du plan.
+
+00:10 à 00:13 : Les personnages se déplacent, se tournent le dos ou se cachent mutuellement (notamment pendant l'embrassade). Le cadre devient confus et perd les repères géométriques forts du décor (les statues sont coupées ou masquées).
+
+En résumé : L'image à 00:06 est le point d'équilibre parfait où le mouvement de caméra s'arrête, la composition spatiale est la plus lisible, et les éléments visuels uniques du décor sont tous visibles en même temps que les acteurs.

@@ -1,0 +1,40 @@
+Méthode : Faster.txt
+Moyenne : 0.1352385
+Ecart type : 0.09191906497094253
+Médiane : 0.115591
+Ecart inter-quartile : 0.10392675000000001
+Maximum : 0.501467
+Aire sous la courbe (AUC) : 0.8691176470588236
+---------
+Méthode : Retina_v2.txt
+Moyenne : 0.1517254117647059
+Ecart type : 0.09395767199683985
+Médiane : 0.1437105
+Ecart inter-quartile : 0.13269075000000002
+Maximum : 0.530095
+Aire sous la courbe (AUC) : 0.8485294117647059
+---------
+Méthode : RT-DETR_v2.txt
+Moyenne : 0.13958620588235293
+Ecart type : 0.09467013741245392
+Médiane : 0.1085055
+Ecart inter-quartile : 0.12306600000000001
+Maximum : 0.523807
+Aire sous la courbe (AUC) : 0.8602941176470589
+---------
+Méthode : Yolo_l_v2.txt
+Moyenne : 0.15031429411764705
+Ecart type : 0.09991746636791829
+Médiane : 0.1273205
+Ecart inter-quartile : 0.11481225
+Maximum : 0.541296
+Aire sous la courbe (AUC) : 0.8514705882352942
+---------
+Méthode : Yolo_m_v2.txt
+Moyenne : 0.14162235294117648
+Ecart type : 0.09909701252571891
+Médiane : 0.1137445
+Ecart inter-quartile : 0.112854
+Maximum : 0.550976
+Aire sous la courbe (AUC) : 0.8544117647058823
+---------

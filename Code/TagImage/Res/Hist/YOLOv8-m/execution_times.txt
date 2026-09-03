@@ -1,0 +1,110 @@
+video	video_duration(s)	execution_time(s)	ratio
+02S_Arizona-Jim_Plan 1.mp4	31.84	12.75	0.401
+03S_Johnny Guitar.mp4	24.88	8.62	0.346
+1242_La Chienne_fin_4'_Plan 4.mp4	45.17	22.99	0.509
+1242_La Chienne_fin_4'_Plan 5.mp4	10.75	5.82	0.541
+12S1_Zig-Zag_Plan 2.mp4	27.44	10.19	0.371
+17_H'sG (pie)_Plan 3.mp4	11.04	3.37	0.305
+17_H'sG (pie)_Plan 5.mp4	27.64	8.16	0.295
+205_Foottit et Chocolat (Lumière n° 1140-1141)_Plan 2.mp4	51.52	17.57	0.341
+231_LaCiotat.mp4	43.17	19.99	0.463
+381_Proces-Huissier_Plan 8.mp4	42.80	13.73	0.321
+382_Proces_greffier-piranese_Plan 1.mp4	11.32	3.71	0.328
+4_31-36_Tribunal_Plan 12.mp4	15.24	4.49	0.295
+4_31-36_Tribunal_Plan 16.mp4	18.12	5.24	0.289
+4_31-36_Tribunal_Plan 30.mp4	25.44	7.48	0.294
+4eme1.mp4	30.28	9.11	0.301
+4eme2.mp4	13.00	3.91	0.301
+4eme3.mp4	12.72	3.82	0.300
+BARRY_LYNDON_Plan 242.mp4	30.16	10.60	0.352
+BARRY_LYNDON_Plan 278.mp4	36.00	12.69	0.353
+BARRY_LYNDON_Plan 39.mp4	86.52	31.33	0.362
+BARRY_LYNDON_Plan 4.mp4	30.88	11.86	0.384
+BARRY_LYNDON_Plan 456.mp4	51.44	18.50	0.360
+BARRY_LYNDON_Plan 90.mp4	44.48	16.79	0.378
+Better.Call.Saul.S01E08_Plan 387.mp4	39.66	12.44	0.314
+Better.Call.Saul.S01E08_Plan 42.mp4	113.86	35.46	0.311
+Better.Call.Saul.S01E08_Plan 454.mp4	25.48	7.96	0.313
+Better.Call.Saul.S03E01_Plan 131.mp4	16.80	5.51	0.328
+Better.Call.Saul.S03E01_Plan 97.mp4	75.28	24.54	0.326
+Better.Call.Saul.S03E03_Plan 268.mp4	22.98	11.04	0.481
+Better.Call.Saul.S03E03_Plan 376.mp4	20.73	9.88	0.477
+Better.Call.Saul.S03E03_Plan 70.mp4	18.94	9.17	0.484
+Better.Call.Saul.S03E04_Plan 322.mp4	30.03	13.49	0.449
+Better.Call.Saul.S03E4_Plan 225.mp4	18.94	8.60	0.454
+Better.Call.Saul.S03E4_Plan 318.mp4	27.69	12.45	0.450
+EvenCowgirlGetTheBlues_Plan 718.mp4	20.04	6.00	0.299
+EvenCowgirlGetTheBlues_Plan 723.mp4	28.08	8.95	0.319
+EvenCowgirlGetTheBlues_Plan 728.mp4	20.72	6.53	0.315
+EvenCowgirlGetTheBlues_Plan 915.mp4	71.56	21.24	0.297
+EvenCowgirlGetTheBlues_Plan 917.mp4	63.16	18.48	0.293
+Falstaff.mp4	44.12	13.94	0.316
+JohnWick2_Plan 1173.mp4	15.56	4.45	0.286
+JohnWick2_Plan 629.mp4	15.18	4.37	0.288
+JohnWick2_Plan 867.mp4	18.23	5.32	0.292
+La.Haine_Plan 115.mp4	33.03	14.33	0.434
+La.Haine_Plan 428.mp4	33.32	14.64	0.439
+La.Haine_Plan 470.mp4	17.89	7.77	0.434
+La.Haine_Plan 533.mp4	31.66	13.74	0.434
+La_ligne_Verte_Plan 1113.mp4	21.40	6.02	0.281
+La_ligne_Verte_Plan 1288.mp4	35.79	10.14	0.283
+LeCorniaud_Plan 12.mp4	39.20	9.36	0.239
+LeCorniaud_Plan 497.mp4	43.80	10.40	0.237
+LeCorniaud_Plan 547.mp4	76.24	18.10	0.237
+LeCorniaud_Plan 675.mp4	37.12	8.85	0.238
+Leon_Plan 1129.mp4	22.81	7.55	0.331
+Leon_Plan 737.mp4	20.19	6.52	0.323
+Leon_Plan 786.mp4	18.73	6.45	0.345
+Leon_Plan 947.mp4	11.80	3.88	0.329
+MAN_OF_THE_WEST_SCN_Plan 279.mp4	20.56	5.14	0.250
+MAN_OF_THE_WEST_SCN_Plan 316.mp4	25.04	6.30	0.251
+MK_s.1+2_Pont_Plan 24.mp4	15.96	3.51	0.220
+MOF.mp4	17.20	7.02	0.408
+ManOfTheWest.mp4	26.36	6.85	0.260
+ManOfTheWest_Plan305.mp4	25.72	6.84	0.266
+Ragtime_STF_Plan 5.mp4	17.08	5.11	0.299
+SHINING_Plan 289.mp4	58.60	25.60	0.437
+SHINING_Plan_233.mp4	42.46	18.38	0.433
+Sc.Coupee_Plan 21.mp4	45.36	13.00	0.287
+Shining.mp4	39.29	17.45	0.444
+THE STRAIGHT STORY_Plan 231.mp4	43.33	18.79	0.434
+THE STRAIGHT STORY_Plan 403.mp4	24.21	10.70	0.442
+THE STRAIGHT STORY_Plan 413.mp4	24.58	10.71	0.436
+THE STRAIGHT STORY_Plan 461.mp4	23.88	10.29	0.431
+THE STRAIGHT STORY_Plan 514.mp4	42.38	18.35	0.433
+THE STRAIGHT STORY_Plan 665.mp4	35.08	15.09	0.430
+THE_KILLING_Plan 427.mp4	38.64	16.66	0.431
+TripToTheMoon1.mp4	21.71	20.54	0.946
+VV_adele_Plan 1405.mp4	32.32	7.67	0.237
+Vivant parmi les vivants (2023) Sylvère Petit_Plan 132.mp4	4.24	1.99	0.469
+Vivant parmi les vivants (2023) Sylvère Petit_Plan 31.mp4	25.36	11.62	0.458
+Vivant parmi les vivants (2023) Sylvère Petit_Plan 338.mp4	23.20	10.32	0.445
+Vivant parmi les vivants (2023) Sylvère Petit_Plan 343.mp4	15.00	6.92	0.461
+Vivant parmi les vivants (2023) Sylvère Petit_Plan 394.mp4	12.08	5.74	0.475
+adele1.mp4	35.20	8.12	0.231
+adele1_bis.mp4	24.24	5.63	0.232
+adele2.mp4	53.88	12.61	0.234
+adele3.mp4	10.88	2.64	0.242
+adele4.mp4	14.44	3.43	0.238
+dinerdecons1.mp4	10.46	3.55	0.340
+dinerdecons2.mp4	13.83	4.56	0.330
+dinerdecons3.mp4	17.38	6.13	0.353
+dinerdecons4.mp4	10.62	3.60	0.339
+johnwick1.mp4	22.69	7.26	0.320
+johnwick2.mp4	28.40	8.84	0.311
+johnwick3.mp4	24.15	7.99	0.331
+johnwick4.mp4	26.53	8.75	0.330
+lecorniaud1.mp4	21.12	4.94	0.234
+lecorniaud2.mp4	15.48	3.67	0.237
+lecorniaud3.mp4	25.92	6.38	0.246
+lecorniaud4.mp4	36.60	9.04	0.247
+montecristo1.mp4	34.29	8.81	0.257
+montecristo2.mp4	13.04	3.08	0.236
+montecristo3.mp4	12.75	3.14	0.246
+shinning1.mp4	29.78	14.04	0.471
+shinning2.mp4	21.02	9.65	0.459
+shinning3.mp4	19.60	9.38	0.478
+
+Temps total video: 3093.81s
+Temps total : 1076.11s
+Ratio total : 0.348

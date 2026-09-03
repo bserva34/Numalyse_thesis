@@ -1,0 +1,25 @@
+Dans cette étude, les auteurs proposent un modèle pour l'extraction d'images-clés dans des séquences cinématographiques.
+
+Globalement, le papier est clair, et s'inscrit bien dans les thématiques de CORESA.
+
+Quelques points d'amélioration possibles:
+
+- Il serait intéressant d'utiliser également de l'information de style cinématographique, représentative d'un plan (valeur du plan, angle de caméra, etc). Par exemple, voir Wu et al., Thinking Like a Director: Film Editing Patterns for Virtual Cinematographic Storytelling, ACM TOMM 2018
+
+- La pondération spatiale centrée est justifiée par la tendance à centrer des objets dans une scène. Or, il est observé que les objets importants (i.e. saillants) ont plutôt tendance à être localisés au niveau de la ligne de tiers supérieure (voir par exemple Bruckert et al., Where to look at the movies: Analyzing visual attention to understand movie editing, Behavior Research Methods, 2022). Il pourrait également être pertinent d'utiliser un modèle de saillance visuel, pour remplacer la gaussienne centrée utilisée actuellement.
+
+- La pondération de netteté, bien que pertinente la plupart du temps, risque de défavoriser des images contenant du flou de mouvement, qui peut pourtant être représentatif de la scène (dans le cas de scènes très dynamiques par example).
+
+- Section 3.4, il serait important de détailler la façon dont l'expertise des participants est qualifiée (qu'est-ce qui fait d'un observateur un expert?).
+
+- Section 3.4, il serait également intéressant de reporter le taux d'agrément inter-observateur, afin de quantifier le degré de "difficulté" ou de "sujectivité" de la tâche.
+
+
+GERER SAUF LA TAILLE DU PAPIER
+ Typos, erreurs de forme:
+
+- p.3, Section 3.3, "méthode d’estimation dune image balise" -> ajouter apostrophe
+
+- Attention au nom des auteurs (A. B. C...)
+
+- Attention à la taille du document! (5 pages)
